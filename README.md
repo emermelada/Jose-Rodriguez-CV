@@ -12,8 +12,8 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
-1. **Portada** — Nombre a gran escala + *showreel* destacado embebido directamente como escaparate.
-2. **Portfolio Vídeo** — Encabezado por el bloque del **Atlético Madrileño** (clip destacado + rejilla 2×2 de clips en bucle simultáneo), seguido del videoclip *Amapolas* con su galería de stills y un grid de piezas adicionales. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
+1. **Portada** — Nombre a gran escala + clip destacado del **Atlético Madrileño** embebido directamente como escaparate (vídeo local `.mp4`).
+2. **Portfolio Vídeo** — Orden: **Atlético** (rejilla 2×2 de clips en bucle simultáneo) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam → **Showreel de MonteCarloFilms** como pieza de cierre. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
 3. **Portfolio Foto** — Grid fotográfico **organizado por categorías** (Cine & Videoclip · Dirección de Arte · Cobertura & Prensa) con *lightbox* nativo a pantalla completa.
 4. **Sobre mí** — Bloque *image-led* con foto de portada apaisada, texto de perfil e imagen secundaria, más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.

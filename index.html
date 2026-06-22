@@ -883,17 +883,17 @@
 
   <a class="hero-cta" href="#video">Ver portfolio</a>
 
-  <!-- ESCAPARATE: proyecto destacado embebido directamente en portada.
-       Para cambiar el showreel: sustituye el ID de YouTube en loadVideo(). -->
+  <!-- ESCAPARATE: clip destacado embebido en portada (José pidió que la portada
+       fuese el Atlético). Es un .mp4 local, por eso usa loadLocalVideo(). -->
   <div class="hero-showcase">
-    <div class="hero-showcase-label"><span>◆</span> Showreel destacado</div>
+    <div class="hero-showcase-label"><span>◆</span> Atlético Madrileño · 1ª RFEF</div>
     <div class="vid-feature">
       <div class="vid-wrap">
-        <div class="vid-frame" onclick="loadVideo(this, 'h9y3aLxmEDI')">
-          <img src="resources/fotografias/showreel-cover.jpg" alt="Showreel — MonteCarloFilms" class="vid-thumb">
+        <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
+          <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb">
           <div class="vid-placeholder">
             <div class="vid-play"></div>
-            <span class="vid-hint">Reproducir showreel</span>
+            <span class="vid-hint">Reproducir clip</span>
           </div>
         </div>
       </div>
@@ -933,26 +933,13 @@
   </div>
 
   <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO ════════════════════════════
-       Pieza principal del portfolio de vídeo (José pidió moverla a lo primero):
-       titular condensado + clip destacado a sangre + rejilla 2×2 de clips en
+       Primera pieza del portfolio. El clip destacado vive ahora en la portada
+       (escaparate), así que aquí va el titular + la rejilla 2×2 de clips en
        bucle y simultáneo (autoplay/muted/loop, arrancan solos al cargar).
        ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
     <h3 class="vfeat-title">Atlético<br>Madrileño<span>vs Cartagena · Operación de cámara · 1ª RFEF</span></h3>
     <p class="vfeat-desc">Desde la lente de mi cámara. Cobertura del partido para la retransmisión en directo: la tensión, la celebración y el espectáculo sobre el césped.</p>
-  </div>
-
-  <!-- Clip destacado a sangre (click para reproducir con sonido) -->
-  <div class="vfeat-stage">
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
-        <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Atlético Madrileño — Cartagena</span>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Rejilla 2×2 de clips en bucle simultáneo (mudos, sin controles) -->
@@ -1020,6 +1007,26 @@
       <div class="vid-meta">Steadicam</div>
     </div>
 
+  </div>
+
+  <!-- ════════ BLOQUE DE CIERRE: SHOWREEL · MONTECARLOFILMS ════════════════════
+       El showreel cierra el portfolio (José lo quiso como última pieza; antes
+       estaba en la portada). YouTube con carga diferida vía loadVideo().
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat" style="margin-top: 6rem;">
+    <h3 class="vfeat-title">Showreel<span>MonteCarloFilms · Reel</span></h3>
+    <p class="vfeat-desc">Recopilación de mi trabajo audiovisual: operación de cámara, Steadicam y dirección bajo MonteCarloFilms.</p>
+  </div>
+  <div class="vfeat-stage">
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadVideo(this, 'h9y3aLxmEDI')">
+        <img src="resources/fotografias/showreel-cover.jpg" alt="Showreel — MonteCarloFilms" class="vid-thumb">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Reproducir showreel</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
