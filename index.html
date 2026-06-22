@@ -9,7 +9,7 @@
   <!-- Tipografías: Geist para textos técnicos/números y Coolvetica para un impacto brutalista -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/coolvetica" rel="stylesheet">
 
   <style>
@@ -28,6 +28,7 @@
       --fh:    'Geist', 'Arial', sans-serif;
       --fb:    'Coolvetica', 'Arial Narrow', 'Arial', sans-serif;
       --fm:    'Geist Mono', monospace;
+      --fd:    'Anton', 'Arial Narrow', 'Arial', sans-serif; /* Display condensado para titulares editoriales */
     }
 
     body {
@@ -298,25 +299,49 @@
     .s .pf-intro { color: var(--mid); }
     .s--dark .pf-intro { color: rgba(255,255,255,0.5); }
 
-    /* Vídeo destacado a gran tamaño (foco narrativo) */
+    /* Vídeo destacado a gran tamaño (foco narrativo) — usado en el showreel de portada */
     .vid-feature { margin-bottom: 4rem; }
     .vid-feature .vid-frame { aspect-ratio: 16/9; border-radius: 6px; }
-    .vid-feature .vid-title { font-size: clamp(1.3rem, 3vw, 2rem); margin-top: 1.4rem; }
-    .vid-feature .vid-meta { font-size: 0.95rem; }
-    .vid-feature .vid-desc {
+
+    /* ─── BLOQUE EDITORIAL DE VÍDEO (titular condensado + vídeo a sangre, ref. Zara) ─ */
+    .vfeat { max-width: 1100px; }
+    .vfeat-title {
+      font-family: var(--fd);
+      font-weight: 400;
+      font-size: clamp(3rem, 8.5vw, 7.5rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      color: var(--white);
+    }
+    .vfeat-title span {
+      display: block;
+      font-family: var(--fm);
+      font-size: 0.66rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 1.1rem;
+    }
+    .vfeat-desc {
       font-family: var(--fb);
-      font-size: 0.98rem;
+      font-size: 1.05rem;
       letter-spacing: 0.06em;
       line-height: 1.7;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.5);
       max-width: 620px;
-      margin-top: 0.9rem;
+      margin-top: 1.6rem;
     }
+    /* Escenario del vídeo destacado a sangre (rompe el padding de la sección) */
+    .vfeat-stage { margin: 3rem -4rem 5rem; }
+    .vfeat-stage .vid-frame { border-radius: 0; }
 
     /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
     .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     .vid-wrap { display: flex; flex-direction: column; }
-    .vid-frame { position: relative; aspect-ratio: 16/9; background: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
+    /* width:100% explícito: el marco es un flex item en columna cuyos hijos van en
+       posición absoluta; sin width no se estira y colapsaba el vídeo destacado. */
+    .vid-frame { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
     .vid-frame img.vid-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
     .vid-frame:hover img.vid-thumb { transform: scale(1.03); }
     .vid-frame iframe, .vid-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 2; background: #000; }
@@ -442,33 +467,49 @@
     }
     .ph-empty-label b { color: var(--red); display: block; font-size: 0.62rem; margin-bottom: 0.3rem; }
 
-    /* ─── SECCIÓN: SOBRE MÍ (Image-led, estilo Diego Simón) ──── */
-    .about-cover {
-      width: 100%;
-      aspect-ratio: 21/9;
-      overflow: hidden;
-      border-radius: 6px;
-      margin-bottom: 4rem;
-      background: var(--pale);
-    }
-    .about-cover img { width: 100%; height: 100%; object-fit: cover; }
-
+    /* ─── SECCIÓN: SOBRE MÍ (Image-led, ref. Diego Simón) ────── */
+    /* Fila principal: foto grande a la izquierda + texto a la derecha */
     .about-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 6rem;
-      align-items: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-bottom: 4.5rem;
     }
-    .about-quote {
-      font-family: var(--fh);
-      font-size: clamp(1.2rem, 2.2vw, 1.65rem);
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--dark);
-      border-left: 3px solid var(--red);
-      padding-left: 1.4rem;
-      margin-bottom: 2rem;
+    /* Fila secundaria: imagen + datos de contacto */
+    .about-meta {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 5rem;
+      align-items: center;
     }
+    /* Foto editorial en B/N que recupera el color al pasar el cursor */
+    .about-photo {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--pale);
+    }
+    .about-photo--sq { aspect-ratio: 1/1; }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1);
+      transition: filter 0.6s ease, transform 0.6s ease;
+    }
+    .about-photo:hover img { filter: grayscale(0); transform: scale(1.02); }
+
+    /* Texto de perfil: entrada destacada + cuerpo, en tono apagado */
+    .about-lead {
+      font-family: var(--fb);
+      font-size: clamp(1.1rem, 1.9vw, 1.45rem);
+      line-height: 1.6;
+      letter-spacing: 0.06em;
+      color: var(--mid);
+    }
+    .about-lead strong { color: var(--dark); font-weight: 400; }
+    .about-lead + .about-body { margin-top: 1.3rem; }
     .about-body {
       font-family: var(--fb);
       font-size: 1.05rem;
@@ -478,17 +519,6 @@
     }
     .about-body + .about-body { margin-top: 1.2rem; }
     .about-body strong { color: var(--dark); font-weight: 400; }
-
-    /* Imagen secundaria (ritmo visual a media página) */
-    .about-second {
-      width: 100%;
-      aspect-ratio: 4/5;
-      overflow: hidden;
-      border-radius: 6px;
-      margin-bottom: 2rem;
-      background: var(--pale);
-    }
-    .about-second img { width: 100%; height: 100%; object-fit: cover; }
 
     /* Tabla metadatos personales */
     .about-info { display: flex; flex-direction: column; }
@@ -755,8 +785,8 @@
       .hero, section.s, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
 
-      .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
-      .about-cover { aspect-ratio: 16/9; }
+      .about-grid, .about-meta, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .vfeat-stage { margin: 2rem -1.5rem 3rem; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
@@ -867,23 +897,22 @@
     <div class="s-rule"></div>
   </div>
 
-  <p class="pf-intro">Dirección, operación de cámara y Steadicam. Una selección de piezas propias y trabajos en directo.</p>
-
-  <!-- VÍDEO DESTACADO (foco narrativo, ancho completo) -->
-  <div class="vid-feature">
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
-        <img src="https://img.youtube.com/vi/YYlLeiW7WC8/maxresdefault.jpg" alt="Amapolas - Lagaiaff" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/YYlLeiW7WC8/hqdefault.jpg'">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Reproducir en HD</span>
-        </div>
+  <!-- BLOQUE EDITORIAL DESTACADO: titular condensado + vídeo a sangre (ref. Zara) -->
+  <div class="vfeat">
+    <h3 class="vfeat-title">Amapolas<span>Lagaiaff · Videoclip · Dirección</span></h3>
+    <p class="vfeat-desc">Videoclip dirigido bajo MonteCarloFilms. Tratamiento de color, dirección de fotografía y montaje propios.</p>
+  </div>
+  <div class="vfeat-stage">
+    <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
+      <img src="https://img.youtube.com/vi/YYlLeiW7WC8/maxresdefault.jpg" alt="Amapolas - Lagaiaff" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/YYlLeiW7WC8/hqdefault.jpg'">
+      <div class="vid-placeholder">
+        <div class="vid-play"></div>
+        <span class="vid-hint">Reproducir en HD</span>
       </div>
-      <div class="vid-title">Amapolas — Lagaiaff</div>
-      <div class="vid-meta">Videoclip · Dirección</div>
-      <p class="vid-desc">Videoclip dirigido bajo MonteCarloFilms. Tratamiento de color, dirección de fotografía y montaje propios.</p>
     </div>
   </div>
+
+  <p class="pf-intro">Más piezas: dirección, operación de cámara y Steadicam en directo.</p>
 
   <!-- GRID DE VÍDEOS -->
   <div class="video-grid">
@@ -1044,25 +1073,25 @@
     <div class="s-rule"></div>
   </div>
 
-  <!-- FOTO DE PORTADA del apartado de perfil.
-       Cambia la ruta por una imagen apaisada potente (un still de rodaje
-       suyo funciona mejor que un retrato). -->
-  <div class="about-cover">
-    <img src="resources/fotografias/profile-picture.jpeg" alt="José Rodríguez en rodaje">
-  </div>
-
+  <!-- Fila principal: foto grande a la izquierda + texto a la derecha (ref. Diego Simón).
+       Para más impacto, sustituye la foto por un still de rodaje suyo en apaisado/vertical. -->
   <div class="about-grid">
-    <div>
-      <p class="about-quote">"Si alguna vez encuentro un extraterrestre no le diría nada, prefiero escucharle" — Steven Spielberg</p>
-      <p class="about-body">Soy <strong>José Rodríguez</strong>, filmmaker y operador de Steadicam con experiencia en producción audiovisual, eventos deportivos de alto nivel, iluminación y montaje. Fundador de <strong>MonteCarloFilms</strong>, desde donde desarrollo proyectos propios con una visión cinematográfica definida.</p>
-      <p class="about-body">Con formación técnica en la <strong>Escuela CEV</strong> y certificación especializada en Steadicam por la <strong>Escuela CES</strong>, combino el dominio técnico con una sensibilidad estética que se refleja en cada toma.</p>
+    <div class="about-photo">
+      <img src="resources/fotografias/profile-picture.jpeg" alt="José Rodríguez">
     </div>
     <div>
-      <!-- Imagen secundaria del perfil (ritmo visual). Sustituye la ruta. -->
-      <div class="about-second">
-        <img src="resources/fotografias/IMG_0928.JPG" alt="José Rodríguez — trabajo">
-      </div>
-      <div class="about-info">
+      <p class="about-lead">Me llamo <strong>José Rodríguez</strong>, filmmaker y operador de Steadicam con experiencia en producción audiovisual, eventos deportivos de alto nivel, iluminación y montaje.</p>
+      <p class="about-body">Fundador de <strong>MonteCarloFilms</strong>, desde donde desarrollo proyectos propios con una visión cinematográfica definida. Combino el dominio técnico con una sensibilidad estética que se refleja en cada toma.</p>
+      <p class="about-body">Con formación técnica en la <strong>Escuela CEV</strong> y certificación especializada en Steadicam por la <strong>Escuela CES</strong>, trabajo tanto en proyectos de ficción como en retransmisiones deportivas de élite.</p>
+    </div>
+  </div>
+
+  <!-- Fila secundaria: segunda imagen + datos de contacto. Sustituye la ruta de la foto. -->
+  <div class="about-meta">
+    <div class="about-photo about-photo--sq">
+      <img src="resources/fotografias/IMG_0928.JPG" alt="José Rodríguez — trabajo">
+    </div>
+    <div class="about-info">
         <div class="info-row">
           <span class="i-label">Teléfono</span>
           <span class="i-val"><a href="tel:+34685044900">+34 685 044 900</a></span>
@@ -1088,7 +1117,6 @@
           <span class="i-val">Abierto a proyectos</span>
         </div>
       </div>
-    </div>
   </div>
 </section>
 
