@@ -53,16 +53,16 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── README.md
 └── resources/
     ├── fotografias/
-    │   ├── amapolas-still-01..07.jpg   # ✓ incluido — stills del videoclip "Amapolas"
-    │   ├── rueda-prensa-01..06.jpg     # ✓ incluido — fotos de rueda de prensa
-    │   ├── atleti-destacado.jpg        # ✓ incluido — póster del clip destacado del Atlético
-    │   ├── atleti-loop-01..04.jpg      # ✓ incluido — pósters de la rejilla en bucle
-    │   ├── profile-picture.jpeg        # ⚠ pendiente — retrato de José (apartado "Sobre mí")
-    │   ├── IMG_0928 / IMG_9774 / IMG_9818 .JPG  # ⚠ pendiente — stills de rodaje del grid de foto
-    │   └── portada-album / Casa-Morgano / bucle-album .jpeg  # ⚠ pendiente — arte del EP
+    │   ├── amapolas-still-01..07.jpg   # stills del videoclip "Amapolas"
+    │   ├── rueda-prensa-01..06.jpg     # fotos de rueda de prensa
+    │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
+    │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle
+    │   ├── profile-picture.jpeg        # retrato de José ("Sobre mí")
+    │   ├── IMG_0928 / IMG_9774 / IMG_9818 .JPG  # stills de rodaje del grid de foto
+    │   └── portada-album / Casa-Morgano / bucle-album .jpeg  # arte del EP
     └── videos/
-        ├── atleti-destacado.mp4        # ✓ incluido — clip destacado del Atlético (1080p)
-        └── atleti-loop-01..04.mp4      # ✓ incluido — clips de la rejilla 2×2 en bucle (720p, mudos)
+        ├── atleti-destacado.mp4        # clip destacado del Atlético (1080p)
+        └── atleti-loop-01..04.mp4      # clips de la rejilla 2×2 en bucle (720p, mudos)
 ```
 
-> **Estado de los assets:** los materiales del Atlético, rueda de prensa y Amapolas ya están incluidos y optimizados (vídeos MOV→MP4 H.264; imágenes a 1920 px). La rejilla del Atlético usa `<video autoplay muted loop>`. **Pendiente:** el retrato de perfil, los stills de rodaje y el arte del EP marcados con ⚠ (assets originales, no facilitados aún), y los enlaces de Spotify del bloque "Anatomía de una Derrota" (ver comentario en el HTML).
+> **Estado de los assets:** todos los materiales están incluidos. Vídeos del Atlético optimizados (MOV→MP4 H.264; rejilla 2×2 con `<video autoplay muted loop>`). Stills, rueda de prensa y pósters a 1920 px; el resto de fotografías se mantienen en su resolución original. El bloque "Anatomía de una Derrota" integra reproductores de Spotify embebidos (single + EP).
