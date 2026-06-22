@@ -332,9 +332,10 @@
       max-width: 620px;
       margin-top: 1.6rem;
     }
-    /* Escenario del vídeo destacado a sangre (rompe el padding de la sección) */
-    .vfeat-stage { margin: 3rem -4rem 5rem; }
-    .vfeat-stage .vid-frame { border-radius: 0; }
+    /* Escenario del vídeo destacado: contenido y centrado (no a sangre) y con un
+       ancho máximo para no sobredimensionarlo ni perder nitidez al ampliar el póster. */
+    .vfeat-stage { margin: 3rem auto 5rem; max-width: 1040px; }
+    .vfeat-stage .vid-frame { border-radius: 6px; }
 
     /* Rejilla 2×2 de clips en bucle simultáneo (mudos). El fondo rayado marca
        el hueco mientras no haya vídeo; al cargar, el <video> lo cubre. */
@@ -348,9 +349,12 @@
       background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px);
     }
 
-    /* Galería de stills (proyecto Amapolas): miniaturas 16:9 con lightbox */
+    /* Galería de stills (proyecto Amapolas): miniaturas 16:9 uniformes con lightbox.
+       Mantiene celdas de proporción fija (el img se recorta a 16:9), a diferencia
+       del grid de foto que respeta la proporción nativa. */
     .stills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 4rem; }
-    .stills-grid .ph-inner { aspect-ratio: 16/9; }
+    .stills-grid .ph-inner { position: relative; aspect-ratio: 16/9; }
+    .stills-grid .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
     /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
     .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
@@ -412,30 +416,21 @@
     .s:not(.s--dark) .vid-meta { color: var(--mid); }
 
     /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
-    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .ph { position: relative; overflow: hidden; background: var(--pale); cursor: pointer; border-radius: 4px; }
-    .ph-inner {
-      aspect-ratio: 3/4; /* Proporción ideal para encuadres verticales y retratos fílmicos */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.7rem;
-      transition: background 0.2s;
+    /* Layout masonry con CSS multi-columna: respeta la proporción nativa de cada
+       foto (sin recortes) y rellena sin huecos. Sustituye al grid de celdas, que
+       dejaba las fotos panorámicas solas con un hueco en blanco al lado. */
+    .photo-grid { columns: 3; column-gap: 1rem; }
+    .ph {
+      position: relative;
+      overflow: hidden;
+      background: var(--pale);
+      cursor: pointer;
+      border-radius: 4px;
+      break-inside: avoid;    /* no parte una foto entre dos columnas */
+      margin-bottom: 1rem;    /* separación vertical entre fotos apiladas */
     }
-    /* Clase modificadora para assets panorámicos nativos */
-    .photo-grid .ph.horizontal { grid-column: span 2; }
-    .ph.horizontal .ph-inner { aspect-ratio: 16/9; }
-
-    .ph:hover .ph-inner { background: #c0c0bb; }
-    .ph img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
+    .ph-inner { display: block; }
+    .ph img { display: block; width: 100%; height: auto; transition: transform 0.5s ease; }
     .ph:hover img { transform: scale(1.04); }
 
     /* Overlay cinematográfico interactivo (Caption en hover) */
@@ -808,22 +803,21 @@
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
 
       .about-grid, .about-meta, .edu-grid, .contact-grid, .ep-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .vfeat-stage { margin: 2rem -1.5rem 3rem; }
+      .vfeat-stage { margin: 2rem auto 3rem; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
 
-      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-      .photo-grid .ph.horizontal { grid-column: span 2; }
+      .photo-grid { columns: 2; }
       .video-grid { grid-template-columns: 1fr; }
       .stills-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(3.2rem, 16vw, 4.5rem); }
-      .photo-grid { grid-template-columns: 1fr; }
-      .photo-grid .ph.horizontal { grid-column: span 1; }
-      .ph.horizontal .ph-inner { aspect-ratio: 3/4; }
+      .photo-grid { columns: 1; }
+      .stills-grid { grid-template-columns: 1fr; }
+      .loop-grid { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
       .s-rule { width: 100%; height: 1px; flex: none; }
       footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -1045,49 +1039,35 @@
     </div>
 
     <!-- RUEDA DE PRENSA — fotos reales (cobertura de eventos deportivos) -->
-    <div class="ph horizontal" onclick="openLb(this)">
+    <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/rueda-prensa-01.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
       <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
-    <div class="ph horizontal" onclick="openLb(this)">
+    <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/rueda-prensa-02.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
       <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
-    <div class="ph horizontal" onclick="openLb(this)">
+    <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/rueda-prensa-03.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
       <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
-    <div class="ph horizontal" onclick="openLb(this)">
+    <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/rueda-prensa-04.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
       <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
-    <div class="ph horizontal" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/rueda-prensa-05.jpg" alt="Rueda de prensa — cobertura deportiva">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
-    </div>
-
-    <div class="ph horizontal" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/rueda-prensa-06.jpg" alt="Rueda de prensa — cobertura deportiva">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
-    </div>
-
-    <div class="ph horizontal" onclick="openLb(this)">
+    <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/bucle-album.jpeg" alt="Detalle de Escena — Texturas e Iluminación">
       </div>
