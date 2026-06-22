@@ -31,7 +31,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 * **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido equivalente al de YouTube.
 * **Lightbox Nativo Integrado:** Visualización de capturas y composiciones fotográficas a pantalla completa sin librerías de terceros (Vanilla JS, cierre con `ESC`).
 * **Scroll-Spy Automático:** Sincronización en tiempo real mediante `IntersectionObserver` entre la posición del scroll y los enlaces activos de navegación.
-* **Layout Adaptativo:** Grids variables que transicionan entre relaciones de aspecto fílmicas ($16:9$) y composiciones fotográficas verticales ($3:4$), con menú hamburguesa en móvil.
+* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto usa un layout *masonry* (CSS multi-columna 3→2→1) que respeta la proporción nativa de cada imagen sin huecos; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
 * **Accesibilidad:** Navegación semántica (`aria-label`, `aria-modal`), respeto a `prefers-reduced-motion` y control por teclado del lightbox.
 
 ---
@@ -54,7 +54,7 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 └── resources/
     ├── fotografias/
     │   ├── amapolas-still-01..07.jpg   # stills del videoclip "Amapolas"
-    │   ├── rueda-prensa-01..06.jpg     # fotos de rueda de prensa
+    │   ├── rueda-prensa-01..04.jpg     # fotos de rueda de prensa
     │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
     │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle
     │   ├── profile-picture.jpeg        # retrato de José ("Sobre mí")
