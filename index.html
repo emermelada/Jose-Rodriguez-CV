@@ -348,6 +348,10 @@
       background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px);
     }
 
+    /* Galería de stills (proyecto Amapolas): miniaturas 16:9 con lightbox */
+    .stills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 4rem; }
+    .stills-grid .ph-inner { aspect-ratio: 16/9; }
+
     /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
     .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     .vid-wrap { display: flex; flex-direction: column; }
@@ -407,11 +411,6 @@
     .s:not(.s--dark) .vid-title { color: var(--dark); }
     .s:not(.s--dark) .vid-meta { color: var(--mid); }
 
-    /* Tile vacío: hueco a la espera de asset (clip del Atleti, etc.) */
-    .vid-frame.is-empty { cursor: default; }
-    .vid-frame.is-empty .vid-placeholder { background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px); }
-    .vid-frame.is-empty .vid-play { display: none; }
-
     /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
     .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     .ph { position: relative; overflow: hidden; background: var(--pale); cursor: pointer; border-radius: 4px; }
@@ -464,20 +463,37 @@
     }
     .ph:hover .ph-caption { opacity: 1; transform: translateY(0); }
 
-    /* Hueco fotográfico vacío (placeholder a la espera de asset) */
-    .ph.is-empty { cursor: default; }
-    .ph.is-empty .ph-inner { background: repeating-linear-gradient(45deg, #dedeD9, #dedeD9 12px, #d4d4cf 12px, #d4d4cf 24px); }
-    .ph-empty-label {
-      font-family: var(--fm);
-      font-size: 0.56rem;
-      letter-spacing: 0.18em;
+    /* ─── BLOQUE PROYECTO EP: ANATOMÍA DE UNA DERROTA ────────── */
+    .ep-block { margin-top: 6rem; }
+    .proj-title {
+      font-family: var(--fd);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      line-height: 0.95;
       text-transform: uppercase;
-      color: var(--mid);
-      text-align: center;
-      padding: 0 1rem;
-      line-height: 1.6;
+      color: var(--dark);
     }
-    .ph-empty-label b { color: var(--red); display: block; font-size: 0.62rem; margin-bottom: 0.3rem; }
+    .proj-title span {
+      display: block;
+      font-family: var(--fm);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      color: var(--red);
+      margin-top: 0.9rem;
+    }
+    .ep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 2.5rem; }
+    .ep-cover { aspect-ratio: 1/1; overflow: hidden; border-radius: 6px; background: var(--pale); }
+    .ep-cover img { width: 100%; height: 100%; object-fit: cover; }
+    .ep-sub { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
+    /* Tarjetas de Spotify (placeholder; sustituibles por el iframe real) */
+    .sp-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.6rem; }
+    .sp-embed { display: flex; align-items: center; gap: 1rem; background: var(--dark); border-radius: 8px; padding: 0.7rem; text-decoration: none; transition: background 0.2s; }
+    .sp-embed:hover { background: #1d1d1b; }
+    .sp-embed img { width: 56px; height: 56px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+    .sp-meta { display: flex; flex-direction: column; font-family: var(--fh); color: rgba(255,255,255,0.5); font-size: 0.8rem; }
+    .sp-meta b { color: var(--white); font-size: 0.95rem; font-weight: 700; }
+    .sp-play { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: #1DB954; flex-shrink: 0; position: relative; }
+    .sp-play::after { content: ''; position: absolute; top: 50%; left: 54%; transform: translate(-50%,-50%); border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 11px solid #000; }
 
     /* ─── SECCIÓN: SOBRE MÍ (Image-led, ref. Diego Simón) ────── */
     /* Fila principal: foto grande a la izquierda + texto a la derecha */
@@ -797,7 +813,7 @@
       .hero, section.s, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
 
-      .about-grid, .about-meta, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-grid, .about-meta, .edu-grid, .contact-grid, .ep-grid { grid-template-columns: 1fr; gap: 3rem; }
       .vfeat-stage { margin: 2rem -1.5rem 3rem; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
@@ -806,6 +822,7 @@
       .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
       .photo-grid .ph.horizontal { grid-column: span 2; }
       .video-grid { grid-template-columns: 1fr; }
+      .stills-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 600px) {
@@ -924,6 +941,17 @@
     </div>
   </div>
 
+  <!-- Galería de stills del proyecto "Amapolas" (clic para ampliar en lightbox) -->
+  <div class="stills-grid">
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-01.jpg" alt="Amapolas — still 01"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-02.jpg" alt="Amapolas — still 02"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-03.jpg" alt="Amapolas — still 03"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-04.jpg" alt="Amapolas — still 04"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-05.jpg" alt="Amapolas — still 05"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-06.jpg" alt="Amapolas — still 06"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-07.jpg" alt="Amapolas — still 07"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
+  </div>
+
   <p class="pf-intro">Más piezas: dirección, operación de cámara y Steadicam en directo.</p>
 
   <!-- GRID DE VÍDEOS -->
@@ -1022,32 +1050,47 @@
       <div class="ph-overlay"><span class="ph-caption">Retrato en set</span></div>
     </div>
 
-    <!-- ───────────────────────────────────────────────────────────
-         RUEDA DE PRENSA (fotos del Drive) — PLACEHOLDERS.
-         Sustituye estos tiles is-empty por bloques .ph normales con
-         <img src="resources/fotografias/rueda-prensa-01.jpg" ...>
-         cuando tengas las fotos.
-         ─────────────────────────────────────────────────────────── -->
-    <div class="ph is-empty">
+    <!-- RUEDA DE PRENSA — fotos reales (cobertura de eventos deportivos) -->
+    <div class="ph horizontal" onclick="openLb(this)">
       <div class="ph-inner">
-        <span class="ph-empty-label"><b>Rueda de prensa</b>resources/fotografias/<br>rueda-prensa-01.jpg</span>
+        <img src="resources/fotografias/rueda-prensa-01.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
+      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
-    <div class="ph is-empty">
+    <div class="ph horizontal" onclick="openLb(this)">
       <div class="ph-inner">
-        <span class="ph-empty-label"><b>Rueda de prensa</b>resources/fotografias/<br>rueda-prensa-02.jpg</span>
+        <img src="resources/fotografias/rueda-prensa-02.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
+      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
-    <!-- ───────────────────────────────────────────────────────────
-         STILLS DE AMAPOLAS (del Drive) — PLACEHOLDERS.
-         Igual que arriba: cambia is-empty por .ph con la imagen real.
-         ─────────────────────────────────────────────────────────── -->
-    <div class="ph is-empty">
+    <div class="ph horizontal" onclick="openLb(this)">
       <div class="ph-inner">
-        <span class="ph-empty-label"><b>Still · Amapolas</b>resources/fotografias/<br>amapolas-still-01.jpg</span>
+        <img src="resources/fotografias/rueda-prensa-03.jpg" alt="Rueda de prensa — cobertura deportiva">
       </div>
+      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
+    </div>
+
+    <div class="ph horizontal" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/rueda-prensa-04.jpg" alt="Rueda de prensa — cobertura deportiva">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
+    </div>
+
+    <div class="ph horizontal" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/rueda-prensa-05.jpg" alt="Rueda de prensa — cobertura deportiva">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
+    </div>
+
+    <div class="ph horizontal" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/rueda-prensa-06.jpg" alt="Rueda de prensa — cobertura deportiva">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
 
     <div class="ph horizontal" onclick="openLb(this)">
@@ -1071,6 +1114,39 @@
       <div class="ph-overlay"><span class="ph-caption">Clave oscura</span></div>
     </div>
 
+  </div>
+
+  <!-- ════════ BLOQUE PROYECTO: ANATOMÍA DE UNA DERROTA · EP (según mockup img 8) ════════
+       Dirección creativa de la EP. Portada y carátulas usan los assets de álbum
+       existentes (portada-album / Casa-Morgano / bucle-album).
+       PENDIENTE: sustituye cada bloque <a class="sp-embed"> por el reproductor real de
+       Spotify (en Spotify: Compartir → Insertar canción → copia el <iframe> y pégalo aquí).
+       ─────────────────────────────────────────────────────────────────────────────── -->
+  <div class="ep-block">
+    <h3 class="proj-title">Anatomía de una Derrota<span>Martínez · Dirección creativa</span></h3>
+    <div class="ep-grid">
+      <div class="ep-cover">
+        <img src="resources/fotografias/portada-album.jpeg" alt="Anatomía de una Derrota — portada del EP">
+      </div>
+      <div class="ep-info">
+        <h4 class="ep-sub">Portada del EP</h4>
+        <p class="about-body">El personaje de Martínez está consumido por la monotonía, la rutina y la pérdida de propósito. Escenificado en las manos de una <em>femme fatale</em>, vemos cómo su vida, esclavizada por el trabajo y la falta de ambición, le desgarra por completo.</p>
+        <div class="sp-list">
+          <!-- SPOTIFY · Casa Morgano → reemplazar por el iframe de Spotify -->
+          <a class="sp-embed" href="#" aria-label="Spotify: Casa Morgano — pega aquí el enlace">
+            <img src="resources/fotografias/Casa-Morgano.jpeg" alt="">
+            <span class="sp-meta"><b>Casa Morgano</b>Martínez, De Toro</span>
+            <span class="sp-play"></span>
+          </a>
+          <!-- SPOTIFY · Bucle → reemplazar por el iframe de Spotify -->
+          <a class="sp-embed" href="#" aria-label="Spotify: Bucle — pega aquí el enlace">
+            <img src="resources/fotografias/bucle-album.jpeg" alt="">
+            <span class="sp-meta"><b>Bucle</b>Martínez, De Toro</span>
+            <span class="sp-play"></span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1100,7 +1176,7 @@
   <!-- Fila secundaria: segunda imagen + datos de contacto. Sustituye la ruta de la foto. -->
   <div class="about-meta">
     <div class="about-photo about-photo--sq">
-      <img src="resources/fotografias/IMG_0928.JPG" alt="José Rodríguez — trabajo">
+      <img src="resources/fotografias/amapolas-still-02.jpg" alt="José Rodríguez — trabajo">
     </div>
     <div class="about-info">
         <div class="info-row">
