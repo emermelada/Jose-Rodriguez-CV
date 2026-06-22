@@ -53,15 +53,16 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── README.md
 └── resources/
     ├── fotografias/
-    │   ├── profile-picture.jpeg       # Imagen de portada del apartado "Sobre mí"
-    │   ├── IMG_*.JPG, *.jpeg           # Stills de rodaje y muestras de etalonaje
-    │   ├── rueda-prensa-*.jpg          # (pendiente) Fotos de rueda de prensa
-    │   ├── amapolas-still-*.jpg        # (pendiente) Stills del videoclip "Amapolas"
-    │   ├── atleti-destacado.jpg        # (pendiente) Póster del clip destacado del Atlético
-    │   └── atleti-loop-01..04.jpg      # (pendiente, opcional) Pósters de la rejilla en bucle
+    │   ├── amapolas-still-01..07.jpg   # ✓ incluido — stills del videoclip "Amapolas"
+    │   ├── rueda-prensa-01..06.jpg     # ✓ incluido — fotos de rueda de prensa
+    │   ├── atleti-destacado.jpg        # ✓ incluido — póster del clip destacado del Atlético
+    │   ├── atleti-loop-01..04.jpg      # ✓ incluido — pósters de la rejilla en bucle
+    │   ├── profile-picture.jpeg        # ⚠ pendiente — retrato de José (apartado "Sobre mí")
+    │   ├── IMG_0928 / IMG_9774 / IMG_9818 .JPG  # ⚠ pendiente — stills de rodaje del grid de foto
+    │   └── portada-album / Casa-Morgano / bucle-album .jpeg  # ⚠ pendiente — arte del EP
     └── videos/
-        ├── atleti-destacado.mp4        # (pendiente) Clip destacado del Atlético
-        └── atleti-loop-01..04.mp4      # (pendiente) Clips de la rejilla 2×2 en bucle simultáneo
+        ├── atleti-destacado.mp4        # ✓ incluido — clip destacado del Atlético (1080p)
+        └── atleti-loop-01..04.mp4      # ✓ incluido — clips de la rejilla 2×2 en bucle (720p, mudos)
 ```
 
-> **Nota sobre assets:** los materiales del Drive (clips del Atlético, fotos de rueda de prensa y stills de Amapolas) están marcados como *placeholders* en el HTML, con comentarios indicando la ruta y el nombre exacto de cada archivo. Los vídeos de la rejilla del Atlético usan `<video autoplay muted loop>`: al colocar los `.mp4` arrancan solos en bucle. La carpeta `resources/` debe acompañar al `index.html` en el despliegue.
+> **Estado de los assets:** los materiales del Atlético, rueda de prensa y Amapolas ya están incluidos y optimizados (vídeos MOV→MP4 H.264; imágenes a 1920 px). La rejilla del Atlético usa `<video autoplay muted loop>`. **Pendiente:** el retrato de perfil, los stills de rodaje y el arte del EP marcados con ⚠ (assets originales, no facilitados aún), y los enlaces de Spotify del bloque "Anatomía de una Derrota" (ver comentario en el HTML).
