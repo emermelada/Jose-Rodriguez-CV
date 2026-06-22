@@ -485,15 +485,9 @@
     .ep-cover { aspect-ratio: 1/1; overflow: hidden; border-radius: 6px; background: var(--pale); }
     .ep-cover img { width: 100%; height: 100%; object-fit: cover; }
     .ep-sub { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
-    /* Tarjetas de Spotify (placeholder; sustituibles por el iframe real) */
+    /* Reproductores embebidos de Spotify */
     .sp-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.6rem; }
-    .sp-embed { display: flex; align-items: center; gap: 1rem; background: var(--dark); border-radius: 8px; padding: 0.7rem; text-decoration: none; transition: background 0.2s; }
-    .sp-embed:hover { background: #1d1d1b; }
-    .sp-embed img { width: 56px; height: 56px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
-    .sp-meta { display: flex; flex-direction: column; font-family: var(--fh); color: rgba(255,255,255,0.5); font-size: 0.8rem; }
-    .sp-meta b { color: var(--white); font-size: 0.95rem; font-weight: 700; }
-    .sp-play { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: #1DB954; flex-shrink: 0; position: relative; }
-    .sp-play::after { content: ''; position: absolute; top: 50%; left: 54%; transform: translate(-50%,-50%); border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 11px solid #000; }
+    .sp-iframe { display: block; width: 100%; border: 0; }
 
     /* ─── SECCIÓN: SOBRE MÍ (Image-led, ref. Diego Simón) ────── */
     /* Fila principal: foto grande a la izquierda + texto a la derecha */
@@ -1117,10 +1111,9 @@
   </div>
 
   <!-- ════════ BLOQUE PROYECTO: ANATOMÍA DE UNA DERROTA · EP (según mockup img 8) ════════
-       Dirección creativa de la EP. Portada y carátulas usan los assets de álbum
-       existentes (portada-album / Casa-Morgano / bucle-album).
-       PENDIENTE: sustituye cada bloque <a class="sp-embed"> por el reproductor real de
-       Spotify (en Spotify: Compartir → Insertar canción → copia el <iframe> y pégalo aquí).
+       Dirección creativa de la EP. Portada (portada-album.jpeg) + texto + reproductores
+       de Spotify embebidos (single + EP completo). Para cambiar las canciones, edita el
+       id en la URL de cada <iframe>: open.spotify.com/embed/track|album/<id>.
        ─────────────────────────────────────────────────────────────────────────────── -->
   <div class="ep-block">
     <h3 class="proj-title">Anatomía de una Derrota<span>Martínez · Dirección creativa</span></h3>
@@ -1132,18 +1125,9 @@
         <h4 class="ep-sub">Portada del EP</h4>
         <p class="about-body">El personaje de Martínez está consumido por la monotonía, la rutina y la pérdida de propósito. Escenificado en las manos de una <em>femme fatale</em>, vemos cómo su vida, esclavizada por el trabajo y la falta de ambición, le desgarra por completo.</p>
         <div class="sp-list">
-          <!-- SPOTIFY · Casa Morgano → reemplazar por el iframe de Spotify -->
-          <a class="sp-embed" href="#" aria-label="Spotify: Casa Morgano — pega aquí el enlace">
-            <img src="resources/fotografias/Casa-Morgano.jpeg" alt="">
-            <span class="sp-meta"><b>Casa Morgano</b>Martínez, De Toro</span>
-            <span class="sp-play"></span>
-          </a>
-          <!-- SPOTIFY · Bucle → reemplazar por el iframe de Spotify -->
-          <a class="sp-embed" href="#" aria-label="Spotify: Bucle — pega aquí el enlace">
-            <img src="resources/fotografias/bucle-album.jpeg" alt="">
-            <span class="sp-meta"><b>Bucle</b>Martínez, De Toro</span>
-            <span class="sp-play"></span>
-          </a>
+          <!-- Reproductores reales de Spotify: single + EP completo -->
+          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3EoZssIkb4Ow7PUz5LwXek?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — single"></iframe>
+          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/album/1Q6OXhkaMxtABoDWNQWPEn?utm_source=generator" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — EP Anatomía de una Derrota"></iframe>
         </div>
       </div>
     </div>
