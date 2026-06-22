@@ -336,6 +336,18 @@
     .vfeat-stage { margin: 3rem -4rem 5rem; }
     .vfeat-stage .vid-frame { border-radius: 0; }
 
+    /* Rejilla 2×2 de clips en bucle simultáneo (mudos). El fondo rayado marca
+       el hueco mientras no haya vídeo; al cargar, el <video> lo cubre. */
+    .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .loop-grid .loop-vid {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 4px;
+      background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px);
+    }
+
     /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
     .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     .vid-wrap { display: flex; flex-direction: column; }
@@ -941,38 +953,37 @@
       <div class="vid-meta">Steadicam</div>
     </div>
 
-    <!-- ───────────────────────────────────────────────────────────
-         CLIPS DEL ATLETI (vídeo local del Drive) — PLACEHOLDERS.
-         Cuando tengas los .mp4: súbelos a resources/videos/ y un
-         frame como póster a resources/fotografias/. Estos tiles ya
-         están cableados con loadLocalVideo(); solo ajusta las rutas.
-         Si el póster no existe, el tile queda en negro con el play
-         igualmente funcional.
-         ─────────────────────────────────────────────────────────── -->
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-01.mp4')">
-        <img src="resources/fotografias/atleti-poster-01.jpg" alt="Atlético de Madrid — clip 01" class="vid-thumb" onerror="this.style.display='none'">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Atlético de Madrid · Cámara</span>
-        </div>
-      </div>
-      <div class="vid-title">Partido Atlético de Madrid</div>
-      <div class="vid-meta">Operación de cámara · 1ª RFEF</div>
-    </div>
+  </div>
 
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-02.mp4')">
-        <img src="resources/fotografias/atleti-poster-02.jpg" alt="Atlético de Madrid — clip 02" class="vid-thumb" onerror="this.style.display='none'">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Atlético de Madrid · Cámara</span>
-        </div>
-      </div>
-      <div class="vid-title">Partido Atlético de Madrid II</div>
-      <div class="vid-meta">Operación de cámara · 1ª RFEF</div>
-    </div>
+  <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO (según mockup de José) ════════
+       Editorial: titular condensado + clip destacado a sangre + texto + rejilla
+       2×2 de clips reproduciéndose en bucle y en simultáneo (autoplay/muted/loop).
+       PLACEHOLDERS — deja caer los .mp4 en resources/videos/ con estos nombres
+       (y, opcional, un frame .jpg de póster en resources/fotografias/). Los <video>
+       de la rejilla ya están en autoplay+muted+loop: arrancarán solos al cargar.
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat" style="margin-top: 6rem;">
+    <h3 class="vfeat-title">Atlético<br>Madrileño<span>vs Cartagena · Operación de cámara · 1ª RFEF</span></h3>
+    <p class="vfeat-desc">Desde la lente de mi cámara. Cobertura del partido para la retransmisión en directo: la tensión, la celebración y el espectáculo sobre el césped.</p>
+  </div>
 
+  <!-- Clip destacado a sangre (click para reproducir con sonido) -->
+  <div class="vfeat-stage">
+    <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
+      <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb" onerror="this.style.display='none'">
+      <div class="vid-placeholder">
+        <div class="vid-play"></div>
+        <span class="vid-hint">Atlético Madrileño — Cartagena</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rejilla 2×2 de clips en bucle simultáneo (mudos, sin controles) -->
+  <div class="loop-grid">
+    <video class="loop-vid" src="resources/videos/atleti-loop-01.mp4" poster="resources/fotografias/atleti-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-02.mp4" poster="resources/fotografias/atleti-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-03.mp4" poster="resources/fotografias/atleti-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-04.mp4" poster="resources/fotografias/atleti-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
   </div>
 </section>
 
@@ -1080,9 +1091,9 @@
       <img src="resources/fotografias/profile-picture.jpeg" alt="José Rodríguez">
     </div>
     <div>
-      <p class="about-lead">Me llamo <strong>José Rodríguez</strong>, filmmaker y operador de Steadicam con experiencia en producción audiovisual, eventos deportivos de alto nivel, iluminación y montaje.</p>
-      <p class="about-body">Fundador de <strong>MonteCarloFilms</strong>, desde donde desarrollo proyectos propios con una visión cinematográfica definida. Combino el dominio técnico con una sensibilidad estética que se refleja en cada toma.</p>
-      <p class="about-body">Con formación técnica en la <strong>Escuela CEV</strong> y certificación especializada en Steadicam por la <strong>Escuela CES</strong>, trabajo tanto en proyectos de ficción como en retransmisiones deportivas de élite.</p>
+      <p class="about-lead">Me llamo José Rodríguez, soy <strong>comunicador audiovisual</strong>. Me apasiona todo aquello que se cuenta a través de la imagen y de la complejidad del proceso. Es por ello que verás que en mi portfolio hay una gran variedad de proyectos de diferentes ámbitos.</p>
+      <p class="about-body">Estoy especializado en la cobertura de eventos deportivos como <strong>operador de cámara</strong>. Cuento con un año de experiencia en partidos de Primera Federación de Fútbol (<strong>1ª RFEF</strong>) y en Segunda División de Baloncesto (<strong>LEB Oro</strong>). Busco contar la tensión, la alegría, el sufrimiento, o simplemente el espectáculo que está ocurriendo.</p>
+      <p class="about-body">Siempre busco aprender algo nuevo, mejorar y disfrutar de formar parte de una narrativa bien estructurada y que transmite tanto al espectador.</p>
     </div>
   </div>
 
@@ -1137,7 +1148,7 @@
       <div class="tl-body">
         <div class="tl-co">PEVYPE</div>
         <div class="tl-role">Operador de Cámara en Deportes</div>
-        <div class="tl-desc">Operador de cámara en eventos deportivos de alto nivel. Retransmisión de partidos de baloncesto (1ª FEB) y fútbol (1ª RFEF), cubriendo competiciones de máxima exigencia técnica y narrativa visual en directo.</div>
+        <div class="tl-desc">Operador de cámara en eventos deportivos de alto nivel. Retransmisión de partidos de baloncesto (LEB Oro) y fútbol (1ª RFEF), cubriendo competiciones de máxima exigencia técnica y narrativa visual en directo.</div>
         <span class="tl-badge">Actualidad</span>
       </div>
     </div>

@@ -53,12 +53,15 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── README.md
 └── resources/
     ├── fotografias/
-    │   ├── profile-picture.jpeg     # Imagen de portada del apartado "Sobre mí"
-    │   ├── IMG_*.JPG, *.jpeg         # Stills de rodaje y muestras de etalonaje
-    │   ├── rueda-prensa-*.jpg        # (pendiente) Fotos de rueda de prensa
-    │   └── amapolas-still-*.jpg      # (pendiente) Stills del videoclip "Amapolas"
+    │   ├── profile-picture.jpeg       # Imagen de portada del apartado "Sobre mí"
+    │   ├── IMG_*.JPG, *.jpeg           # Stills de rodaje y muestras de etalonaje
+    │   ├── rueda-prensa-*.jpg          # (pendiente) Fotos de rueda de prensa
+    │   ├── amapolas-still-*.jpg        # (pendiente) Stills del videoclip "Amapolas"
+    │   ├── atleti-destacado.jpg        # (pendiente) Póster del clip destacado del Atlético
+    │   └── atleti-loop-01..04.jpg      # (pendiente, opcional) Pósters de la rejilla en bucle
     └── videos/
-        └── atleti-*.mp4             # (pendiente) Clips de retransmisión deportiva
+        ├── atleti-destacado.mp4        # (pendiente) Clip destacado del Atlético
+        └── atleti-loop-01..04.mp4      # (pendiente) Clips de la rejilla 2×2 en bucle simultáneo
 ```
 
-> **Nota sobre assets:** algunos materiales (clips del Atlético, fotos de rueda de prensa y stills de Amapolas) están marcados como *placeholders* en el HTML, con comentarios indicando la ruta exacta donde colocar cada archivo. La carpeta `resources/` debe acompañar al `index.html` en el despliegue.
+> **Nota sobre assets:** los materiales del Drive (clips del Atlético, fotos de rueda de prensa y stills de Amapolas) están marcados como *placeholders* en el HTML, con comentarios indicando la ruta y el nombre exacto de cada archivo. Los vídeos de la rejilla del Atlético usan `<video autoplay muted loop>`: al colocar los `.mp4` arrancan solos en bucle. La carpeta `resources/` debe acompañar al `index.html` en el despliegue.
