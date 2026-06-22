@@ -61,7 +61,7 @@
       z-index: 1001;
     }
     .nav-logo em { color: var(--red); font-style: normal; }
-    
+
     .nav-links {
       list-style: none;
       display: flex;
@@ -113,16 +113,16 @@
     .nav-toggle.open .hamburger::before { transform: rotate(45deg); top: 0; }
     .nav-toggle.open .hamburger::after { transform: rotate(-45deg); top: 0; }
 
-    /* ─── HERO SECTION (Estructura e Impacto Visual) ─────────── */
+    /* ─── HERO / PORTADA (Nombre protagonista + Escaparate) ───── */
     .hero {
       min-height: 100svh;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: center;
-      padding: 8rem 4rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 9rem 4rem 4rem;
       position: relative;
       overflow: hidden;
-      gap: 2rem;
+      gap: 2.4rem;
     }
     /* Grid de fondo (Estética de guías de cámara/foco) */
     .hero::before {
@@ -135,20 +135,13 @@
       pointer-events: none;
       z-index: -1;
     }
-    
-    .hero-main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    
+
     .hero-eyebrow {
       font-family: var(--fm);
       font-size: 0.65rem;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--red);
-      margin-bottom: 1.8rem;
       display: flex;
       align-items: center;
       gap: 0.8rem;
@@ -160,20 +153,19 @@
       height: 1px;
       background: var(--red);
     }
-    
-    /* Escalado tipográfico fluido mediante clamp */
+
+    /* Nombre a secas, escala fluida brutal */
     h1.hero-name {
       font-family: var(--fh);
       font-weight: 900;
-      font-size: clamp(3.5rem, 10vw, 9rem);
-      line-height: 0.88;
-      letter-spacing: -0.03em;
+      font-size: clamp(3.6rem, 13vw, 12rem);
+      line-height: 0.86;
+      letter-spacing: -0.035em;
       color: var(--dark);
-      margin-bottom: 1.5rem;
     }
     h1.hero-name .r { color: var(--red); display: block; }
-    
-    .hero-desc { max-width: 480px; }
+
+    .hero-desc { max-width: 540px; }
     .hero-desc p {
       font-family: var(--fb);
       font-size: 1.05rem;
@@ -181,9 +173,9 @@
       line-height: 1.6;
       color: var(--mid);
     }
-    
+    .hero-desc strong { color: var(--dark); font-weight: 400; }
+
     .hero-cta {
-      margin-top: 2rem;
       display: inline-flex;
       align-items: center;
       gap: 0.8rem;
@@ -202,55 +194,23 @@
     .hero-cta:hover { color: var(--red); border-color: var(--red); }
     .hero-cta::after { content: '↓'; }
 
-    /* Máscara circular para retrato */
-    .hero-photo-wrap {
-      border-radius: 50%;
-      border: 2px solid var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.03);
-      overflow: hidden;
-      margin: 0 auto;
-      aspect-ratio: 1/1;
-    }
-    .hero-photo-wrap img {
+    /* Escaparate: proyecto destacado directamente en portada */
+    .hero-showcase {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      margin-top: 0.6rem;
     }
-
-    .hero-image-mobile { display: none; margin: 2rem 0; }
-    .hero-image-desktop { display: flex; justify-content: flex-end; }
-    .hero-image-desktop .hero-photo-wrap { width: clamp(250px, 100%, 400px); }
-    .hero-image-mobile .hero-photo-wrap { width: 180px; }
-
-    /* Métricas / Highlights rápidos */
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      justify-content: flex-start;
-      margin-top: 3rem;
-      border-top: 1px solid var(--pale);
-      padding-top: 1.5rem;
-    }
-    .stat { text-align: left; min-width: 90px; }
-    .stat-num {
-      font-family: var(--fh);
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--red);
-      line-height: 1;
-    }
-    .stat-lbl {
+    .hero-showcase-label {
       font-family: var(--fm);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--mid);
-      margin-top: 0.3rem;
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
+    .hero-showcase-label span { color: var(--red); }
 
     /* ─── MARQUESINA / FILM TICKER (Animación Infinita) ───────── */
     .film-ticker {
@@ -268,7 +228,7 @@
       will-change: transform; /* Optimización de renderizado por GPU */
     }
     .film-ticker-track:hover { animation-play-state: paused; }
-    
+
     @keyframes ticker-move {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
@@ -314,19 +274,185 @@
       flex-shrink: 0;
     }
     .s-rule { flex: 1; height: 1px; background: var(--pale); }
-    
+
     /* Variantes cromáticas estructurales */
     .s--dark { background: var(--dark); }
     .s--dark .s-num { color: rgba(182,40,45,0.8); }
     .s--dark .s-title { color: var(--red); }
     .s--dark .s-rule { background: rgba(255,255,255,0.07); }
-    
+
     .s--red { background: var(--red); }
     .s--red .s-num { color: rgba(235,235,231,0.5); }
     .s--red .s-title { color: var(--bg); }
     .s--red .s-rule { background: rgba(235,235,231,0.2); }
 
-    /* ─── SECCIÓN: PERFIL / SOBRE MÍ ─────────────────────────── */
+    /* ─── SECCIÓN: PORTFOLIO VÍDEO (Estilo escaparate Zara) ───── */
+    .pf-intro {
+      font-family: var(--fb);
+      font-size: 1.05rem;
+      letter-spacing: 0.07em;
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+    .s .pf-intro { color: var(--mid); }
+    .s--dark .pf-intro { color: rgba(255,255,255,0.5); }
+
+    /* Vídeo destacado a gran tamaño (foco narrativo) */
+    .vid-feature { margin-bottom: 4rem; }
+    .vid-feature .vid-frame { aspect-ratio: 16/9; border-radius: 6px; }
+    .vid-feature .vid-title { font-size: clamp(1.3rem, 3vw, 2rem); margin-top: 1.4rem; }
+    .vid-feature .vid-meta { font-size: 0.95rem; }
+    .vid-feature .vid-desc {
+      font-family: var(--fb);
+      font-size: 0.98rem;
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.45);
+      max-width: 620px;
+      margin-top: 0.9rem;
+    }
+
+    /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
+    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .vid-wrap { display: flex; flex-direction: column; }
+    .vid-frame { position: relative; aspect-ratio: 16/9; background: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
+    .vid-frame img.vid-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .vid-frame:hover img.vid-thumb { transform: scale(1.03); }
+    .vid-frame iframe, .vid-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 2; background: #000; }
+    .vid-frame video { object-fit: cover; }
+
+    .vid-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: rgba(17,17,16,0.25);
+      transition: background 0.3s;
+      z-index: 1;
+    }
+    .vid-frame:hover .vid-placeholder { background: rgba(17,17,16,0.45); }
+
+    /* Icono Play puro CSS */
+    .vid-play {
+      width: 54px;
+      height: 54px;
+      border: 2px solid rgba(255,255,255,0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(17,17,16,0.2);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .vid-frame:hover .vid-play { transform: scale(1.08); background: var(--red); border-color: var(--red); }
+    .vid-play::after {
+      content: '';
+      margin-left: 4px;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-left: 15px solid #fff;
+    }
+    .vid-hint {
+      font-family: var(--fm);
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    .vid-title { font-family: var(--fh); font-size: 1rem; font-weight: 700; color: var(--white); margin-top: 0.9rem; }
+    .vid-meta { font-family: var(--fb); font-size: 0.85rem; letter-spacing: 0.07em; color: rgba(255,255,255,0.45); margin-top: 0.2rem; }
+    /* En secciones claras los textos de vídeo se oscurecen */
+    .s:not(.s--dark) .vid-title { color: var(--dark); }
+    .s:not(.s--dark) .vid-meta { color: var(--mid); }
+
+    /* Tile vacío: hueco a la espera de asset (clip del Atleti, etc.) */
+    .vid-frame.is-empty { cursor: default; }
+    .vid-frame.is-empty .vid-placeholder { background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px); }
+    .vid-frame.is-empty .vid-play { display: none; }
+
+    /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
+    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .ph { position: relative; overflow: hidden; background: var(--pale); cursor: pointer; border-radius: 4px; }
+    .ph-inner {
+      aspect-ratio: 3/4; /* Proporción ideal para encuadres verticales y retratos fílmicos */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      transition: background 0.2s;
+    }
+    /* Clase modificadora para assets panorámicos nativos */
+    .photo-grid .ph.horizontal { grid-column: span 2; }
+    .ph.horizontal .ph-inner { aspect-ratio: 16/9; }
+
+    .ph:hover .ph-inner { background: #c0c0bb; }
+    .ph img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .ph:hover img { transform: scale(1.04); }
+
+    /* Overlay cinematográfico interactivo (Caption en hover) */
+    .ph-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(17,17,16,0);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.2rem;
+      transition: background 0.3s;
+      pointer-events: none;
+    }
+    .ph:hover .ph-overlay { background: rgba(17,17,16,0.55); }
+    .ph-caption {
+      font-family: var(--fh);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .ph:hover .ph-caption { opacity: 1; transform: translateY(0); }
+
+    /* Hueco fotográfico vacío (placeholder a la espera de asset) */
+    .ph.is-empty { cursor: default; }
+    .ph.is-empty .ph-inner { background: repeating-linear-gradient(45deg, #dedeD9, #dedeD9 12px, #d4d4cf 12px, #d4d4cf 24px); }
+    .ph-empty-label {
+      font-family: var(--fm);
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-align: center;
+      padding: 0 1rem;
+      line-height: 1.6;
+    }
+    .ph-empty-label b { color: var(--red); display: block; font-size: 0.62rem; margin-bottom: 0.3rem; }
+
+    /* ─── SECCIÓN: SOBRE MÍ (Image-led, estilo Diego Simón) ──── */
+    .about-cover {
+      width: 100%;
+      aspect-ratio: 21/9;
+      overflow: hidden;
+      border-radius: 6px;
+      margin-bottom: 4rem;
+      background: var(--pale);
+    }
+    .about-cover img { width: 100%; height: 100%; object-fit: cover; }
+
     .about-grid {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -352,6 +478,17 @@
     }
     .about-body + .about-body { margin-top: 1.2rem; }
     .about-body strong { color: var(--dark); font-weight: 400; }
+
+    /* Imagen secundaria (ritmo visual a media página) */
+    .about-second {
+      width: 100%;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 6px;
+      margin-bottom: 2rem;
+      background: var(--pale);
+    }
+    .about-second img { width: 100%; height: 100%; object-fit: cover; }
 
     /* Tabla metadatos personales */
     .about-info { display: flex; flex-direction: column; }
@@ -495,175 +632,6 @@
       margin-top: 0.35rem;
     }
 
-    /* ─── SECCIÓN: SKILLS ────────────────────────────────────── */
-    .skills-wrap { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-      gap: 1px; 
-      background: rgba(235,235,231,0.15); 
-    }
-    .skill-card {
-      background: var(--red);
-      padding: 1.4rem 1.6rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      transition: background 0.2s;
-    }
-    .skill-card:hover { background: #9e2228; }
-    .sk-dot { width: 5px; height: 5px; background: var(--bg); border-radius: 50%; flex-shrink: 0; }
-    .sk-name {
-      font-family: var(--fh);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bg);
-    }
-
-    /* ─── SECCIÓN: PORTFOLIO & MEDIAS ────────────────────────── */
-    .pf-intro {
-      font-family: var(--fb);
-      font-size: 1.05rem;
-      letter-spacing: 0.07em;
-      line-height: 1.7;
-      color: var(--mid);
-      max-width: 560px;
-      margin-bottom: 2.5rem;
-    }
-    .pf-tabs {
-      display: flex;
-      gap: 0;
-      border-bottom: 1px solid var(--pale);
-      margin-bottom: 3rem;
-      overflow-x: auto;
-    }
-    .pf-tab {
-      font-family: var(--fh);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 0.8rem 2rem;
-      cursor: pointer;
-      color: var(--mid);
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-    }
-    .pf-tab.active, .pf-tab:hover { color: var(--red); border-bottom-color: var(--red); }
-
-    .tab-pane { display: none; }
-    .tab-pane.active { display: block; }
-
-    /* Grid Fotográfico con control estricto de Aspect Ratio */
-    .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .ph { position: relative; overflow: hidden; background: var(--pale); cursor: pointer; border-radius: 4px; }
-    .ph-inner {
-      aspect-ratio: 3/4; /* Proporción ideal para encuadres verticales y retratos fílmicos */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.7rem;
-      transition: background 0.2s;
-    }
-    /* Clase modificadora para assets panorámicos nativos */
-    .photo-grid .ph.horizontal { grid-column: span 2; }
-    .ph.horizontal .ph-inner { aspect-ratio: 16/9; } 
-    
-    .ph:hover .ph-inner { background: #c0c0bb; }
-    .ph img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .ph:hover img { transform: scale(1.04); }
-    
-    /* Overlay cinematográfico interactivo (Caption en hover) */
-    .ph-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(17,17,16,0);
-      display: flex;
-      align-items: flex-end;
-      padding: 1.2rem;
-      transition: background 0.3s;
-      pointer-events: none;
-    }
-    .ph:hover .ph-overlay { background: rgba(17,17,16,0.55); }
-    .ph-caption {
-      font-family: var(--fh);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .ph:hover .ph-caption { opacity: 1; transform: translateY(0); }
-
-    /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
-    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .vid-wrap { display: flex; flex-direction: column; }
-    .vid-frame { position: relative; aspect-ratio: 16/9; background: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
-    .vid-frame img.vid-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-    .vid-frame:hover img.vid-thumb { transform: scale(1.03); }
-    .vid-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 2; }
-    
-    .vid-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      background: rgba(17,17,16,0.25);
-      transition: background 0.3s;
-      z-index: 1;
-    }
-    .vid-frame:hover .vid-placeholder { background: rgba(17,17,16,0.45); }
-    
-    /* Icono Play puro CSS */
-    .vid-play {
-      width: 54px;
-      height: 54px;
-      border: 2px solid rgba(255,255,255,0.8);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(17,17,16,0.2);
-      transition: transform 0.2s, background 0.2s;
-    }
-    .vid-frame:hover .vid-play { transform: scale(1.08); background: var(--red); border-color: var(--red); }
-    .vid-play::after {
-      content: '';
-      margin-left: 4px;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      border-left: 15px solid #fff;
-    }
-    .vid-hint {
-      font-family: var(--fm);
-      font-size: 0.58rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.9);
-      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-    .vid-title { font-family: var(--fh); font-size: 1rem; font-weight: 700; color: var(--dark); margin-top: 0.9rem; }
-    .vid-meta { font-family: var(--fb); font-size: 0.85rem; letter-spacing: 0.07em; color: var(--mid); margin-top: 0.2rem; }
-
     /* ─── SECCIÓN: CONTACTO ──────────────────────────────────── */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
     .contact-headline {
@@ -754,10 +722,11 @@
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .hero-eyebrow { animation: fadeUp 0.7s 0.05s ease both; }
-    h1.hero-name  { animation: fadeUp 0.7s 0.15s ease both; }
-    .hero-desc    { animation: fadeUp 0.7s 0.25s ease both; }
-    .hero-stats   { animation: fadeUp 0.7s 0.35s ease both; }
+    .hero-eyebrow   { animation: fadeUp 0.7s 0.05s ease both; }
+    h1.hero-name    { animation: fadeUp 0.7s 0.15s ease both; }
+    .hero-desc      { animation: fadeUp 0.7s 0.25s ease both; }
+    .hero-cta       { animation: fadeUp 0.7s 0.32s ease both; }
+    .hero-showcase  { animation: fadeUp 0.7s 0.4s ease both; }
 
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -774,28 +743,24 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 3rem;
+        gap: 2.4rem;
         transform: translateY(-100%);
         transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
       }
       .nav-links.open { transform: translateY(0); }
       .nav-links a { font-size: 1.4rem; font-weight: 700; color: var(--dark); }
 
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 8rem 1.5rem 5rem 1.5rem;
-      }
-      .hero-image-desktop { display: none; }
-      .hero-image-mobile { display: block; }
+      .hero { padding: 8rem 1.5rem 4rem 1.5rem; gap: 2rem; }
 
       .hero, section.s, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
-      
+
       .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .about-cover { aspect-ratio: 16/9; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
-      
+
       .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
       .photo-grid .ph.horizontal { grid-column: span 2; }
       .video-grid { grid-template-columns: 1fr; }
@@ -803,11 +768,9 @@
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(3.2rem, 16vw, 4.5rem); }
-      .hero-stats { gap: 1.5rem; justify-content: space-between; }
       .photo-grid { grid-template-columns: 1fr; }
       .photo-grid .ph.horizontal { grid-column: span 1; }
       .ph.horizontal .ph-inner { aspect-ratio: 3/4; }
-      .skills-wrap { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
       .s-rule { width: 100%; height: 1px; flex: none; }
       footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -824,60 +787,51 @@
 <!-- Estructura semántica de navegación accesible -->
 <nav aria-label="Navegación principal">
   <div class="nav-logo">José <em>Rodríguez</em></div>
-  
+
   <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
     <span class="hamburger"></span>
   </button>
 
   <ul class="nav-links">
-    <li><a href="#about">Perfil</a></li>
+    <li><a href="#video">Vídeo</a></li>
+    <li><a href="#photo">Foto</a></li>
+    <li><a href="#about">Sobre mí</a></li>
     <li><a href="#experience">Experiencia</a></li>
     <li><a href="#education">Formación</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#contact">Contacto</a></li>
   </ul>
 </nav>
 
+<!-- ════════════════════════════════════════════════════════════
+     01 · PORTADA — Nombre protagonista + proyecto escaparate
+     ════════════════════════════════════════════════════════════ -->
 <header class="hero" id="hero">
-  <div class="hero-main">
-    <div class="hero-eyebrow">Steadicam Operator · Filmmaker · Madrid</div>
-    <h1 class="hero-name">
-      JOSÉ
-      <span class="r">RODRÍGUEZ</span>
-    </h1>
-    
-    <div class="hero-image-mobile">
-      <div class="hero-photo-wrap">
-        <img src="resources/fotografias/profile-picture.jpeg" alt="José Rodríguez">
-      </div>
-    </div>
+  <div class="hero-eyebrow">Steadicam Operator · Filmmaker · Madrid</div>
+  <h1 class="hero-name">
+    JOSÉ
+    <span class="r">RODRÍGUEZ</span>
+  </h1>
 
-    <div class="hero-desc">
-      <p>Creador de <strong>MonteCarloFilms</strong>. Especializado en Steadicam & operación de cámara. Experiencia en eventos deportivos de élite, iluminación y montaje.</p>
-    </div>
-    
-    <a class="hero-cta" href="#portfolio">Ver portfolio</a>
-
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num">3+</div>
-        <div class="stat-lbl">Años activo</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">1ª</div>
-        <div class="stat-lbl">División RFEF</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">B2</div>
-        <div class="stat-lbl">Cambridge</div>
-      </div>
-    </div>
+  <div class="hero-desc">
+    <p>Creador de <strong>MonteCarloFilms</strong>. Operación de cámara y Steadicam en eventos deportivos de élite, cine y publicidad.</p>
   </div>
 
-  <div class="hero-image-desktop">
-    <div class="hero-photo-wrap">
-      <img src="resources/fotografias/profile-picture.jpeg" alt="José Rodríguez">
+  <a class="hero-cta" href="#video">Ver portfolio</a>
+
+  <!-- ESCAPARATE: proyecto destacado embebido directamente en portada.
+       Para cambiar el showreel: sustituye el ID de YouTube en loadVideo(). -->
+  <div class="hero-showcase">
+    <div class="hero-showcase-label"><span>◆</span> Showreel destacado</div>
+    <div class="vid-feature">
+      <div class="vid-wrap">
+        <div class="vid-frame" onclick="loadVideo(this, 'h9y3aLxmEDI')">
+          <img src="https://img.youtube.com/vi/h9y3aLxmEDI/maxresdefault.jpg" alt="Showreel — MonteCarloFilms" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/h9y3aLxmEDI/hqdefault.jpg'">
+          <div class="vid-placeholder">
+            <div class="vid-play"></div>
+            <span class="vid-hint">Reproducir showreel</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -888,73 +842,262 @@
     <div class="ticker-seg"><span>MonteCarloFilms</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Steadicam Operator</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Camera Op — 1ª RFEF</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>DaVinci Resolve V.21</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Eventos Deportivos</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Iluminación & Plató</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>After Effects</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Movie Magic Schedule X</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Cambridge B2 First</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Filmmaker</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Madrid, España</span><span class="red">◆</span></div>
     <!-- Duplicación del track idéntica para asegurar el loop infinito sin saltos visuales -->
     <div class="ticker-seg"><span>MonteCarloFilms</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Steadicam Operator</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Camera Op — 1ª RFEF</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>DaVinci Resolve V.21</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Eventos Deportivos</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Iluminación & Plató</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>After Effects</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Movie Magic Schedule X</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Cambridge B2 First</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Filmmaker</span><span class="red">◆</span></div>
     <div class="ticker-seg"><span>Madrid, España</span><span class="red">◆</span></div>
   </div>
 </div>
 
-<section class="s" id="about">
+<!-- ════════════════════════════════════════════════════════════
+     02 · PORTFOLIO VÍDEO — Destacado grande + grid (estilo Zara)
+     ════════════════════════════════════════════════════════════ -->
+<section class="s s--dark" id="video">
   <div class="s-head">
-    <span class="s-num">01</span>
-    <h2 class="s-title">Perfil</h2>
+    <span class="s-num">02</span>
+    <h2 class="s-title">Portfolio Vídeo</h2>
     <div class="s-rule"></div>
   </div>
+
+  <p class="pf-intro">Dirección, operación de cámara y Steadicam. Una selección de piezas propias y trabajos en directo.</p>
+
+  <!-- VÍDEO DESTACADO (foco narrativo, ancho completo) -->
+  <div class="vid-feature">
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
+        <img src="https://img.youtube.com/vi/YYlLeiW7WC8/maxresdefault.jpg" alt="Amapolas - Lagaiaff" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/YYlLeiW7WC8/hqdefault.jpg'">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Reproducir en HD</span>
+        </div>
+      </div>
+      <div class="vid-title">Amapolas — Lagaiaff</div>
+      <div class="vid-meta">Videoclip · Dirección</div>
+      <p class="vid-desc">Videoclip dirigido bajo MonteCarloFilms. Tratamiento de color, dirección de fotografía y montaje propios.</p>
+    </div>
+  </div>
+
+  <!-- GRID DE VÍDEOS -->
+  <div class="video-grid">
+
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadVideo(this, 'WTCrsmgKMig')">
+        <img src="https://img.youtube.com/vi/WTCrsmgKMig/maxresdefault.jpg" alt="Cortometraje" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/WTCrsmgKMig/hqdefault.jpg'">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Click para reproducir en HD</span>
+        </div>
+      </div>
+      <div class="vid-title">Alabanzas justas al bienaventurado obrero</div>
+      <div class="vid-meta">Dirección</div>
+    </div>
+
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadVideo(this, 'bOQfwcSG9bk')">
+        <img src="https://img.youtube.com/vi/bOQfwcSG9bk/maxresdefault.jpg" alt="Trabajo en Steadicam" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/bOQfwcSG9bk/hqdefault.jpg'">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Click para reproducir en HD</span>
+        </div>
+      </div>
+      <div class="vid-title">Trabajo en Steadicam</div>
+      <div class="vid-meta">Steadicam</div>
+    </div>
+
+    <!-- ───────────────────────────────────────────────────────────
+         CLIPS DEL ATLETI (vídeo local del Drive) — PLACEHOLDERS.
+         Cuando tengas los .mp4: súbelos a resources/videos/ y un
+         frame como póster a resources/fotografias/. Estos tiles ya
+         están cableados con loadLocalVideo(); solo ajusta las rutas.
+         Si el póster no existe, el tile queda en negro con el play
+         igualmente funcional.
+         ─────────────────────────────────────────────────────────── -->
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-01.mp4')">
+        <img src="resources/fotografias/atleti-poster-01.jpg" alt="Atlético de Madrid — clip 01" class="vid-thumb" onerror="this.style.display='none'">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Atlético de Madrid · Cámara</span>
+        </div>
+      </div>
+      <div class="vid-title">Partido Atlético de Madrid</div>
+      <div class="vid-meta">Operación de cámara · 1ª RFEF</div>
+    </div>
+
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-02.mp4')">
+        <img src="resources/fotografias/atleti-poster-02.jpg" alt="Atlético de Madrid — clip 02" class="vid-thumb" onerror="this.style.display='none'">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Atlético de Madrid · Cámara</span>
+        </div>
+      </div>
+      <div class="vid-title">Partido Atlético de Madrid II</div>
+      <div class="vid-meta">Operación de cámara · 1ª RFEF</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     03 · PORTFOLIO FOTO — Grid + lightbox
+     ════════════════════════════════════════════════════════════ -->
+<section class="s" id="photo">
+  <div class="s-head">
+    <span class="s-num">03</span>
+    <h2 class="s-title">Portfolio Foto</h2>
+    <div class="s-rule"></div>
+  </div>
+
+  <p class="pf-intro">Stills de rodaje, dirección de fotografía y cobertura de eventos.</p>
+
+  <div class="photo-grid">
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/IMG_0928.JPG" alt="Operación de Steadicam — Rodaje Exterior">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Steadicam · Exterior</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/IMG_9774.JPG" alt="Dirección de Fotografía — Estilo Urbano">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Dirección de fotografía</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/IMG_9818.JPG" alt="Retrato en Set — Videoclip Musical">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Retrato en set</span></div>
+    </div>
+
+    <!-- ───────────────────────────────────────────────────────────
+         RUEDA DE PRENSA (fotos del Drive) — PLACEHOLDERS.
+         Sustituye estos tiles is-empty por bloques .ph normales con
+         <img src="resources/fotografias/rueda-prensa-01.jpg" ...>
+         cuando tengas las fotos.
+         ─────────────────────────────────────────────────────────── -->
+    <div class="ph is-empty">
+      <div class="ph-inner">
+        <span class="ph-empty-label"><b>Rueda de prensa</b>resources/fotografias/<br>rueda-prensa-01.jpg</span>
+      </div>
+    </div>
+
+    <div class="ph is-empty">
+      <div class="ph-inner">
+        <span class="ph-empty-label"><b>Rueda de prensa</b>resources/fotografias/<br>rueda-prensa-02.jpg</span>
+      </div>
+    </div>
+
+    <!-- ───────────────────────────────────────────────────────────
+         STILLS DE AMAPOLAS (del Drive) — PLACEHOLDERS.
+         Igual que arriba: cambia is-empty por .ph con la imagen real.
+         ─────────────────────────────────────────────────────────── -->
+    <div class="ph is-empty">
+      <div class="ph-inner">
+        <span class="ph-empty-label"><b>Still · Amapolas</b>resources/fotografias/<br>amapolas-still-01.jpg</span>
+      </div>
+    </div>
+
+    <div class="ph horizontal" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/bucle-album.jpeg" alt="Detalle de Escena — Texturas e Iluminación">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Iluminación · Texturas</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/Casa-Morgano.jpeg" alt="Bodegón Cinematográfico — Casa Morgano">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Casa Morgano</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/portada-album.jpeg" alt="Iluminación Expresiva — Contraste en Clave Oscura">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Clave oscura</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     04 · SOBRE MÍ — Image-led con foto de portada (estilo Diego Simón)
+     ════════════════════════════════════════════════════════════ -->
+<section class="s" id="about">
+  <div class="s-head">
+    <span class="s-num">04</span>
+    <h2 class="s-title">Sobre mí</h2>
+    <div class="s-rule"></div>
+  </div>
+
+  <!-- FOTO DE PORTADA del apartado de perfil.
+       Cambia la ruta por una imagen apaisada potente (un still de rodaje
+       suyo funciona mejor que un retrato). -->
+  <div class="about-cover">
+    <img src="resources/fotografias/profile-picture.jpeg" alt="José Rodríguez en rodaje">
+  </div>
+
   <div class="about-grid">
     <div>
-      <p class="about-quote">"Si alguna vez encuentro un extraterrestre no le diría nada, prefiero escucharle" - Steven Spielberg</p>
-      <p class="about-body">Filmmaker y operador de Steadicam con experiencia en producción audiovisual, eventos deportivos de alto nivel, iluminación y montaje. Fundador de <strong>MonteCarloFilms</strong>, desde donde desarrollo proyectos propios con una visión cinematográfica definida.</p>
-      <p class="about-body" style="margin-top:1.2rem;">Con formación técnica en la <strong>Escuela CEV</strong> y certificación especializada en Steadicam por la <strong>Escuela CES</strong>, combino el dominio técnico con una sensibilidad estética que se refleja en cada toma.</p>
+      <p class="about-quote">"Si alguna vez encuentro un extraterrestre no le diría nada, prefiero escucharle" — Steven Spielberg</p>
+      <p class="about-body">Soy <strong>José Rodríguez</strong>, filmmaker y operador de Steadicam con experiencia en producción audiovisual, eventos deportivos de alto nivel, iluminación y montaje. Fundador de <strong>MonteCarloFilms</strong>, desde donde desarrollo proyectos propios con una visión cinematográfica definida.</p>
+      <p class="about-body">Con formación técnica en la <strong>Escuela CEV</strong> y certificación especializada en Steadicam por la <strong>Escuela CES</strong>, combino el dominio técnico con una sensibilidad estética que se refleja en cada toma.</p>
     </div>
-    <div class="about-info">
-      <div class="info-row">
-        <span class="i-label">Teléfono</span>
-        <span class="i-val"><a href="tel:+34685044900">+34 685 044 900</a></span>
+    <div>
+      <!-- Imagen secundaria del perfil (ritmo visual). Sustituye la ruta. -->
+      <div class="about-second">
+        <img src="resources/fotografias/IMG_0928.JPG" alt="José Rodríguez — trabajo">
       </div>
-      <div class="info-row">
-        <span class="i-label">Email</span>
-        <span class="i-val"><a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a></span>
-      </div>
-      <div class="info-row">
-        <span class="i-label">Web</span>
-        <span class="i-val"><a href="https://montecarlofilms.es" target="_blank" rel="noopener">montecarlofilms.es</a></span>
-      </div>
-      <div class="info-row">
-        <span class="i-label">Instagram</span>
-        <span class="i-val"><a href="https://instagram.com/joserodriguez.mov" target="_blank" rel="noopener">@joserodriguez.mov</a></span>
-      </div>
-      <div class="info-row">
-        <span class="i-label">Ubicación</span>
-        <span class="i-val">Madrid, España</span>
-      </div>
-      <div class="info-row">
-        <span class="i-label">Disponibilidad</span>
-        <span class="i-val">Abierto a proyectos</span>
+      <div class="about-info">
+        <div class="info-row">
+          <span class="i-label">Teléfono</span>
+          <span class="i-val"><a href="tel:+34685044900">+34 685 044 900</a></span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Email</span>
+          <span class="i-val"><a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a></span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Web</span>
+          <span class="i-val"><a href="https://montecarlofilms.es" target="_blank" rel="noopener">montecarlofilms.es</a></span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Instagram</span>
+          <span class="i-val"><a href="https://instagram.com/joserodriguez.mov" target="_blank" rel="noopener">@joserodriguez.mov</a></span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Ubicación</span>
+          <span class="i-val">Madrid, España</span>
+        </div>
+        <div class="info-row">
+          <span class="i-label">Disponibilidad</span>
+          <span class="i-val">Abierto a proyectos</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════════════════════
+     05 · EXPERIENCIA — Timeline
+     ════════════════════════════════════════════════════════════ -->
 <section class="s s--dark" id="experience">
   <div class="s-head">
-    <span class="s-num">02</span>
+    <span class="s-num">05</span>
     <h2 class="s-title">Experiencia</h2>
     <div class="s-rule"></div>
   </div>
@@ -995,9 +1138,12 @@
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════════════════════
+     06 · FORMACIÓN Y CERTIFICACIONES
+     ════════════════════════════════════════════════════════════ -->
 <section class="s" id="education">
   <div class="s-head">
-    <span class="s-num">03</span>
+    <span class="s-num">06</span>
     <h2 class="s-title">Formación</h2>
     <div class="s-rule"></div>
   </div>
@@ -1035,146 +1181,12 @@
   </div>
 </section>
 
-<section class="s s--red" id="skills">
-  <div class="s-head">
-    <span class="s-num">04</span>
-    <h2 class="s-title">Skills</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="skills-wrap">
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">DaVinci Resolve V.21</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Adobe After Effects</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Adobe Photoshop</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Adobe Audition</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Movie Magic Schedule X</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Google Suite</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Steadicam</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Iluminación en Plató</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Operación de Cámara</div></div>
-    <div class="skill-card"><div class="sk-dot"></div><div class="sk-name">Permiso B · Vehículo Propio</div></div>
-  </div>
-</section>
-
-<section class="s" id="portfolio">
-  <div class="s-head">
-    <span class="s-num">05</span>
-    <h2 class="s-title">Portfolio</h2>
-    <div class="s-rule"></div>
-  </div>
-
-  <p class="pf-intro">Una selección de trabajos como operador de cámara, filmmaker y proyectos propios a través de MonteCarloFilms.</p>
-
-  <div class="pf-tabs">
-    <button class="pf-tab active" onclick="switchTab(this,'photos')">Fotografía</button>
-    <button class="pf-tab" onclick="switchTab(this,'videos')">Vídeo</button>
-  </div>
-
-  <div class="tab-pane active" id="tab-photos">
-    <div class="photo-grid">
-
-      <div class="ph" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/IMG_0928.JPG" alt="Operación de Steadicam — Rodaje Exterior">
-        </div>
-      </div>
-
-      <div class="ph" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/IMG_9774.JPG" alt="Dirección de Fotografía — Estilo Urbano">
-        </div>
-      </div>
-
-      <div class="ph" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/IMG_9818.JPG" alt="Retrato en Set — Videoclip Musical">
-        </div>
-      </div>
-
-      <div class="ph" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/PNG editado 2-16.jpg" alt="Composición de Plano — Rodaje Narrativo">
-        </div>
-      </div>
-
-      <div class="ph horizontal" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/bucle-album.jpeg" alt="Detalle de Escena — Texturas e Iluminación">
-        </div>
-      </div>
-
-      <div class="ph" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/Casa-Morgano.jpeg" alt="Bodegón Cinematográfico — Casa Morgano">
-        </div>
-      </div>
-
-      <div class="ph" onclick="openLb(this)">
-        <div class="ph-inner">
-          <img src="resources/fotografias/portada-album.jpeg" alt="Iluminación Expresiva — Contraste en Clave Oscura">
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="tab-pane" id="tab-videos">
-    <div class="video-grid">
-
-      <div class="vid-wrap">
-        <div class="vid-frame" onclick="loadVideo(this, 'WTCrsmgKMig')">
-          <img src="https://img.youtube.com/vi/WTCrsmgKMig/maxresdefault.jpg" alt="Cortometraje Thumbnail" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/WTCrsmgKMig/hqdefault.jpg'">
-          <div class="vid-placeholder">
-            <div class="vid-play"></div>
-            <span class="vid-hint">Click para reproducir en HD</span>
-          </div>
-        </div>
-        <div class="vid-title">Alabanzas justas al bienaventurado obrero</div>
-        <div class="vid-meta">Dirección</div>
-      </div>
-
-      <div class="vid-wrap">
-        <div class="vid-frame" onclick="loadVideo(this, 'bOQfwcSG9bk')">
-          <img src="https://img.youtube.com/vi/bOQfwcSG9bk/maxresdefault.jpg" alt="Trabajo en Steadicam Thumbnail" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/bOQfwcSG9bk/hqdefault.jpg'">
-          <div class="vid-placeholder">
-            <div class="vid-play"></div>
-            <span class="vid-hint">Click para reproducir en HD</span>
-          </div>
-        </div>
-        <div class="vid-title">Trabajo en Steadicam</div>
-        <div class="vid-meta">Steadicam</div>
-      </div>
-
-      <div class="vid-wrap">
-        <div class="vid-frame" onclick="loadVideo(this, 'h9y3aLxmEDI')">
-          <img src="https://img.youtube.com/vi/h9y3aLxmEDI/maxresdefault.jpg" alt="Vídeo Promo Thumbnail" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/h9y3aLxmEDI/hqdefault.jpg'">
-          <div class="vid-placeholder">
-            <div class="vid-play"></div>
-            <span class="vid-hint">Click para reproducir en HD</span>
-          </div>
-        </div>
-        <div class="vid-title">Vídeo Promo Página Web</div>
-        <div class="vid-meta">MonteCarloFilms</div>
-      </div>
-
-      <div class="vid-wrap">
-        <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
-          <img src="https://img.youtube.com/vi/YYlLeiW7WC8/maxresdefault.jpg" alt="Videoclip Dirigido Thumbnail" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/YYlLeiW7WC8/hqdefault.jpg'">
-          <div class="vid-placeholder">
-            <div class="vid-play"></div>
-            <span class="vid-hint">Click para reproducir en HD</span>
-          </div>
-        </div>
-        <div class="vid-title">Amapolas - Lagaiaff</div>
-        <div class="vid-meta">Dirección</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
+<!-- ════════════════════════════════════════════════════════════
+     07 · CONTACTO
+     ════════════════════════════════════════════════════════════ -->
 <section class="s s--dark" id="contact">
   <div class="s-head">
-    <span class="s-num">06</span>
+    <span class="s-num">07</span>
     <h2 class="s-title">Contacto</h2>
     <div class="s-rule"></div>
   </div>
@@ -1236,23 +1248,20 @@
     });
   });
 
-  /* ── SISTEMA DE PESTAÑAS (Portfolio) ───────────────────────── */
-  function switchTab(btn, tab) {
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.pf-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + tab).classList.add('active');
-    btn.classList.add('active');
-  }
-
-  /* ── LAZY VIDEO LOADER ────────────────────────────────────── */
-  /* Inyecta el iframe solo tras interacción activa del usuario. 
-     Previene la precarga masiva de scripts pesados de la API de YouTube, 
+  /* ── LAZY VIDEO LOADER (YouTube) ──────────────────────────── */
+  /* Inyecta el iframe solo tras interacción activa del usuario.
+     Previene la precarga masiva de scripts pesados de la API de YouTube,
      mejorando drásticamente las métricas de Core Web Vitals (LCP, TTI). */
   function loadVideo(container, videoId) {
     container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
   }
 
-  /* ── LIGHTBOX INTERACTIVO (Gestiòn de estados) ─────────────── */
+  /* ── LAZY VIDEO LOADER (archivo local mp4 — clips del Atleti) ─ */
+  function loadLocalVideo(container, src) {
+    container.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
+  }
+
+  /* ── LIGHTBOX INTERACTIVO (Gestión de estados) ─────────────── */
   function openLb(el) {
     var img = el.querySelector('img');
     if (!img) return;
@@ -1261,14 +1270,14 @@
     document.getElementById('lb').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  
+
   function closeLb(e) {
     // Evita cierres accidentales al pinchar fuera de la zona de control
     if (e && e.target !== document.getElementById('lb') && e.target !== document.getElementById('lb-close')) return;
     document.getElementById('lb').classList.remove('open');
     document.body.style.overflow = '';
   }
-  
+
   // Accesibilidad por teclado (Cierre nativo con tecla ESC)
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLb(null);
@@ -1301,7 +1310,7 @@
       }
     });
   }, { rootMargin: '-40% 0px -55% 0px' }); // Ajuste del viewport de escucha centrado en pantalla
-  
+
   sections.forEach(function(s) { navIo.observe(s); });
 </script>
 
