@@ -301,7 +301,7 @@
 
     /* Vídeo destacado a gran tamaño (foco narrativo) — usado en el showreel de portada */
     .vid-feature { margin-bottom: 4rem; }
-    .vid-feature .vid-frame { aspect-ratio: 16/9; border-radius: 6px; }
+    .vid-feature .vid-frame { border-radius: 6px; }
 
     /* ─── BLOQUE EDITORIAL DE VÍDEO (titular condensado + vídeo a sangre, ref. Zara) ─ */
     .vfeat { max-width: 1100px; }
@@ -334,7 +334,10 @@
     }
     /* Escenario del vídeo destacado: contenido y centrado (no a sangre) y con un
        ancho máximo para no sobredimensionarlo ni perder nitidez al ampliar el póster. */
-    .vfeat-stage { margin: 3rem auto 5rem; max-width: 1040px; }
+    /* width definido (no max-width): con max-width + margin:auto el ancho del bloque es
+       "indefinido" para resolver el width:100% de la miniatura y ésta no llenaba.
+       min(100%,1300px) da un ancho definido y centrado. */
+    .vfeat-stage { margin: 3rem auto 5rem; width: min(100%, 1300px); }
     .vfeat-stage .vid-frame { border-radius: 6px; }
 
     /* Rejilla 2×2 de clips en bucle simultáneo (mudos). El fondo rayado marca
@@ -361,10 +364,14 @@
     .vid-wrap { display: flex; flex-direction: column; }
     /* width:100% explícito: el marco es un flex item en columna cuyos hijos van en
        posición absoluta; sin width no se estira y colapsaba el vídeo destacado. */
-    .vid-frame { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
-    .vid-frame img.vid-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    /* La miniatura (img 16:9) se muestra como bloque a ancho completo y su altura natural
+       define el alto del marco: técnica simple e infalible (la misma del grid masonry),
+       sin object-fit/aspect-ratio/padding que en el destacado ancho no llenaban. */
+    .vid-frame { position: relative; width: 100%; background-color: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
+    .vid-frame img.vid-thumb { display: block; width: 100%; height: auto; transition: transform 0.3s ease; }
     .vid-frame:hover img.vid-thumb { transform: scale(1.03); }
-    .vid-frame iframe, .vid-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: none; z-index: 2; background: #000; }
+    /* Al reproducir, el <iframe>/<video> se inyecta y mantiene el 16:9 por sí mismo. */
+    .vid-frame iframe, .vid-frame video { display: block; width: 100%; aspect-ratio: 16/9; border: none; background: #000; }
     .vid-frame video { object-fit: cover; }
 
     .vid-placeholder {
@@ -420,6 +427,17 @@
        foto (sin recortes) y rellena sin huecos. Sustituye al grid de celdas, que
        dejaba las fotos panorámicas solas con un hueco en blanco al lado. */
     .photo-grid { columns: 3; column-gap: 1rem; }
+    /* Etiqueta de categoría: separa el portfolio de foto por tipo de trabajo
+       (cine/videoclip, dirección de arte, cobertura) en lugar de mezclarlo todo. */
+    .pf-cat {
+      font-family: var(--fm);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin: 3.5rem 0 1.4rem;
+    }
+    .pf-cat:first-of-type { margin-top: 0; }
     .ph {
       position: relative;
       overflow: hidden;
@@ -872,7 +890,7 @@
     <div class="vid-feature">
       <div class="vid-wrap">
         <div class="vid-frame" onclick="loadVideo(this, 'h9y3aLxmEDI')">
-          <img src="https://img.youtube.com/vi/h9y3aLxmEDI/maxresdefault.jpg" alt="Showreel — MonteCarloFilms" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/h9y3aLxmEDI/hqdefault.jpg'">
+          <img src="resources/fotografias/showreel-cover.jpg" alt="Showreel — MonteCarloFilms" class="vid-thumb">
           <div class="vid-placeholder">
             <div class="vid-play"></div>
             <span class="vid-hint">Reproducir showreel</span>
@@ -914,17 +932,50 @@
     <div class="s-rule"></div>
   </div>
 
-  <!-- BLOQUE EDITORIAL DESTACADO: titular condensado + vídeo a sangre (ref. Zara) -->
+  <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO ════════════════════════════
+       Pieza principal del portfolio de vídeo (José pidió moverla a lo primero):
+       titular condensado + clip destacado a sangre + rejilla 2×2 de clips en
+       bucle y simultáneo (autoplay/muted/loop, arrancan solos al cargar).
+       ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
+    <h3 class="vfeat-title">Atlético<br>Madrileño<span>vs Cartagena · Operación de cámara · 1ª RFEF</span></h3>
+    <p class="vfeat-desc">Desde la lente de mi cámara. Cobertura del partido para la retransmisión en directo: la tensión, la celebración y el espectáculo sobre el césped.</p>
+  </div>
+
+  <!-- Clip destacado a sangre (click para reproducir con sonido) -->
+  <div class="vfeat-stage">
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
+        <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Atlético Madrileño — Cartagena</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rejilla 2×2 de clips en bucle simultáneo (mudos, sin controles) -->
+  <div class="loop-grid">
+    <video class="loop-vid" src="resources/videos/atleti-loop-01.mp4" poster="resources/fotografias/atleti-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-02.mp4" poster="resources/fotografias/atleti-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-03.mp4" poster="resources/fotografias/atleti-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-04.mp4" poster="resources/fotografias/atleti-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  </div>
+
+  <!-- BLOQUE EDITORIAL DESTACADO: titular condensado + vídeo a sangre (ref. Zara) -->
+  <div class="vfeat" style="margin-top: 6rem;">
     <h3 class="vfeat-title">Amapolas<span>Lagaiaff · Videoclip · Dirección</span></h3>
     <p class="vfeat-desc">Videoclip dirigido bajo MonteCarloFilms. Tratamiento de color, dirección de fotografía y montaje propios.</p>
   </div>
   <div class="vfeat-stage">
-    <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
-      <img src="https://img.youtube.com/vi/YYlLeiW7WC8/maxresdefault.jpg" alt="Amapolas - Lagaiaff" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/YYlLeiW7WC8/hqdefault.jpg'">
-      <div class="vid-placeholder">
-        <div class="vid-play"></div>
-        <span class="vid-hint">Reproducir en HD</span>
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
+        <img src="resources/fotografias/amapolas-cover.jpg" alt="Amapolas - Lagaiaff" class="vid-thumb">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Reproducir en HD</span>
+        </div>
       </div>
     </div>
   </div>
@@ -947,7 +998,7 @@
 
     <div class="vid-wrap">
       <div class="vid-frame" onclick="loadVideo(this, 'WTCrsmgKMig')">
-        <img src="https://img.youtube.com/vi/WTCrsmgKMig/maxresdefault.jpg" alt="Cortometraje" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/WTCrsmgKMig/hqdefault.jpg'">
+        <img src="resources/fotografias/cortometraje-cover.jpg" alt="Cortometraje" class="vid-thumb">
         <div class="vid-placeholder">
           <div class="vid-play"></div>
           <span class="vid-hint">Click para reproducir en HD</span>
@@ -959,7 +1010,7 @@
 
     <div class="vid-wrap">
       <div class="vid-frame" onclick="loadVideo(this, 'bOQfwcSG9bk')">
-        <img src="https://img.youtube.com/vi/bOQfwcSG9bk/maxresdefault.jpg" alt="Trabajo en Steadicam" class="vid-thumb" onerror="this.src='https://img.youtube.com/vi/bOQfwcSG9bk/hqdefault.jpg'">
+        <img src="resources/fotografias/steadicam-cover.jpg" alt="Trabajo en Steadicam" class="vid-thumb">
         <div class="vid-placeholder">
           <div class="vid-play"></div>
           <span class="vid-hint">Click para reproducir en HD</span>
@@ -969,37 +1020,6 @@
       <div class="vid-meta">Steadicam</div>
     </div>
 
-  </div>
-
-  <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO (según mockup de José) ════════
-       Editorial: titular condensado + clip destacado a sangre + texto + rejilla
-       2×2 de clips reproduciéndose en bucle y en simultáneo (autoplay/muted/loop).
-       PLACEHOLDERS — deja caer los .mp4 en resources/videos/ con estos nombres
-       (y, opcional, un frame .jpg de póster en resources/fotografias/). Los <video>
-       de la rejilla ya están en autoplay+muted+loop: arrancarán solos al cargar.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
-    <h3 class="vfeat-title">Atlético<br>Madrileño<span>vs Cartagena · Operación de cámara · 1ª RFEF</span></h3>
-    <p class="vfeat-desc">Desde la lente de mi cámara. Cobertura del partido para la retransmisión en directo: la tensión, la celebración y el espectáculo sobre el césped.</p>
-  </div>
-
-  <!-- Clip destacado a sangre (click para reproducir con sonido) -->
-  <div class="vfeat-stage">
-    <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
-      <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb" onerror="this.style.display='none'">
-      <div class="vid-placeholder">
-        <div class="vid-play"></div>
-        <span class="vid-hint">Atlético Madrileño — Cartagena</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Rejilla 2×2 de clips en bucle simultáneo (mudos, sin controles) -->
-  <div class="loop-grid">
-    <video class="loop-vid" src="resources/videos/atleti-loop-01.mp4" poster="resources/fotografias/atleti-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/atleti-loop-02.mp4" poster="resources/fotografias/atleti-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/atleti-loop-03.mp4" poster="resources/fotografias/atleti-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/atleti-loop-04.mp4" poster="resources/fotografias/atleti-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
   </div>
 </section>
 
@@ -1013,10 +1033,15 @@
     <div class="s-rule"></div>
   </div>
 
-  <p class="pf-intro">Stills de rodaje, dirección de fotografía y cobertura de eventos.</p>
+  <p class="pf-intro">Organizado por tipo de trabajo: cine y videoclip, dirección de arte y cobertura de eventos.</p>
 
+  <!-- Las fotos se agrupan por categoría (petición de José: no mezclar el trabajo
+       de videoclip con la cobertura institucional). Cada grupo es su propio
+       masonry para que reflujan de forma independiente. -->
+
+  <!-- ── CINE & VIDEOCLIP ─────────────────────────────────────── -->
+  <p class="pf-cat">Cine &amp; Videoclip</p>
   <div class="photo-grid">
-
     <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/IMG_0928.JPG" alt="Operación de Steadicam — Rodaje Exterior">
@@ -1037,8 +1062,36 @@
       </div>
       <div class="ph-overlay"><span class="ph-caption">Retrato en set</span></div>
     </div>
+  </div>
 
-    <!-- RUEDA DE PRENSA — fotos reales (cobertura de eventos deportivos) -->
+  <!-- ── DIRECCIÓN DE ARTE ────────────────────────────────────── -->
+  <p class="pf-cat">Dirección de Arte</p>
+  <div class="photo-grid">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/bucle-album.jpeg" alt="Detalle de Escena — Texturas e Iluminación">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Iluminación · Texturas</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/Casa-Morgano.jpeg" alt="Bodegón Cinematográfico — Casa Morgano">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Casa Morgano</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/portada-album.jpeg" alt="Iluminación Expresiva — Contraste en Clave Oscura">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Clave oscura</span></div>
+    </div>
+  </div>
+
+  <!-- ── COBERTURA & PRENSA ───────────────────────────────────── -->
+  <p class="pf-cat">Cobertura &amp; Prensa</p>
+  <div class="photo-grid">
     <div class="ph" onclick="openLb(this)">
       <div class="ph-inner">
         <img src="resources/fotografias/rueda-prensa-01.jpg" alt="Rueda de prensa — cobertura deportiva">
@@ -1066,28 +1119,6 @@
       </div>
       <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
     </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/bucle-album.jpeg" alt="Detalle de Escena — Texturas e Iluminación">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Iluminación · Texturas</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/Casa-Morgano.jpeg" alt="Bodegón Cinematográfico — Casa Morgano">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Casa Morgano</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/portada-album.jpeg" alt="Iluminación Expresiva — Contraste en Clave Oscura">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Clave oscura</span></div>
-    </div>
-
   </div>
 
   <!-- ════════ BLOQUE PROYECTO: ANATOMÍA DE UNA DERROTA · EP (según mockup img 8) ════════
@@ -1140,7 +1171,9 @@
   <!-- Fila secundaria: segunda imagen + datos de contacto. Sustituye la ruta de la foto. -->
   <div class="about-meta">
     <div class="about-photo about-photo--sq">
-      <img src="resources/fotografias/amapolas-still-02.jpg" alt="José Rodríguez — trabajo">
+      <!-- Still del trabajo de cámara de José (sustituye al still de Amapolas, donde
+           salía la artista y no encajaba en su propia bio). -->
+      <img src="resources/fotografias/atleti-destacado.jpg" alt="José Rodríguez — operación de cámara">
     </div>
     <div class="about-info">
         <div class="info-row">
