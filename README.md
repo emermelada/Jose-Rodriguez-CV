@@ -4,11 +4,11 @@ Sitio web personal y portfolio interactivo diseñado para destacar producciones 
 
 La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada centrada en el nombre con un proyecto a modo de escaparate, un portfolio de vídeo con pieza destacada a gran formato y un apartado *image-led* de perfil. Estética cinematográfica y brutalista, con foco en velocidad de carga, tipografía cruda y visualización fluida de material multimedia.
 
-🔗 **Sitio Web Oficial:** [joserodriguez.mov](https://joserodriguez.mov)
+ **Sitio Web Oficial:** [joserodriguez.mov](https://joserodriguez.mov)
 
 ---
 
-## 🧭 Estructura de Contenido (Secciones)
+##  Estructura de Contenido (Secciones)
 
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
@@ -22,7 +22,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 
 ---
 
-## ⚡ Características Principales
+##  Características Principales
 
 * **Diseño Fílmico Minimalista:** Paleta tonal cruda (`#ebebe7` y `#111110`) combinada con un acento rojo profundo (`#b6282d`) inspirado en indicadores de grabación (*Rec*).
 * **Portada Escaparate:** El nombre domina la portada y el mejor trabajo se muestra de inmediato, sin obligar al usuario a navegar para ver una pieza.
@@ -36,7 +36,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 
 ---
 
-## 🛠️ Stack Tecnológico
+##  Stack Tecnológico
 
 * **HTML5:** Estructuración semántica y accesible (`aria-label`, secciones independientes).
 * **CSS3 Custom Properties:** Arquitectura basada en *design tokens* centralizados para fuentes, colores y rejillas.
@@ -46,7 +46,7 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 
 ---
 
-## 📂 Estructura de Archivos
+##  Estructura de Archivos
 
 ```text
 ├── index.html                      # Documento principal (HTML + CSS + JS embebidos)
