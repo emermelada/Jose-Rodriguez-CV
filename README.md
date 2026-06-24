@@ -15,7 +15,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 1. **Portada** — Nombre a gran escala + clip destacado del **Atlético Madrileño** embebido directamente como escaparate (vídeo local `.mp4`).
 2. **Portfolio Vídeo** — Orden: **Atlético** (rejilla 2×2 de clips en bucle simultáneo) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam → **Showreel de MonteCarloFilms** como pieza de cierre. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
 3. **Portfolio Foto** — Grid fotográfico **organizado por categorías** (Cine & Videoclip · Dirección de Arte · Cobertura & Prensa) con *lightbox* nativo a pantalla completa.
-4. **Sobre mí** — Bloque *image-led* con foto de portada apaisada, texto de perfil e imagen secundaria, más tabla de datos de contacto.
+4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
 6. **Formación** — Educación y certificaciones.
 7. **Contacto** — Enlaces directos (teléfono, email, web, Instagram).
@@ -57,7 +57,8 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     │   ├── rueda-prensa-01..04.jpg     # fotos de rueda de prensa
     │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
     │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle
-    │   ├── profile-picture.jpeg        # retrato de José ("Sobre mí")
+    │   ├── profile-picture.jpeg        # retrato principal de José ("Sobre mí")
+    │   ├── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
     │   ├── IMG_0928 / IMG_9774 / IMG_9818 .JPG  # stills de rodaje del grid de foto
     │   └── portada-album / Casa-Morgano / bucle-album .jpeg  # arte del EP
     └── videos/
