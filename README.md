@@ -13,7 +13,7 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
 1. **Portada** — Nombre a gran escala + clip destacado del **Atlético Madrileño** embebido directamente como escaparate (vídeo local `.mp4`).
-2. **Portfolio Vídeo** — Orden: **Atlético** (rejilla 2×2 de clips en bucle simultáneo) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam → **Showreel de MonteCarloFilms** como pieza de cierre. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
+2. **Portfolio Vídeo** — Orden: **Atlético** (rejilla 2×2 de clips en bucle simultáneo) → **CD Leganés** (foto principal a gran formato + dos filas de 4 fotografías con *lightbox*) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam → **Showreel de MonteCarloFilms** como pieza de cierre. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
 3. **Portfolio Foto** — Grid fotográfico **organizado por categorías** (Cine & Videoclip · Dirección de Arte · Cobertura & Prensa) con *lightbox* nativo a pantalla completa.
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
@@ -57,6 +57,8 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     │   ├── rueda-prensa-01..04.jpg     # fotos de rueda de prensa
     │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
     │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle
+    │   ├── leganes-01.jpg              # foto principal a gran formato del CD Leganés
+    │   ├── leganes-02..09.jpg          # galería del CD Leganés (dos filas de 4)
     │   ├── profile-picture.jpeg        # retrato principal de José ("Sobre mí")
     │   ├── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
     │   ├── IMG_0928 / IMG_9774 / IMG_9818 .JPG  # stills de rodaje del grid de foto
@@ -66,4 +68,4 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
         └── atleti-loop-01..04.mp4      # clips de la rejilla 2×2 en bucle (720p, mudos)
 ```
 
-> **Estado de los assets:** todos los materiales están incluidos. Vídeos del Atlético optimizados (MOV→MP4 H.264; rejilla 2×2 con `<video autoplay muted loop>`). Stills, rueda de prensa y pósters a 1920 px; el resto de fotografías se mantienen en su resolución original. El bloque "Anatomía de una Derrota" integra reproductores de Spotify embebidos (single + EP).
+> **Estado de los assets:** todos los materiales están incluidos. Vídeos del Atlético optimizados (MOV→MP4 H.264; rejilla 2×2 con `<video autoplay muted loop>`). Stills, rueda de prensa, pósters y fotografías del CD Leganés a 1920 px; el resto de fotografías se mantienen en su resolución original. El bloque "Anatomía de una Derrota" integra reproductores de Spotify embebidos (single + EP).
