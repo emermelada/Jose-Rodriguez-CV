@@ -2,7 +2,7 @@
 
 Sitio web personal y portfolio interactivo diseñado para destacar producciones cinematográficas, dirección de fotografía y operación de cámara/Steadicam en entornos audiovisuales de alto rendimiento y retransmisiones deportivas de élite (1ª RFEF / 1ª FEB).
 
-La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada centrada en el nombre con un proyecto a modo de escaparate, un portfolio de vídeo con pieza destacada a gran formato y un apartado *image-led* de perfil. Estética cinematográfica y brutalista, con foco en velocidad de carga, tipografía cruda y visualización fluida de material multimedia.
+La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada centrada en el nombre con una pieza a modo de escaparate, el portfolio fotográfico por delante del de vídeo, piezas destacadas a gran formato y un apartado *image-led* de perfil. Estética cinematográfica y brutalista, con foco en velocidad de carga, tipografía cruda y visualización fluida de material multimedia.
 
  **Sitio Web Oficial:** [joserodriguez.mov](https://joserodriguez.mov)
 
@@ -12,9 +12,9 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
-1. **Portada** — Nombre a gran escala + clip destacado del **Atlético Madrileño** embebido directamente como escaparate (vídeo local `.mp4`).
-2. **Portfolio Vídeo** — Orden: **Atlético** (rejilla 2×2 de clips en bucle simultáneo) → **CD Leganés** (foto principal a gran formato + dos filas de 4 fotografías con *lightbox*) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam → **Showreel de MonteCarloFilms** como pieza de cierre. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
-3. **Portfolio Foto** — Grid fotográfico **organizado por categorías** (Cine & Videoclip · Dirección de Arte · Cobertura & Prensa) con *lightbox* nativo a pantalla completa.
+1. **Portada** — Nombre a gran escala + **fotografía** destacada de la pretemporada 2026/27 (presentación en el CD Leganés) como escaparate, ampliable con el *lightbox*.
+2. **Portfolio Foto** — Orden: **CD Leganés** (foto principal a gran formato + dos filas de 4 fotografías) → **Pretemporada 2026/27**, dividida en dos subgrupos por club (CD Leganés · Getafe CF) en layout *masonry* → bloque del EP *Anatomía de una Derrota*. Todo con *lightbox* nativo a pantalla completa.
+3. **Portfolio Vídeo** — Orden: **Atlético Madrileño** → **Getafe – Valladolid**, ambos con el mismo patrón (clip destacado a gran formato + rejilla 2×2 de clips en bucle simultáneo) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
 6. **Formación** — Educación y certificaciones.
@@ -31,7 +31,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 * **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido equivalente al de YouTube.
 * **Lightbox Nativo Integrado:** Visualización de capturas y composiciones fotográficas a pantalla completa sin librerías de terceros (Vanilla JS, cierre con `ESC`).
 * **Scroll-Spy Automático:** Sincronización en tiempo real mediante `IntersectionObserver` entre la posición del scroll y los enlaces activos de navegación.
-* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por categorías y cada grupo usa un layout *masonry* (CSS multi-columna 3→2→1) que respeta la proporción nativa de cada imagen sin huecos; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
+* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por reportaje y cada grupo usa un layout *masonry* (CSS multi-columna 3→2→1) que respeta la proporción nativa de cada imagen sin huecos; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
 * **Accesibilidad:** Navegación semántica (`aria-label`, `aria-modal`), respeto a `prefers-reduced-motion` y control por teclado del lightbox.
 
 ---
@@ -53,19 +53,24 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── README.md
 └── resources/
     ├── fotografias/
-    │   ├── amapolas-still-01..07.jpg   # stills del videoclip "Amapolas"
-    │   ├── rueda-prensa-01..04.jpg     # fotos de rueda de prensa
-    │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
-    │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle
+    │   ├── hero-camiseta.jpg           # fotografía de portada (escaparate)
     │   ├── leganes-01.jpg              # foto principal a gran formato del CD Leganés
     │   ├── leganes-02..09.jpg          # galería del CD Leganés (dos filas de 4)
+    │   ├── pret-leganes-01..04.jpg     # Pretemporada 2026/27 — presentación en el CD Leganés
+    │   ├── pret-getafe-01..04.jpg      # Pretemporada 2026/27 — fichajes del Getafe CF
+    │   ├── amapolas-still-01..07.jpg   # stills del videoclip "Amapolas"
+    │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
+    │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle del Atlético
+    │   ├── getafe-destacado.jpg        # póster del clip destacado del Getafe
+    │   ├── getafe-loop-01..04.jpg      # pósters de la rejilla en bucle del Getafe
     │   ├── profile-picture.jpeg        # retrato principal de José ("Sobre mí")
     │   ├── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
-    │   ├── IMG_0928 / IMG_9774 / IMG_9818 .JPG  # stills de rodaje del grid de foto
-    │   └── portada-album / Casa-Morgano / bucle-album .jpeg  # arte del EP
+    │   └── portada-album.jpeg          # portada del EP "Anatomía de una Derrota"
     └── videos/
-        ├── atleti-destacado.mp4        # clip destacado del Atlético (1080p)
-        └── atleti-loop-01..04.mp4      # clips de la rejilla 2×2 en bucle (720p, mudos)
+        ├── atleti-destacado.mp4        # clip destacado del Atlético (1080p, con audio)
+        ├── atleti-loop-01..04.mp4      # rejilla 2×2 del Atlético en bucle (720p, mudos)
+        ├── getafe-destacado.mp4        # clip destacado del Getafe (1080p, con audio)
+        └── getafe-loop-01..04.mp4      # rejilla 2×2 del Getafe en bucle (720p, mudos)
 ```
 
-> **Estado de los assets:** todos los materiales están incluidos. Vídeos del Atlético optimizados (MOV→MP4 H.264; rejilla 2×2 con `<video autoplay muted loop>`). Stills, rueda de prensa, pósters y fotografías del CD Leganés a 1920 px; el resto de fotografías se mantienen en su resolución original. El bloque "Anatomía de una Derrota" integra reproductores de Spotify embebidos (single + EP).
+> **Estado de los assets:** todos los materiales están incluidos. Clips del Atlético y del Getafe optimizados (MOV→MP4 H.264 con `faststart`; los destacados conservan audio AAC y las rejillas 2×2 van sin pista de audio, con `<video autoplay muted loop>`). Fotografías a 1920 px de ancho, JPEG q82 y sin metadatos EXIF. El bloque "Anatomía de una Derrota" integra reproductores de Spotify embebidos (single + EP).
