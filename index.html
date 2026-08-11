@@ -213,6 +213,9 @@
     }
     .hero-showcase-label span { color: var(--red); }
 
+    /* Escaparate fotográfico: la portada muestra una foto, no un vídeo. */
+    .hero-shot img { display: block; width: 100%; height: auto; border-radius: 6px; }
+
     /* ─── MARQUESINA / FILM TICKER (Animación Infinita) ───────── */
     .film-ticker {
       background: var(--dark);
@@ -298,10 +301,6 @@
     }
     .s .pf-intro { color: var(--mid); }
     .s--dark .pf-intro { color: rgba(255,255,255,0.5); }
-
-    /* Vídeo destacado a gran tamaño (foco narrativo) — usado en el showreel de portada */
-    .vid-feature { margin-bottom: 4rem; }
-    .vid-feature .vid-frame { border-radius: 6px; }
 
     /* ─── BLOQUE EDITORIAL DE VÍDEO (titular condensado + vídeo a sangre, ref. Zara) ─ */
     .vfeat { max-width: 1100px; }
@@ -421,6 +420,10 @@
     /* En secciones claras los textos de vídeo se oscurecen */
     .s:not(.s--dark) .vid-title { color: var(--dark); }
     .s:not(.s--dark) .vid-meta { color: var(--mid); }
+    /* Ídem para el bloque editorial: .vfeat nació en la sección oscura de vídeo,
+       pero el portfolio de foto (fondo claro) lo reutiliza para sus titulares. */
+    .s:not(.s--dark) .vfeat-title { color: var(--dark); }
+    .s:not(.s--dark) .vfeat-desc  { color: var(--mid); }
 
     /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
     /* Layout masonry con CSS multi-columna: respeta la proporción nativa de cada
@@ -437,7 +440,6 @@
       color: var(--red);
       margin: 3.5rem 0 1.4rem;
     }
-    .pf-cat:first-of-type { margin-top: 0; }
     .ph {
       position: relative;
       overflow: hidden;
@@ -858,8 +860,8 @@
   </button>
 
   <ul class="nav-links">
-    <li><a href="#video">Vídeo</a></li>
     <li><a href="#photo">Foto</a></li>
+    <li><a href="#video">Vídeo</a></li>
     <li><a href="#about">Sobre mí</a></li>
     <li><a href="#experience">Experiencia</a></li>
     <li><a href="#education">Formación</a></li>
@@ -883,20 +885,16 @@
 
   <a class="hero-cta" href="#video">Ver portfolio</a>
 
-  <!-- ESCAPARATE: clip destacado embebido en portada (José pidió que la portada
-       fuese el Atlético). Es un .mp4 local, por eso usa loadLocalVideo(). -->
+  <!-- ESCAPARATE: la portada es una fotografía (José la cambió por el clip del
+       Atlético, que ahora abre el portfolio de vídeo). Sin loading="lazy":
+       es la imagen LCP de la página. Ampliable con el lightbox nativo. -->
   <div class="hero-showcase">
-    <div class="hero-showcase-label"><span>◆</span> Atlético Madrileño · 1ª RFEF</div>
-    <div class="vid-feature">
-      <div class="vid-wrap">
-        <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
-          <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb">
-          <div class="vid-placeholder">
-            <div class="vid-play"></div>
-            <span class="vid-hint">Reproducir clip</span>
-          </div>
-        </div>
+    <div class="hero-showcase-label"><span>◆</span> Pretemporada 2026/27 · CD Leganés</div>
+    <div class="hero-shot ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/hero-camiseta.jpg" alt="Presentación de Soko con el CD Leganés — camiseta a la espalda">
       </div>
+      <div class="ph-overlay"><span class="ph-caption">Pretemporada 2026/27</span></div>
     </div>
   </div>
 </header>
@@ -923,45 +921,28 @@
 </div>
 
 <!-- ════════════════════════════════════════════════════════════
-     02 · PORTFOLIO VÍDEO — Destacado grande + grid (estilo Zara)
+     02 · PORTFOLIO FOTO — Cobertura deportiva + lightbox
+     José subió la foto por delante del vídeo (portada → foto → vídeo).
      ════════════════════════════════════════════════════════════ -->
-<section class="s s--dark" id="video">
+<section class="s" id="photo">
   <div class="s-head">
     <span class="s-num">02</span>
-    <h2 class="s-title">Portfolio Vídeo</h2>
+    <h2 class="s-title">Portfolio Foto</h2>
     <div class="s-rule"></div>
   </div>
 
-  <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO ════════════════════════════
-       Primera pieza del portfolio. El clip destacado vive ahora en la portada
-       (escaparate), así que aquí va el titular + la rejilla 2×2 de clips en
-       bucle y simultáneo (autoplay/muted/loop, arrancan solos al cargar).
+  <p class="pf-intro">Cobertura fotográfica de fútbol profesional: partido a pie de campo, presentaciones de jugadores y sala de prensa.</p>
+
+  <!-- ── CD LEGANÉS ─────────────────────────────────────────────────────────
+       Fotografía de partido en Butarque. Vivía en el portfolio de vídeo, pero
+       es material fotográfico: José lo puso a abrir el apartado de foto.
        ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
-    <h3 class="vfeat-title">Atlético<br>Madrileño<span>vs Cartagena · Operación de cámara · 1ª RFEF</span></h3>
-    <p class="vfeat-desc">Desde la lente de mi cámara. Cobertura del partido para la retransmisión en directo: la tensión, la celebración y el espectáculo sobre el césped.</p>
-  </div>
-
-  <!-- Rejilla 2×2 de clips en bucle simultáneo (mudos, sin controles) -->
-  <div class="loop-grid">
-    <video class="loop-vid" src="resources/videos/atleti-loop-01.mp4" poster="resources/fotografias/atleti-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/atleti-loop-02.mp4" poster="resources/fotografias/atleti-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/atleti-loop-03.mp4" poster="resources/fotografias/atleti-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/atleti-loop-04.mp4" poster="resources/fotografias/atleti-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  </div>
-
-  <!-- ───────────────────────────────────────────────────────────────────────
-       CD LEGANÉS — apartado propio de fotografía de partido.
-       Va entre el bloque del Atlético Madrileño y "Amapolas". Mismo patrón
-       editorial (titular vfeat) + galería masonry con lightbox.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
     <h3 class="vfeat-title">CD<br>Leganés<span>Fotografía de partido · Cobertura del club</span></h3>
     <p class="vfeat-desc">Cobertura fotográfica del partido en Butarque: el pulso del juego, los duelos y la celebración capturados a pie de campo.</p>
   </div>
 
-  <!-- Foto principal a gran formato: mismo encuadre y anchura que el vídeo
-       destacado de "Amapolas" (.vfeat-stage → min(100%, 1300px), 16/9). -->
+  <!-- Foto principal a gran formato (.vfeat-stage → min(100%, 1300px)). -->
   <div class="vfeat-stage">
     <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-01.jpg" alt="CD Leganés — once inicial" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
   </div>
@@ -976,6 +957,170 @@
     <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-07.jpg" alt="CD Leganés — repliegue" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
     <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-08.jpg" alt="CD Leganés — portero a contraluz" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
     <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-09.jpg" alt="CD Leganés — celebración frente a la grada" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
+  </div>
+
+  <!-- ── PRETEMPORADA 2026/27 ───────────────────────────────────────────────
+       Sustituye a los antiguos grids de foto (cine/videoclip, dirección de arte
+       y cobertura & prensa). Son dos reportajes distintos, así que van en dos
+       subgrupos etiquetados con .pf-cat, cada uno con su propio masonry.
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat" style="margin-top: 6rem;">
+    <h3 class="vfeat-title">Pretemporada<br>2026/27<span>Presentaciones y fichajes · CD Leganés &amp; Getafe CF</span></h3>
+    <p class="vfeat-desc">El arranque de temporada desde dentro del club: la presentación de un fichaje ante la prensa y la afición, y las firmas de contrato en las oficinas.</p>
+  </div>
+
+  <p class="pf-cat">CD Leganés</p>
+  <div class="photo-grid">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-01.jpg" alt="Presentación de Soko junto al director deportivo del CD Leganés" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Presentación</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-02.jpg" alt="Sala de prensa del CD Leganés durante la presentación" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Sala de prensa</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-03.jpg" alt="Soko posando con la equipación del CD Leganés sobre el césped" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Posado en Butarque</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-04.jpg" alt="Soko con la afición del CD Leganés en la grada" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Con la afición</span></div>
+    </div>
+  </div>
+
+  <p class="pf-cat">Getafe CF</p>
+  <div class="photo-grid">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-getafe-01.jpg" alt="Firma de contrato en las oficinas del Getafe CF" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Firma de contrato</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-getafe-02.jpg" alt="Firma de contrato bajo el escudo del Getafe CF" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Firma de contrato</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-getafe-03.jpg" alt="Posado con la camiseta del Getafe CF tras la firma" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Posado con la camiseta</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-getafe-04.jpg" alt="Posado en el campo de la ciudad deportiva del Getafe CF" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Ciudad deportiva</span></div>
+    </div>
+  </div>
+
+  <!-- ════════ BLOQUE PROYECTO: ANATOMÍA DE UNA DERROTA · EP (según mockup img 8) ════════
+       Dirección creativa de la EP. Portada (portada-album.jpeg) + texto + las dos
+       canciones embebidas de Spotify. Para cambiarlas, edita el id en la URL de cada
+       <iframe>: open.spotify.com/embed/track/<id>.
+       ─────────────────────────────────────────────────────────────────────────────── -->
+  <div class="ep-block">
+    <h3 class="proj-title">Anatomía de una Derrota<span>Martínez · Dirección creativa</span></h3>
+    <div class="ep-grid">
+      <div class="ep-cover">
+        <img src="resources/fotografias/portada-album.jpeg" alt="Anatomía de una Derrota — portada del EP">
+      </div>
+      <div class="ep-info">
+        <h4 class="ep-sub">Portada del EP</h4>
+        <p class="about-body">El personaje de Martínez está consumido por la monotonía, la rutina y la pérdida de propósito. Escenificado en las manos de una <em>femme fatale</em>, vemos cómo su vida, esclavizada por el trabajo y la falta de ambición, le desgarra por completo.</p>
+        <div class="sp-list">
+          <!-- Las dos canciones del EP en Spotify (Casa Morgano y Bucle) -->
+          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3EoZssIkb4Ow7PUz5LwXek?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — Casa Morgano"></iframe>
+          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/30KvX1KSDYzBQs6rsqHqa2?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — Bucle"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     03 · PORTFOLIO VÍDEO — Destacado grande + rejilla (estilo Zara)
+     ════════════════════════════════════════════════════════════ -->
+<section class="s s--dark" id="video">
+  <div class="s-head">
+    <span class="s-num">03</span>
+    <h2 class="s-title">Portfolio Vídeo</h2>
+    <div class="s-rule"></div>
+  </div>
+
+  <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO ════════════════════════════
+       Primera pieza del portfolio. El clip destacado volvió aquí desde la portada
+       (que ahora es una foto), sobre la rejilla 2×2 de clips en bucle y simultáneo
+       (autoplay/muted/loop, arrancan solos al cargar).
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat">
+    <h3 class="vfeat-title">Atlético<br>Madrileño<span>vs Cartagena · Operación de cámara · 1ª RFEF</span></h3>
+    <p class="vfeat-desc">Desde la lente de mi cámara. Cobertura del partido para la retransmisión en directo: la tensión, la celebración y el espectáculo sobre el césped.</p>
+  </div>
+
+  <div class="vfeat-stage">
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/atleti-destacado.mp4')">
+        <img src="resources/fotografias/atleti-destacado.jpg" alt="Atlético Madrileño — Cartagena" class="vid-thumb" loading="lazy">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Reproducir clip</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rejilla 2×2 de clips en bucle simultáneo (mudos, sin controles) -->
+  <div class="loop-grid">
+    <video class="loop-vid" src="resources/videos/atleti-loop-01.mp4" poster="resources/fotografias/atleti-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-02.mp4" poster="resources/fotografias/atleti-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-03.mp4" poster="resources/fotografias/atleti-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/atleti-loop-04.mp4" poster="resources/fotografias/atleti-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  </div>
+
+  <!-- ════════ BLOQUE PROYECTO: GETAFE — VALLADOLID ═══════════════════════════
+       Segunda pieza del portfolio de vídeo. Mismo patrón que el Atlético:
+       clip destacado (con sonido, bajo demanda) + rejilla 2×2 muda en bucle.
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat" style="margin-top: 6rem;">
+    <h3 class="vfeat-title">Getafe<br>Valladolid<span>Operación de cámara · Retransmisión en directo</span></h3>
+    <p class="vfeat-desc">Cobertura del encuentro para la señal en directo: la salida de los equipos, el duelo en el área y la lectura del partido desde la banda.</p>
+  </div>
+
+  <div class="vfeat-stage">
+    <div class="vid-wrap">
+      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/getafe-destacado.mp4')">
+        <img src="resources/fotografias/getafe-destacado.jpg" alt="Getafe — Valladolid, salida de los equipos al césped" class="vid-thumb" loading="lazy">
+        <div class="vid-placeholder">
+          <div class="vid-play"></div>
+          <span class="vid-hint">Reproducir clip</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loop-grid">
+    <video class="loop-vid" src="resources/videos/getafe-loop-01.mp4" poster="resources/fotografias/getafe-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-loop-02.mp4" poster="resources/fotografias/getafe-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-loop-03.mp4" poster="resources/fotografias/getafe-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-loop-04.mp4" poster="resources/fotografias/getafe-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
   </div>
 
   <!-- BLOQUE EDITORIAL DESTACADO: titular condensado + vídeo a sangre (ref. Zara) -->
@@ -1035,148 +1180,6 @@
       <div class="vid-meta">Steadicam</div>
     </div>
 
-  </div>
-
-  <!-- ════════ BLOQUE DE CIERRE: SHOWREEL · MONTECARLOFILMS ════════════════════
-       El showreel cierra el portfolio (José lo quiso como última pieza; antes
-       estaba en la portada). YouTube con carga diferida vía loadVideo().
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
-    <h3 class="vfeat-title">Showreel<span>MonteCarloFilms · Reel</span></h3>
-    <p class="vfeat-desc">Recopilación de mi trabajo audiovisual: operación de cámara, Steadicam y dirección bajo MonteCarloFilms.</p>
-  </div>
-  <div class="vfeat-stage">
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadVideo(this, 'h9y3aLxmEDI')">
-        <img src="resources/fotografias/showreel-cover.jpg" alt="Showreel — MonteCarloFilms" class="vid-thumb">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Reproducir showreel</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════
-     03 · PORTFOLIO FOTO — Grid + lightbox
-     ════════════════════════════════════════════════════════════ -->
-<section class="s" id="photo">
-  <div class="s-head">
-    <span class="s-num">03</span>
-    <h2 class="s-title">Portfolio Foto</h2>
-    <div class="s-rule"></div>
-  </div>
-
-  <p class="pf-intro">Organizado por tipo de trabajo: cine y videoclip, dirección de arte y cobertura de eventos.</p>
-
-  <!-- Las fotos se agrupan por categoría (petición de José: no mezclar el trabajo
-       de videoclip con la cobertura institucional). Cada grupo es su propio
-       masonry para que reflujan de forma independiente. -->
-
-  <!-- ── CINE & VIDEOCLIP ─────────────────────────────────────── -->
-  <p class="pf-cat">Cine &amp; Videoclip</p>
-  <div class="photo-grid">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/IMG_0928.JPG" alt="Operación de Steadicam — Rodaje Exterior">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Steadicam · Exterior</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/IMG_9774.JPG" alt="Dirección de Fotografía — Estilo Urbano">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Dirección de fotografía</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/IMG_9818.JPG" alt="Retrato en Set — Videoclip Musical">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Retrato en set</span></div>
-    </div>
-  </div>
-
-  <!-- ── DIRECCIÓN DE ARTE ────────────────────────────────────── -->
-  <p class="pf-cat">Dirección de Arte</p>
-  <div class="photo-grid">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/bucle-album.jpeg" alt="Detalle de Escena — Texturas e Iluminación">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Iluminación · Texturas</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/Casa-Morgano.jpeg" alt="Bodegón Cinematográfico — Casa Morgano">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Casa Morgano</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/portada-album.jpeg" alt="Iluminación Expresiva — Contraste en Clave Oscura">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Clave oscura</span></div>
-    </div>
-  </div>
-
-  <!-- ── COBERTURA & PRENSA ───────────────────────────────────── -->
-  <p class="pf-cat">Cobertura &amp; Prensa</p>
-  <div class="photo-grid">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/rueda-prensa-01.jpg" alt="Rueda de prensa — cobertura deportiva">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/rueda-prensa-02.jpg" alt="Rueda de prensa — cobertura deportiva">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/rueda-prensa-03.jpg" alt="Rueda de prensa — cobertura deportiva">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/rueda-prensa-04.jpg" alt="Rueda de prensa — cobertura deportiva">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Rueda de prensa</span></div>
-    </div>
-  </div>
-
-  <!-- ════════ BLOQUE PROYECTO: ANATOMÍA DE UNA DERROTA · EP (según mockup img 8) ════════
-       Dirección creativa de la EP. Portada (portada-album.jpeg) + texto + las dos
-       canciones embebidas de Spotify. Para cambiarlas, edita el id en la URL de cada
-       <iframe>: open.spotify.com/embed/track/<id>.
-       ─────────────────────────────────────────────────────────────────────────────── -->
-  <div class="ep-block">
-    <h3 class="proj-title">Anatomía de una Derrota<span>Martínez · Dirección creativa</span></h3>
-    <div class="ep-grid">
-      <div class="ep-cover">
-        <img src="resources/fotografias/portada-album.jpeg" alt="Anatomía de una Derrota — portada del EP">
-      </div>
-      <div class="ep-info">
-        <h4 class="ep-sub">Portada del EP</h4>
-        <p class="about-body">El personaje de Martínez está consumido por la monotonía, la rutina y la pérdida de propósito. Escenificado en las manos de una <em>femme fatale</em>, vemos cómo su vida, esclavizada por el trabajo y la falta de ambición, le desgarra por completo.</p>
-        <div class="sp-list">
-          <!-- Las dos canciones del EP en Spotify (Casa Morgano y Bucle) -->
-          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3EoZssIkb4Ow7PUz5LwXek?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — Casa Morgano"></iframe>
-          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/30KvX1KSDYzBQs6rsqHqa2?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — Bucle"></iframe>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
