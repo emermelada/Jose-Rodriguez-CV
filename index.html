@@ -426,12 +426,15 @@
     .s:not(.s--dark) .vfeat-desc  { color: var(--mid); }
 
     /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
-    /* Layout masonry con CSS multi-columna: respeta la proporción nativa de cada
-       foto (sin recortes) y rellena sin huecos. Sustituye al grid de celdas, que
-       dejaba las fotos panorámicas solas con un hueco en blanco al lado. */
-    .photo-grid { columns: 3; column-gap: 1rem; }
-    /* Etiqueta de categoría: separa el portfolio de foto por tipo de trabajo
-       (cine/videoclip, dirección de arte, cobertura) en lugar de mezclarlo todo. */
+    /* Rejilla 2×2 de celdas iguales. Antes era un masonry de 3 columnas, pero con
+       grupos de 4 fotos dejaba una suelta en la última fila y las columnas
+       descuadradas; con celdas 16:9 uniformes los dos reportajes se leen parejos. */
+    .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .photo-grid .ph { margin-bottom: 0; }   /* el hueco lo pone el gap, no el margen */
+    .photo-grid .ph-inner { position: relative; aspect-ratio: 16/9; }
+    .photo-grid .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    /* Etiqueta de categoría: separa el portfolio de foto por reportaje
+       (CD Leganés, Getafe CF) en lugar de mezclarlo todo. */
     .pf-cat {
       font-family: var(--fm);
       font-size: 0.62rem;
@@ -828,14 +831,13 @@
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
 
-      .photo-grid { columns: 2; }
       .video-grid { grid-template-columns: 1fr; }
       .stills-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(3.2rem, 16vw, 4.5rem); }
-      .photo-grid { columns: 1; }
+      .photo-grid { grid-template-columns: 1fr; }
       .stills-grid { grid-template-columns: 1fr; }
       .loop-grid { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
