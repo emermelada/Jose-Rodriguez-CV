@@ -13,8 +13,8 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
 1. **Portada** — Nombre a gran escala + **fotografía** destacada de la pretemporada 2026/27 (presentación en el CD Leganés) como escaparate, ampliable con el *lightbox*.
-2. **Portfolio Foto** — Orden: **CD Leganés** (foto principal a gran formato + dos filas de 4 fotografías) → **Pretemporada 2026/27**, dividida en dos subgrupos por club (CD Leganés · Getafe CF) en rejilla 2×2 → bloque del EP *Anatomía de una Derrota*. Todo con *lightbox* nativo a pantalla completa.
-3. **Portfolio Vídeo** — Orden: **Atlético Madrileño** → **Getafe – Valladolid**, ambos con el mismo patrón (clip destacado a gran formato + rejilla 2×2 de clips en bucle simultáneo) → videoclip *Amapolas* con su galería de stills → cortometraje y Steadicam. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
+2. **Portfolio Foto** — Orden: **CD Leganés** (foto principal a gran formato + dos filas de 4 fotografías) → **Pretemporada 2026/27**, dividida en dos subgrupos por club (CD Leganés · Getafe CF) en rejilla 2×2. Todo con *lightbox* nativo a pantalla completa.
+3. **Portfolio Vídeo** — Orden: **Getafe – Valladolid** → **Atlético Madrileño**, ambos con el mismo patrón (clip destacado a gran formato + rejilla 2×2 de clips en bucle simultáneo) → videoclip *Amapolas* con su galería de stills → bloque del EP *Anatomía de una Derrota* → cortometraje y Steadicam. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
 6. **Formación** — Educación y certificaciones.
