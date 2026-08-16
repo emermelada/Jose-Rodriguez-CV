@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aviso legal y privacidad — José Rodríguez</title>
+  <meta name="description" content="Aviso legal, política de privacidad, uso de cookies y condiciones de uso de las imágenes del portfolio de José Rodríguez.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Mismas tipografías autoalojadas que el portfolio (sin terceros). -->
+  <link rel="preload" href="resources/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link href="resources/fonts/fonts.css" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    /* Tokens heredados de index.html para mantener la identidad visual. */
+    :root {
+      --bg:    #ebebe7;
+      --red:   #b6282d;
+      --dark:  #111110;
+      --mid:   #5a5a56;
+      --pale:  #d0d0cb;
+      --white: #f5f5f2;
+      --fh:    'Geist', 'Arial', sans-serif;
+      --fb:    'Coolvetica', 'Arial Narrow', 'Arial', sans-serif;
+      --fm:    'Geist Mono', monospace;
+      --fd:    'Anton', 'Arial Narrow', 'Arial', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--dark);
+      font-family: var(--fb);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+    }
+
+    /* ─── Cabecera ─────────────────────────────────────────────── */
+    .l-top {
+      border-bottom: 1px solid var(--pale);
+      padding: 1.6rem clamp(1.4rem, 5vw, 5rem);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .l-back {
+      font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--dark); text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .l-back:hover { color: var(--red); }
+    .l-tag { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); }
+
+    /* ─── Contenido ────────────────────────────────────────────── */
+    .l-wrap { max-width: 760px; margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) clamp(1.4rem, 5vw, 2rem) 6rem; }
+
+    .l-title {
+      font-family: var(--fd);
+      font-size: clamp(2.6rem, 9vw, 5rem);
+      line-height: 0.95; letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+    .l-intro { font-family: var(--fh); font-size: 1.05rem; color: var(--mid); margin-top: 1.6rem; }
+    .l-updated { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); margin-top: 2rem; }
+
+    /* Índice */
+    .l-toc { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--pale); display: grid; gap: 0.5rem; }
+    .l-toc a {
+      font-family: var(--fm); font-size: 0.72rem; letter-spacing: 0.06em;
+      color: var(--dark); text-decoration: none;
+      display: flex; gap: 1rem; transition: color 0.25s ease;
+    }
+    .l-toc a:hover { color: var(--red); }
+    .l-toc span { color: var(--red); }
+
+    section { margin-top: 4.5rem; scroll-margin-top: 2rem; }
+    h2 {
+      font-family: var(--fd);
+      font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+      line-height: 1.1; text-transform: uppercase;
+      padding-bottom: 0.9rem; border-bottom: 2px solid var(--dark);
+      display: flex; align-items: baseline; gap: 1rem;
+    }
+    h2 em { font-family: var(--fm); font-size: 0.6rem; font-style: normal; letter-spacing: 0.2em; color: var(--red); }
+    h3 {
+      font-family: var(--fh); font-size: 0.95rem; font-weight: 700;
+      margin-top: 2.2rem;
+    }
+    p, li { font-family: var(--fh); font-size: 0.94rem; color: #2c2c29; margin-top: 1rem; }
+    a { color: var(--red); text-underline-offset: 3px; }
+    ul { margin-top: 0.4rem; padding-left: 1.3rem; }
+    li { margin-top: 0.5rem; }
+    strong { font-weight: 700; color: var(--dark); }
+
+    /* Ficha de datos identificativos */
+    .l-data { margin-top: 1.8rem; border-top: 1px solid var(--pale); }
+    .l-row { display: grid; grid-template-columns: 170px 1fr; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--pale); }
+    .l-row dt { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); padding-top: 0.2rem; }
+    .l-row dd { font-family: var(--fh); font-size: 0.94rem; }
+    @media (max-width: 560px) { .l-row { grid-template-columns: 1fr; gap: 0.2rem; } }
+
+    /* Aviso destacado */
+    .l-note {
+      margin-top: 1.8rem; padding: 1.3rem 1.5rem;
+      background: var(--dark); color: var(--white); border-left: 4px solid var(--red);
+    }
+    .l-note p { color: rgba(245,245,242,0.8); margin-top: 0.6rem; }
+    .l-note p:first-child { margin-top: 0; }
+    .l-note a { color: var(--white); }
+    .l-note strong { color: var(--white); }
+
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.25);
+      padding: 2.4rem clamp(1.4rem, 5vw, 5rem);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem 2rem;
+    }
+    .foot-name { font-family: var(--fh); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+    .foot-copy { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.15); }
+  </style>
+</head>
+<body>
+
+<header class="l-top">
+  <a class="l-back" href="index.html">← Volver al portfolio</a>
+  <span class="l-tag">Información legal</span>
+</header>
+
+<main class="l-wrap">
+  <h1 class="l-title">Aviso legal<br>y privacidad</h1>
+  <p class="l-intro">Información exigida por la Ley 34/2002 de Servicios de la Sociedad de la Información (LSSI-CE) y por el Reglamento (UE) 2016/679 (RGPD), junto con las condiciones de uso de los contenidos de este portfolio.</p>
+  <p class="l-updated">Última actualización · 15 de agosto de 2026</p>
+
+  <nav class="l-toc" aria-label="Índice">
+    <a href="#titular"><span>01</span> Datos identificativos del titular</a>
+    <a href="#privacidad"><span>02</span> Política de privacidad</a>
+    <a href="#cookies"><span>03</span> Cookies y servicios de terceros</a>
+    <a href="#imagenes"><span>04</span> Propiedad intelectual y uso de imágenes</a>
+    <a href="#condiciones"><span>05</span> Condiciones de uso y responsabilidad</a>
+  </nav>
+
+  <!-- ════════ 01 · LSSI art. 10: datos que todo prestador de servicios debe publicar ════════ -->
+  <section id="titular">
+    <h2>Titular <em>01</em></h2>
+    <p>En cumplimiento del artículo 10 de la LSSI-CE, se hacen constar los siguientes datos identificativos del titular de este sitio web:</p>
+    <dl class="l-data">
+      <div class="l-row"><dt>Titular</dt><dd>José Rodríguez Gutiérrez</dd></div>
+      <div class="l-row"><dt>NIF</dt><dd>21090308K</dd></div>
+      <div class="l-row"><dt>Domicilio</dt><dd>Madrid, España <!-- TODO: sustituir por la dirección completa (vía, número, CP y municipio). El art. 10.1.a LSSI exige domicilio, no basta la provincia. --></dd></div>
+      <div class="l-row"><dt>Correo electrónico</dt><dd><a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a></dd></div>
+      <div class="l-row"><dt>Teléfono</dt><dd><a href="tel:+34685044900">+34 685 044 900</a></dd></div>
+      <div class="l-row"><dt>Actividad</dt><dd>Servicios audiovisuales: operación de cámara, dirección de fotografía, realización y postproducción</dd></div>
+      <div class="l-row"><dt>Alojamiento</dt><dd>GitHub, Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, EE. UU.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ════════ 02 · RGPD art. 13: información a facilitar al interesado ════════ -->
+  <section id="privacidad">
+    <h2>Privacidad <em>02</em></h2>
+
+    <h3>Responsable del tratamiento</h3>
+    <p>José Rodríguez Gutiérrez, NIF 21090308K, con dirección de contacto <a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a>.</p>
+
+    <h3>Qué datos se tratan</h3>
+    <p>Este sitio web <strong>no incorpora formularios, registro de usuarios ni herramientas de analítica</strong>. No se recogen datos de navegación con fines estadísticos ni publicitarios.</p>
+    <p>Sólo se tratan datos personales cuando la persona interesada contacta voluntariamente por correo electrónico, teléfono o redes sociales. En ese caso se tratan los datos que ella misma facilite: normalmente nombre, dirección de correo, teléfono y el contenido del mensaje.</p>
+    <p>Con independencia de lo anterior, el proveedor de alojamiento registra de forma automática la dirección IP y los datos técnicos de cada visita en sus registros de servidor, por motivos de seguridad y funcionamiento.</p>
+
+    <h3>Finalidad y base jurídica</h3>
+    <ul>
+      <li><strong>Atender consultas y presupuestos:</strong> aplicación de medidas precontractuales a petición del interesado (art. 6.1.b RGPD).</li>
+      <li><strong>Gestionar la relación con clientes y colaboradores:</strong> ejecución del contrato (art. 6.1.b RGPD) y cumplimiento de obligaciones fiscales y contables (art. 6.1.c RGPD).</li>
+      <li><strong>Registros técnicos del servidor:</strong> interés legítimo en mantener la seguridad y disponibilidad del sitio (art. 6.1.f RGPD).</li>
+    </ul>
+
+    <h3>Conservación</h3>
+    <p>Los mensajes que no den lugar a una relación profesional se conservan el tiempo necesario para responderlos y, como máximo, un año. Los datos vinculados a trabajos contratados se conservan durante los plazos de prescripción legal y fiscal aplicables (con carácter general, seis años conforme al Código de Comercio).</p>
+
+    <h3>Destinatarios</h3>
+    <p>No se ceden datos a terceros, salvo obligación legal. Intervienen como proveedores de servicios necesarios el proveedor de correo electrónico (Google Ireland Ltd., servicio Gmail) y el proveedor de alojamiento (GitHub, Inc.). Estos proveedores pueden implicar transferencias internacionales de datos a Estados Unidos, amparadas en el Marco de Privacidad de Datos UE-EE. UU. y en cláusulas contractuales tipo.</p>
+
+    <h3>Derechos</h3>
+    <p>Cualquier persona puede ejercer los derechos de <strong>acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad</strong>, así como retirar el consentimiento prestado, escribiendo a <a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a> e indicando el derecho que desea ejercer. Podrá solicitarse un documento que acredite la identidad del solicitante.</p>
+    <p>Si considera que sus datos no se tratan correctamente, puede presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener">Agencia Española de Protección de Datos</a> (C/ Jorge Juan, 6, 28001 Madrid).</p>
+  </section>
+
+  <!-- ════════ 03 · LSSI art. 22.2 ════════ -->
+  <section id="cookies">
+    <h2>Cookies <em>03</em></h2>
+    <p>Este sitio <strong>no instala cookies propias ni de analítica</strong>, y no utiliza ninguna tecnología de seguimiento o de elaboración de perfiles. Por ese motivo no se muestra ningún banner de consentimiento: no hay nada que consentir mientras se navega normalmente.</p>
+    <p>Las tipografías se sirven desde este mismo dominio, de modo que la navegación no genera conexiones a servidores de terceros.</p>
+
+    <div class="l-note">
+      <p><strong>Única excepción: los reproductores de vídeo y música.</strong></p>
+      <p>El portfolio incluye vídeos alojados en YouTube y dos canciones alojadas en Spotify. Ninguno de esos reproductores <strong>se carga automáticamente</strong>: en su lugar se muestra una imagen o un botón, y sólo al pulsarlo se establece la conexión con la plataforma correspondiente, que en ese momento puede instalar sus propias cookies y tratar la dirección IP.</p>
+      <p>Pulsar ese botón constituye el consentimiento previsto en el art. 22.2 de la LSSI-CE. Si no se pulsa, no se produce ninguna conexión. Los vídeos se sirven además a través del dominio <em>youtube-nocookie.com</em>, que reduce el seguimiento.</p>
+      <p>Condiciones de cada plataforma: <a href="https://www.spotify.com/es/legal/privacy-policy/" target="_blank" rel="noopener">privacidad de Spotify</a> · <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacidad de Google/YouTube</a>.</p>
+    </div>
+  </section>
+
+  <!-- ════════ 04 · Propiedad intelectual + derecho a la propia imagen (LO 1/1982) ════════ -->
+  <section id="imagenes">
+    <h2>Imágenes <em>04</em></h2>
+
+    <h3>Titularidad de los contenidos</h3>
+    <p>Las fotografías, vídeos, textos y el diseño de este sitio son obra de José Rodríguez Gutiérrez o se publican con autorización de sus titulares, y están protegidos por el Real Decreto Legislativo 1/1996 (Ley de Propiedad Intelectual).</p>
+    <p>Queda prohibida su reproducción, distribución, comunicación pública, transformación o uso comercial, total o parcial, <strong>sin autorización previa y por escrito</strong>. Se permite enlazar a este sitio y compartir sus contenidos citando la autoría y sin alterarlos.</p>
+    <p>Las marcas, logotipos y nombres de las entidades que aparecen en los trabajos son propiedad de sus respectivos titulares y se muestran únicamente a efectos de acreditar la trayectoria profesional.</p>
+
+    <h3>Personas que aparecen en los trabajos</h3>
+    <p>Las imágenes en las que aparecen personas identificables se publican contando con su autorización o al amparo de las excepciones del artículo 8 de la Ley Orgánica 1/1982, de protección civil del derecho al honor, a la intimidad personal y familiar y a la propia imagen, en particular cuando se trata de la cobertura informativa de acontecimientos públicos.</p>
+    <p>Si aparece usted en alguna imagen y desea que se retire, basta con escribir a <a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a> identificando la pieza concreta. La retirada se realizará sin necesidad de justificar el motivo y en el plazo más breve posible.</p>
+  </section>
+
+  <!-- ════════ 05 ════════ -->
+  <section id="condiciones">
+    <h2>Condiciones <em>05</em></h2>
+    <p>El acceso a este sitio es gratuito y no requiere registro. Su finalidad es mostrar el trabajo profesional del titular y facilitar el contacto; no constituye una oferta contractual vinculante.</p>
+    <p>El titular procura que la información publicada sea exacta y esté actualizada, pero no garantiza la ausencia de errores ni la disponibilidad ininterrumpida del servicio, y se reserva el derecho a modificar o retirar cualquier contenido sin aviso previo.</p>
+    <p>Este sitio contiene enlaces a páginas de terceros (Instagram, Spotify, YouTube o webs de clientes). El titular no controla dichos sitios ni responde de sus contenidos ni de sus políticas de privacidad.</p>
+    <p>La relación entre el titular y los usuarios se rige por la legislación española. Para la resolución de cualquier controversia serán competentes los juzgados y tribunales que correspondan conforme a la normativa aplicable; cuando el usuario tenga la condición de consumidor, los de su domicilio.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-name">José Rodríguez © 2026</div>
+  <div class="foot-copy">Steadicam Operator · Filmmaker · Madrid</div>
+</footer>
+
+</body>
+</html>

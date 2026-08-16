@@ -6,11 +6,12 @@
   <title>José Rodríguez — Steadicam Operator & Filmmaker</title>
   <meta name="description" content="Steadicam Operator & Filmmaker. Creador de MonteCarloFilms. Especializado en cámara, iluminación y eventos deportivos. Madrid.">
 
-  <!-- Tipografías: Geist para textos técnicos/números y Coolvetica para un impacto brutalista -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/coolvetica" rel="stylesheet">
+  <!-- Tipografías: Geist para textos técnicos/números y Coolvetica para un impacto brutalista.
+       Autoalojadas en resources/fonts/ para no enviar la IP del visitante a Google ni a
+       cdnfonts (RGPD). Para regenerarlas: python scripts/selfhost_fonts.py -->
+  <link rel="preload" href="resources/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="resources/fonts/coolvetica.woff" as="font" type="font/woff" crossorigin>
+  <link href="resources/fonts/fonts.css" rel="stylesheet">
 
   <style>
     /* ─── RESET & REGLAS BASE ────────────────────────────────── */
@@ -511,7 +512,30 @@
     .s--dark .ep-block .about-body em { color: var(--white); }
     /* Reproductores embebidos de Spotify */
     .sp-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.6rem; }
-    .sp-iframe { display: block; width: 100%; border: 0; }
+    .sp-iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
+
+    /* Marcador previo al iframe: mismo alto que el reproductor real (152 px) para
+       que al cargarlo no se desplace el contenido de alrededor. */
+    .sp-facade {
+      display: flex; align-items: center; gap: 1.1rem;
+      width: 100%; height: 152px; padding: 0 1.4rem;
+      background: var(--dark); color: var(--white);
+      border: 1px solid rgba(245,245,242,0.14); border-radius: 12px;
+      cursor: pointer; text-align: left;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .sp-facade:hover { background: #1a1a18; border-color: var(--red); }
+    .sp-facade:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    .sp-play {
+      flex: none; display: grid; place-items: center;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--red); color: var(--white); font-size: 0.9rem; padding-left: 3px;
+    }
+    .sp-txt { display: flex; flex-direction: column; gap: 0.3rem; }
+    .sp-name { font-family: var(--fh); font-size: 1rem; font-weight: 700; }
+    .sp-note { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,245,242,0.45); }
+    .sp-disc { font-family: var(--fm); font-size: 0.6rem; line-height: 1.7; letter-spacing: 0.04em; color: var(--mid); }
+    .sp-disc a { color: inherit; text-underline-offset: 3px; }
 
     /* ─── SECCIÓN: SOBRE MÍ (Image-led, ref. Diego Simón) ────── */
     /* Fila principal: foto grande a la izquierda + texto a la derecha */
@@ -772,9 +796,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
     }
     .foot-name { font-family: var(--fh); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); }
     .foot-copy { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.15); }
+    .foot-legal { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+    .foot-legal a {
+      font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(255,255,255,0.3);
+      text-decoration: none; transition: color 0.25s ease;
+    }
+    .foot-legal a:hover { color: var(--red); }
 
     /* ─── INTERFAZ LIGHTBOX (Modal nativo para fotos) ─────────── */
     #lb { display: none; position: fixed; inset: 0; background: rgba(10,10,10,0.94); z-index: 2000; align-items: center; justify-content: center; cursor: pointer; }
@@ -1152,9 +1185,25 @@
         <h4 class="ep-sub">Portada del EP</h4>
         <p class="about-body">El personaje de Martínez está consumido por la monotonía, la rutina y la pérdida de propósito. Escenificado en las manos de una <em>femme fatale</em>, vemos cómo su vida, esclavizada por el trabajo y la falta de ambición, le desgarra por completo.</p>
         <div class="sp-list">
-          <!-- Las dos canciones del EP en Spotify (Casa Morgano y Bucle) -->
-          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3EoZssIkb4Ow7PUz5LwXek?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — Casa Morgano"></iframe>
-          <iframe class="sp-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/30KvX1KSDYzBQs6rsqHqa2?utm_source=generator" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify — Bucle"></iframe>
+          <!-- Las dos canciones del EP en Spotify (Casa Morgano y Bucle).
+               No se carga el <iframe> hasta que el visitante pulsa: así Spotify no
+               instala cookies ni recibe su IP sin consentimiento (art. 22.2 LSSI).
+               Para cambiar de canción, edita data-track con el id de la pista. -->
+          <button class="sp-facade" type="button" data-track="3EoZssIkb4Ow7PUz5LwXek" data-title="Casa Morgano">
+            <span class="sp-play" aria-hidden="true">▶</span>
+            <span class="sp-txt">
+              <span class="sp-name">Casa Morgano</span>
+              <span class="sp-note">Cargar reproductor de Spotify</span>
+            </span>
+          </button>
+          <button class="sp-facade" type="button" data-track="30KvX1KSDYzBQs6rsqHqa2" data-title="Bucle">
+            <span class="sp-play" aria-hidden="true">▶</span>
+            <span class="sp-txt">
+              <span class="sp-name">Bucle</span>
+              <span class="sp-note">Cargar reproductor de Spotify</span>
+            </span>
+          </button>
+          <p class="sp-disc">Al cargar un reproductor se conecta con Spotify, que puede instalar cookies propias. <a href="legal.html#privacidad">Más información</a>.</p>
         </div>
       </div>
     </div>
@@ -1378,6 +1427,11 @@
 <footer>
   <div class="foot-name">José Rodríguez © 2026</div>
   <div class="foot-copy">Steadicam Operator · Filmmaker · Madrid</div>
+  <div class="foot-legal">
+    <a href="legal.html">Aviso legal</a>
+    <a href="legal.html#privacidad">Privacidad</a>
+    <a href="legal.html#imagenes">Uso de imágenes</a>
+  </div>
 </footer>
 
 <!-- Elemento accesible por teclado para cerrar modales -->
@@ -1410,9 +1464,11 @@
   /* ── LAZY VIDEO LOADER (YouTube) ──────────────────────────── */
   /* Inyecta el iframe solo tras interacción activa del usuario.
      Previene la precarga masiva de scripts pesados de la API de YouTube,
-     mejorando drásticamente las métricas de Core Web Vitals (LCP, TTI). */
+     mejorando drásticamente las métricas de Core Web Vitals (LCP, TTI).
+     Además, al no cargarse por defecto, YouTube no instala cookies sin que el
+     visitante lo pida; se usa youtube-nocookie.com para reducirlas aún más. */
   function loadVideo(container, videoId) {
-    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    container.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
   }
 
   /* ── LAZY VIDEO LOADER (archivo local mp4 — clips del Atleti) ─ */
@@ -1471,6 +1527,25 @@
   }, { rootMargin: '-40% 0px -55% 0px' }); // Ajuste del viewport de escucha centrado en pantalla
 
   sections.forEach(function(s) { navIo.observe(s); });
+
+  /* ── SPOTIFY BAJO DEMANDA ────────────────────────────────────────
+     El iframe sólo se inserta cuando el visitante pulsa el marcador, de modo
+     que la página no contacta con Spotify (ni permite sus cookies) por
+     defecto. autoplay=1 hace que suene al primer clic, sin pedir un segundo. */
+  document.querySelectorAll('.sp-facade').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var frame = document.createElement('iframe');
+      frame.className = 'sp-iframe';
+      frame.src = 'https://open.spotify.com/embed/track/' + btn.dataset.track + '?autoplay=1';
+      frame.width = '100%';
+      frame.height = '152';
+      frame.loading = 'lazy';
+      frame.title = 'Spotify — ' + btn.dataset.title;
+      frame.setAttribute('frameborder', '0');
+      frame.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
+      btn.replaceWith(frame);
+    });
+  });
 </script>
 
 </body>
