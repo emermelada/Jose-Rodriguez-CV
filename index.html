@@ -339,6 +339,9 @@
        min(100%,1300px) da un ancho definido y centrado. */
     .vfeat-stage { margin: 3rem auto 5rem; width: min(100%, 1300px); }
     .vfeat-stage .vid-frame { border-radius: 6px; }
+    /* El Reel del Sporting está grabado en vertical (1080×1920), así que su
+       escenario se estrecha en lugar de estirarse a los 1300px del resto. */
+    .vfeat-stage--vert { width: min(100%, 420px); }
 
     /* Rejilla 2×2 de clips en bucle simultáneo (mudos). El fondo rayado marca
        el hueco mientras no haya vídeo; al cargar, el <video> lo cubre. */
@@ -690,48 +693,6 @@
       color: var(--red);
     }
 
-    /* ─── SECCIÓN: FORMACIÓN Y CERTIFICACIONES ───────────────── */
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
-    .sub-label {
-      font-family: var(--fm);
-      font-size: 0.62rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 2.2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .sub-label::after { content: ''; flex: 1; height: 1px; background: var(--pale); }
-    .edu-list, .cert-list { display: flex; flex-direction: column; gap: 2.2rem; }
-    .edu-item, .cert-item {
-      padding-left: 1.3rem;
-      border-left: 2px solid var(--pale);
-      transition: border-color 0.2s;
-    }
-    .edu-item:hover, .cert-item:hover { border-color: var(--red); }
-    .ed-deg, .ct-name {
-      font-family: var(--fh);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 0.25rem;
-    }
-    .ed-sch, .ct-iss {
-      font-family: var(--fb);
-      font-size: 0.9rem;
-      letter-spacing: 0.07em;
-      color: var(--mid);
-    }
-    .ed-yr, .ct-yr {
-      font-family: var(--fm);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: var(--red);
-      margin-top: 0.35rem;
-    }
-
     /* ─── SECCIÓN: CONTACTO ──────────────────────────────────── */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
     .contact-headline {
@@ -864,7 +825,7 @@
       .hero, section.s, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
 
-      .about-grid, .about-meta, .edu-grid, .contact-grid, .ep-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-grid, .about-meta, .contact-grid, .ep-grid { grid-template-columns: 1fr; gap: 3rem; }
       .vfeat-stage { margin: 2rem auto 3rem; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
@@ -905,7 +866,6 @@
     <li><a href="#video">Vídeo</a></li>
     <li><a href="#about">Sobre mí</a></li>
     <li><a href="#experience">Experiencia</a></li>
-    <li><a href="#education">Formación</a></li>
     <li><a href="#contact">Contacto</a></li>
   </ul>
 </nav>
@@ -974,40 +934,14 @@
 
   <p class="pf-intro">Cobertura fotográfica de fútbol profesional: partido a pie de campo, presentaciones de jugadores y sala de prensa.</p>
 
-  <!-- ── CD LEGANÉS ─────────────────────────────────────────────────────────
-       Fotografía de partido en Butarque. Vivía en el portfolio de vídeo, pero
-       es material fotográfico: José lo puso a abrir el apartado de foto.
+  <!-- ── PRETEMPORADA 2026/27 ───────────────────────────────────────────────
+       Único bloque del portfolio de foto: José retiró el apartado del CD Leganés
+       y las fotos que se salvaron de la criba (partido de pretemporada) pasaron
+       aquí. Dos reportajes por club en subgrupos etiquetados con .pf-cat.
        ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
-    <h3 class="vfeat-title">CD<br>Leganés<span>Fotografía de partido · Cobertura del club</span></h3>
-    <p class="vfeat-desc">Cobertura fotográfica del partido en Butarque: el pulso del juego, los duelos y la celebración capturados a pie de campo.</p>
-  </div>
-
-  <!-- Foto principal a gran formato (.vfeat-stage → min(100%, 1300px)). -->
-  <div class="vfeat-stage">
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-01.jpg" alt="CD Leganés — once inicial" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-  </div>
-
-  <!-- Galería fotográfica del CD Leganés: dos filas de 4 (clic para ampliar) -->
-  <div class="stills-grid">
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-02.jpg" alt="CD Leganés — disputa del balón" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-03.jpg" alt="CD Leganés — salida de balón" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-04.jpg" alt="CD Leganés — construcción de jugada" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-05.jpg" alt="CD Leganés — celebración" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-06.jpg" alt="CD Leganés — instrucciones sobre el campo" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-07.jpg" alt="CD Leganés — repliegue" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-08.jpg" alt="CD Leganés — portero a contraluz" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/leganes-09.jpg" alt="CD Leganés — celebración frente a la grada" loading="lazy"></div><div class="ph-overlay"><span class="ph-caption">CD Leganés</span></div></div>
-  </div>
-
-  <!-- ── PRETEMPORADA 2026/27 ───────────────────────────────────────────────
-       Sustituye a los antiguos grids de foto (cine/videoclip, dirección de arte
-       y cobertura & prensa). Son dos reportajes distintos, así que van en dos
-       subgrupos etiquetados con .pf-cat, cada uno con su propio masonry.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
     <h3 class="vfeat-title">Pretemporada<br>2026/27<span>Presentaciones y fichajes · CD Leganés &amp; Getafe CF</span></h3>
-    <p class="vfeat-desc">El arranque de temporada desde dentro del club: la presentación de un fichaje ante la prensa y la afición, y las firmas de contrato en las oficinas.</p>
+    <p class="vfeat-desc">El arranque de temporada desde dentro del club: la presentación de un fichaje ante la prensa y la afición, el partido de pretemporada a pie de campo y las firmas de contrato en las oficinas.</p>
   </div>
 
   <p class="pf-cat">CD Leganés</p>
@@ -1038,6 +972,34 @@
         <img src="resources/fotografias/pret-leganes-04.jpg" alt="Soko con la afición del CD Leganés en la grada" loading="lazy">
       </div>
       <div class="ph-overlay"><span class="ph-caption">Con la afición</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-05.jpg" alt="Disputa del balón en el partido de pretemporada del CD Leganés" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Disputa del balón</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-06.jpg" alt="Jugador del CD Leganés controlando el balón durante la pretemporada" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Control de balón</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-07.jpg" alt="Jugador del CD Leganés dando indicaciones sobre el campo" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Indicaciones</span></div>
+    </div>
+
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner">
+        <img src="resources/fotografias/pret-leganes-08.jpg" alt="Salida de balón en el partido de pretemporada del CD Leganés" loading="lazy">
+      </div>
+      <div class="ph-overlay"><span class="ph-caption">Salida de balón</span></div>
     </div>
   </div>
 
@@ -1084,32 +1046,43 @@
     <div class="s-rule"></div>
   </div>
 
-  <!-- ════════ BLOQUE PROYECTO: GETAFE — VALLADOLID ═══════════════════════════
-       Pieza que abre el portfolio de vídeo. El Atlético repite el patrón:
-       clip destacado (con sonido, bajo demanda) + rejilla 2×2 muda en bucle.
+  <!-- ════════ BLOQUE PROYECTO: REEL SPORTING ════════════════════════════════
+       Pieza principal del portfolio de vídeo por indicación de José. Está grabada
+       en vertical (formato Reel), así que usa .vfeat-stage--vert en lugar del
+       escenario ancho de 1300px que comparten el resto de bloques 16:9.
        ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
-    <h3 class="vfeat-title">Getafe<br>Valladolid<span>Operación de cámara · Retransmisión en directo</span></h3>
-    <p class="vfeat-desc">Cobertura del encuentro para la señal en directo: la salida de los equipos, el duelo en el área y la lectura del partido desde la banda.</p>
+    <h3 class="vfeat-title">Reel<br>Sporting<span>Sporting de Gijón · El Molinón · Pieza vertical para redes</span></h3>
+    <p class="vfeat-desc">Pieza vertical para redes: la jornada de partido en El Molinón desde el visor del fotógrafo, del túnel de vestuarios al pie de campo.</p>
   </div>
 
-  <div class="vfeat-stage">
+  <div class="vfeat-stage vfeat-stage--vert">
     <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/getafe-destacado.mp4')">
-        <img src="resources/fotografias/getafe-destacado.jpg" alt="Getafe — Valladolid, salida de los equipos al césped" class="vid-thumb" loading="lazy">
+      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/reel-sporting.mp4')">
+        <img src="resources/fotografias/reel-sporting.jpg" alt="Reel del Sporting de Gijón" class="vid-thumb" loading="lazy">
         <div class="vid-placeholder">
           <div class="vid-play"></div>
-          <span class="vid-hint">Reproducir clip</span>
+          <span class="vid-hint">Reproducir reel</span>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ════════ BLOQUE PROYECTO: GETAFE — CONFERENCE ═══════════════════════════
+       Sustituye al antiguo bloque Getafe — Valladolid (pretemporada). Los cuatro
+       clips que envió José son equivalentes entre sí (11 s, 1080p50), así que el
+       bloque va directo a la rejilla 2×2 muda, sin clip destacado.
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat" style="margin-top: 6rem;">
+    <h3 class="vfeat-title">Getafe<br>Conference<span>vs Partizan · Conference League · Operación de cámara</span></h3>
+    <p class="vfeat-desc">Cobertura del encuentro europeo para la señal en directo: la salida al césped, el pulso del partido y el ambiente de grada desde la banda.</p>
+  </div>
+
   <div class="loop-grid">
-    <video class="loop-vid" src="resources/videos/getafe-loop-01.mp4" poster="resources/fotografias/getafe-loop-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/getafe-loop-02.mp4" poster="resources/fotografias/getafe-loop-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/getafe-loop-03.mp4" poster="resources/fotografias/getafe-loop-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/getafe-loop-04.mp4" poster="resources/fotografias/getafe-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-conf-01.mp4" poster="resources/fotografias/getafe-conf-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-conf-02.mp4" poster="resources/fotografias/getafe-conf-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-conf-03.mp4" poster="resources/fotografias/getafe-conf-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <video class="loop-vid" src="resources/videos/getafe-conf-04.mp4" poster="resources/fotografias/getafe-conf-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
   </div>
 
   <!-- ════════ BLOQUE PROYECTO: ATLÉTICO MADRILEÑO ════════════════════════════
@@ -1312,6 +1285,17 @@
   <div class="timeline">
 
     <div class="tl-item">
+      <div class="tl-date">2026 — Presente</div>
+      <div class="tl-spine"></div>
+      <div class="tl-body">
+        <div class="tl-co">Freelance</div>
+        <div class="tl-role">Fotógrafo en 2ª División</div>
+        <div class="tl-desc">Fotógrafo deportivo en 2ª División española para César Gelabert (Sporting de Gijón) y para Patrick Soko (CD Leganés).</div>
+        <span class="tl-badge">Actualidad</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
       <div class="tl-date">2025 — Presente</div>
       <div class="tl-spine"></div>
       <div class="tl-body">
@@ -1347,54 +1331,11 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     06 · FORMACIÓN Y CERTIFICACIONES
-     ════════════════════════════════════════════════════════════ -->
-<section class="s" id="education">
-  <div class="s-head">
-    <span class="s-num">06</span>
-    <h2 class="s-title">Formación</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="edu-grid">
-    <div>
-      <div class="sub-label">Educación</div>
-      <div class="edu-list">
-        <div class="edu-item reveal">
-          <div class="ed-deg">Grado Superior Técnico Audiovisual</div>
-          <div class="ed-sch">Escuela CEV, Madrid</div>
-          <div class="ed-yr">2022 — 2024</div>
-        </div>
-        <div class="edu-item reveal">
-          <div class="ed-deg">Operador de Steadicam</div>
-          <div class="ed-sch">Escuela CES</div>
-          <div class="ed-yr">2025</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="sub-label">Certificaciones</div>
-      <div class="cert-list">
-        <div class="cert-item reveal">
-          <div class="ct-name">Cambridge B2 First (FCE)</div>
-          <div class="ct-iss">Cambridge Assessment English</div>
-          <div class="ct-yr">Inglés B2</div>
-        </div>
-        <div class="cert-item reveal">
-          <div class="ct-name">Movie Magic Scheduling X</div>
-          <div class="ct-iss">Intensivo — ECAM</div>
-          <div class="ct-yr">2026</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════
-     07 · CONTACTO
+     06 · CONTACTO
      ════════════════════════════════════════════════════════════ -->
 <section class="s s--dark" id="contact">
   <div class="s-head">
-    <span class="s-num">07</span>
+    <span class="s-num">06</span>
     <h2 class="s-title">Contacto</h2>
     <div class="s-rule"></div>
   </div>
@@ -1411,10 +1352,6 @@
       <a class="c-link" href="mailto:joserdez011@gmail.com">
         <div class="c-lbl">Email</div>
         <div class="c-val">joserdez011@gmail.com</div>
-      </a>
-      <a class="c-link" href="https://montecarlofilms.es" target="_blank" rel="noopener">
-        <div class="c-lbl">Portfolio web</div>
-        <div class="c-val">montecarlofilms.es</div>
       </a>
       <a class="c-link" href="https://instagram.com/joserodriguez.mov" target="_blank" rel="noopener">
         <div class="c-lbl">Instagram</div>
