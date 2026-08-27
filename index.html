@@ -197,6 +197,10 @@
     .hero-cta::after { content: '↓'; }
 
     /* Escaparate: proyecto destacado directamente en portada */
+    /* La columna de texto conserva el ritmo vertical que antes daba el gap del
+       propio .hero, ahora que ese gap separa las dos columnas. */
+    .hero-main { display: flex; flex-direction: column; gap: 2.4rem; min-width: 0; }
+
     .hero-showcase {
       width: 100%;
       margin-top: 0.6rem;
@@ -218,7 +222,7 @@
        Las fotos del post vienen en 4:5, así que el escaparate se estrecha en
        lugar de ocupar todo el ancho de la portada. Las diapositivas se apilan
        en la misma celda y se cruzan por opacidad: sin reflow y sin saltos. */
-    .hero-carousel { width: min(100%, 400px); }
+    .hero-carousel { width: 100%; }
     /* El marco envuelve solo la fotografía: así las flechas se centran contra
        ella y no contra el conjunto (que incluye el aviso y los puntos). Van
        fuera del <a> a propósito, para que navegar no abra Instagram. */
@@ -465,9 +469,14 @@
     .vid-frame { position: relative; width: 100%; background-color: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
     .vid-frame img.vid-thumb { display: block; width: 100%; height: auto; transition: transform 0.3s ease; }
     .vid-frame:hover img.vid-thumb { transform: scale(1.03); }
-    /* Al reproducir, el <iframe>/<video> se inyecta y mantiene el 16:9 por sí mismo. */
+    /* Al reproducir, el <iframe>/<video> sustituye a la miniatura; el marco ya no
+       tiene contenido que le dé altura, así que la fija el aspect-ratio. */
     .vid-frame iframe, .vid-frame video { display: block; width: 100%; aspect-ratio: 16/9; border: none; background: #000; }
     .vid-frame video { object-fit: cover; }
+    /* El Reel es vertical: sin esto heredaba el 16:9 de arriba y al darle al play
+       se encajaba en una caja horizontal, recortado por el object-fit. */
+    .vfeat-stage--vert .vid-frame iframe,
+    .vfeat-stage--vert .vid-frame video { aspect-ratio: 9/16; object-fit: contain; }
 
     .vid-placeholder {
       position: absolute;
@@ -894,6 +903,24 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ─── RESPONSIVE DESIGN (Media Queries) ──────────────────── */
+
+    /* Las fotos del carrusel son verticales (4:5). En una sola columna dejaban
+       medio ancho de pantalla vacío en portátil y tablet, y además empujaban la
+       foto por debajo del fold. A partir de 700px el nombre y el carrusel se
+       enfrentan en dos columnas y la portada vuelve a llenarse. */
+    @media (min-width: 700px) {
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) clamp(260px, 28vw, 400px);
+        align-items: center;
+        column-gap: clamp(2rem, 5vw, 5rem);
+      }
+      /* El nombre ya no dispone del ancho completo: se redimensiona contra su
+         columna para no desbordarla. */
+      h1.hero-name { font-size: clamp(2.8rem, 8.4vw, 10rem); }
+      .hero-showcase { width: 100%; margin-top: 0; }
+    }
+
     @media (max-width: 980px) {
       nav { padding: 1rem 1.5rem; }
       .nav-toggle { display: block; }
@@ -928,7 +955,7 @@
     }
 
     @media (max-width: 600px) {
-      h1.hero-name { font-size: clamp(3.2rem, 16vw, 4.5rem); }
+      h1.hero-name { font-size: clamp(2.9rem, 15vw, 4.5rem); }
       .photo-grid { grid-template-columns: 1fr; }
       .stills-grid { grid-template-columns: 1fr; }
       .loop-grid { grid-template-columns: 1fr; }
@@ -966,17 +993,19 @@
      01 · PORTADA — Nombre protagonista + proyecto escaparate
      ════════════════════════════════════════════════════════════ -->
 <header class="hero" id="hero">
-  <div class="hero-eyebrow">Steadicam Operator · Filmmaker · Madrid</div>
-  <h1 class="hero-name">
-    JOSÉ
-    <span class="r">RODRÍGUEZ</span>
-  </h1>
+  <div class="hero-main">
+    <div class="hero-eyebrow">Steadicam Operator · Filmmaker · Madrid</div>
+    <h1 class="hero-name">
+      JOSÉ
+      <span class="r">RODRÍGUEZ</span>
+    </h1>
 
-  <div class="hero-desc">
-    <p>Creador de <strong>MonteCarloFilms</strong>. Operación de cámara y Steadicam en eventos deportivos de élite, cine y publicidad.</p>
+    <div class="hero-desc">
+      <p>Creador de <strong>MonteCarloFilms</strong>. Operación de cámara y Steadicam en eventos deportivos de élite, cine y publicidad.</p>
+    </div>
+
+    <a class="hero-cta" href="#video">Ver portfolio</a>
   </div>
-
-  <a class="hero-cta" href="#video">Ver portfolio</a>
 
   <!-- ESCAPARATE: carrusel con las diez fotografías del post de Instagram del
        Sporting — Burgos. Pasa solo cada 5s, se navega con flechas y puntos, y al
