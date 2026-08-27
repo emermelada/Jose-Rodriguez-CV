@@ -214,8 +214,100 @@
     }
     .hero-showcase-label span { color: var(--red); }
 
-    /* Escaparate fotográfico: la portada muestra una foto, no un vídeo. */
-    .hero-shot img { display: block; width: 100%; height: auto; border-radius: 6px; }
+    /* ─── CARRUSEL DE PORTADA ─────────────────────────────────────
+       Las fotos del post vienen en 4:5, así que el escaparate se estrecha en
+       lugar de ocupar todo el ancho de la portada. Las diapositivas se apilan
+       en la misma celda y se cruzan por opacidad: sin reflow y sin saltos. */
+    .hero-carousel { width: min(100%, 400px); }
+    /* El marco envuelve solo la fotografía: así las flechas se centran contra
+       ella y no contra el conjunto (que incluye el aviso y los puntos). Van
+       fuera del <a> a propósito, para que navegar no abra Instagram. */
+    .hc-frame { position: relative; }
+    .hc-link { display: block; text-decoration: none; }
+    .hc-stage {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      border-radius: 6px;
+      background: var(--pale);
+    }
+    .hc-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    .hc-slide.is-active { opacity: 1; }
+
+    .hc-hint {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.7rem;
+      font-family: var(--fm);
+      font-size: 0.56rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid);
+      transition: color 0.2s;
+    }
+    .hero-carousel:hover .hc-hint { color: var(--red); }
+
+    /* Flechas: fuera del <a>, para que navegar el carrusel no abra Instagram. */
+    .hc-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.4rem;
+      height: 2.4rem;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(235,235,231,0.35);
+      background: rgba(17,17,16,0.45);
+      color: var(--white);
+      font-family: var(--fh);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.25s, background 0.2s, border-color 0.2s;
+    }
+    .hero-carousel:hover .hc-arrow,
+    .hc-arrow:focus-visible { opacity: 1; }
+    .hc-arrow:hover { background: var(--red); border-color: var(--red); }
+    .hc-prev { left: 0.7rem; }
+    .hc-next { right: 0.7rem; }
+
+    .hc-dots { display: flex; gap: 0.4rem; margin-top: 0.8rem; }
+    .hc-dot {
+      width: 1.5rem;
+      height: 2px;
+      padding: 0;
+      border: 0;
+      background: var(--pale);
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .hc-dot.is-active { background: var(--red); }
+
+    /* Sin autoplay si el visitante pide menos movimiento (lo corta también el JS);
+       aquí se elimina además el fundido para que el cambio sea instantáneo. */
+    @media (prefers-reduced-motion: reduce) {
+      .hc-slide { transition: none; }
+      .hc-arrow { opacity: 1; }
+    }
+
+    /* En pantallas táctiles no hay hover, así que las flechas se quedan fijas:
+       si no, en el móvil el carrusel sólo se podría pasar por los puntos. */
+    @media (hover: none) {
+      .hc-arrow { opacity: 1; }
+    }
+
 
     /* ─── MARQUESINA / FILM TICKER (Animación Infinita) ───────── */
     .film-ticker {
@@ -886,16 +978,48 @@
 
   <a class="hero-cta" href="#video">Ver portfolio</a>
 
-  <!-- ESCAPARATE: la portada es una fotografía (José la cambió por el clip del
-       Atlético, que ahora abre el portfolio de vídeo). Sin loading="lazy":
-       es la imagen LCP de la página. Ampliable con el lightbox nativo. -->
+  <!-- ESCAPARATE: carrusel con las diez fotografías del post de Instagram del
+       Sporting — Burgos. Pasa solo cada 5s, se navega con flechas y puntos, y al
+       pulsar una foto se abre la publicación original. Las imágenes están
+       autoalojadas: la portada no contacta con Instagram hasta que se hace clic.
+       La primera va sin loading="lazy" porque es la imagen LCP de la página. -->
   <div class="hero-showcase">
-    <div class="hero-showcase-label"><span>◆</span> Pretemporada 2026/27 · CD Leganés</div>
-    <div class="hero-shot ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/hero-camiseta.jpg" alt="Presentación de Soko con el CD Leganés — camiseta a la espalda">
+    <div class="hero-showcase-label"><span>◆</span> El Molinón · Real Sporting 1 - 0 Burgos</div>
+
+    <div class="hero-carousel" id="heroCarousel" aria-roledescription="carrusel" aria-label="Fotografías del Real Sporting en El Molinón">
+      <div class="hc-frame">
+        <a class="hc-link" href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener" aria-label="Ver la publicación completa en Instagram">
+          <div class="hc-stage">
+            <img class="hc-slide is-active" src="resources/fotografias/hero-carrusel-01.jpg" alt="César Gelabert sale al césped de El Molinón con el chándal del Sporting de Gijón">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-02.jpg" alt="Golpeo de balón ante la grada de El Molinón durante el Sporting — Burgos" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-03.jpg" alt="Composición de detalles del partido: el escudo, la grada y la estatua de El Molinón" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-04.jpg" alt="Fachada de El Molinón, estadio decano del fútbol español desde 1908" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-05.jpg" alt="La grada de El Molinón llena durante el Real Sporting — Burgos" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-06.jpg" alt="César Gelabert saluda al portero antes del encuentro" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-07.jpg" alt="César Gelabert junto a la valla publicitaria con la afición al fondo" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-08.jpg" alt="Composición del partido: el escudo del Sporting y Gelabert conduciendo el balón" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-09.jpg" alt="César Gelabert sobre el césped de El Molinón durante el partido" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-10.jpg" alt="La afición del Sporting con bufandas y bandera en la grada de El Molinón" loading="lazy">
+          </div>
+        </a>
+        <button class="hc-arrow hc-prev" type="button" aria-label="Fotografía anterior">‹</button>
+        <button class="hc-arrow hc-next" type="button" aria-label="Fotografía siguiente">›</button>
       </div>
-      <div class="ph-overlay"><span class="ph-caption">Pretemporada 2026/27</span></div>
+
+      <a class="hc-hint" href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener">Ver en Instagram ↗</a>
+
+      <div class="hc-dots">
+      <button class="hc-dot is-active" type="button" aria-label="Ir a la fotografía 1 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 2 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 3 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 4 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 5 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 6 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 7 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 8 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 9 de 10"></button>
+      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 10 de 10"></button>
+      </div>
     </div>
   </div>
 </header>
@@ -1397,6 +1521,55 @@
       document.body.style.overflow = '';
     });
   });
+
+  /* ── CARRUSEL DE PORTADA ──────────────────────────────────────
+     Pasa solo cada 5s y además se puede navegar con las flechas, los puntos o
+     el teclado. El temporizador se reinicia tras cada gesto manual, se detiene
+     con el puntero encima y mientras la pestaña está en segundo plano (así no
+     avanza a ciegas), y no arranca si el sistema pide menos movimiento. */
+  (function() {
+    var root = document.getElementById('heroCarousel');
+    if (!root) return;
+
+    var slides = Array.prototype.slice.call(root.querySelectorAll('.hc-slide'));
+    var dots   = Array.prototype.slice.call(root.querySelectorAll('.hc-dot'));
+    if (slides.length < 2) return;
+
+    var sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var actual = 0;
+    var reloj = null;
+
+    function mostrar(n) {
+      actual = (n + slides.length) % slides.length;
+      slides.forEach(function(el, k) { el.classList.toggle('is-active', k === actual); });
+      dots.forEach(function(el, k) { el.classList.toggle('is-active', k === actual); });
+    }
+    function arrancar() {
+      if (sinMovimiento) return;
+      parar();
+      reloj = setInterval(function() { mostrar(actual + 1); }, 5000);
+    }
+    function parar() { if (reloj) { clearInterval(reloj); reloj = null; } }
+    // Tras un gesto manual el contador vuelve a empezar: si no, la foto elegida
+    // podía saltar al instante por quedar el intervalo a punto de vencer.
+    function irA(n) { mostrar(n); arrancar(); }
+
+    root.querySelector('.hc-next').addEventListener('click', function() { irA(actual + 1); });
+    root.querySelector('.hc-prev').addEventListener('click', function() { irA(actual - 1); });
+    dots.forEach(function(d, k) { d.addEventListener('click', function() { irA(k); }); });
+
+    root.addEventListener('mouseenter', parar);
+    root.addEventListener('mouseleave', arrancar);
+    root.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); irA(actual + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); irA(actual - 1); }
+    });
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) parar(); else arrancar();
+    });
+
+    arrancar();
+  })();
 
   /* ── LAZY VIDEO LOADER (YouTube) ──────────────────────────── */
   /* Inyecta el iframe solo tras interacción activa del usuario.
