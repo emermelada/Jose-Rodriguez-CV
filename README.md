@@ -12,7 +12,7 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
-1. **Portada** — Nombre a gran escala + **fotografía** destacada de la pretemporada 2026/27 (presentación en el CD Leganés) como escaparate, ampliable con el *lightbox*.
+1. **Portada** — Nombre a gran escala + **carrusel** con las diez fotografías del reportaje del Real Sporting — Burgos en El Molinón. Avanza solo cada 5 s y se navega con flechas, puntos o teclado; al pulsar una fotografía se abre la publicación original de Instagram.
 2. **Portfolio Foto** — Un único reportaje: **Pretemporada 2026/27**, dividido en dos subgrupos por club (**CD Leganés**, 8 fotografías · **Getafe CF**, 4) en rejilla de dos columnas. Todo con *lightbox* nativo a pantalla completa.
 3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle) → **Atlético Madrileño** (clip destacado + rejilla 2×2) → videoclip *Amapolas* con su galería de stills → bloque del EP *Anatomía de una Derrota* → cortometraje y Steadicam. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas y reel).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
@@ -25,6 +25,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 
 * **Diseño Fílmico Minimalista:** Paleta tonal cruda (`#ebebe7` y `#111110`) combinada con un acento rojo profundo (`#b6282d`) inspirado en indicadores de grabación (*Rec*).
 * **Portada Escaparate:** El nombre domina la portada y el mejor trabajo se muestra de inmediato, sin obligar al usuario a navegar para ver una pieza.
+* **Carrusel Autoalojado:** Las fotografías del carrusel de portada se sirven desde este mismo dominio, de modo que la página **no contacta con Instagram** hasta que el visitante pulsa para abrir la publicación. El pase automático se detiene con el puntero encima, con la pestaña en segundo plano y si el sistema pide `prefers-reduced-motion`.
 * **Film Ticker Continuo:** Marquesina infinita en CSS nativo acelerada por hardware (`will-change: transform`) para mostrar áreas de especialización sin penalizar rendimiento.
 * **Lazy Load de Vídeo Inteligente:** Los fragmentos de YouTube no cargan iframes ni dependencias externas de forma masiva en el inicio. Se renderizan dinámicamente tras la interacción del usuario, reduciendo peticiones de red y optimizando las métricas **Core Web Vitals** (LCP, TTI).
 * **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido equivalente al de YouTube.
@@ -52,7 +53,7 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── README.md
 └── resources/
     ├── fotografias/
-    │   ├── hero-camiseta.jpg           # fotografía de portada (escaparate)
+    │   ├── hero-carrusel-01..10.jpg    # carrusel de portada (post de Instagram, Sporting — Burgos)
     │   ├── pret-leganes-01..04.jpg     # Pretemporada 2026/27 — presentación en el CD Leganés
     │   ├── pret-leganes-05..08.jpg     # Pretemporada 2026/27 — partido del CD Leganés
     │   ├── pret-getafe-01..04.jpg      # Pretemporada 2026/27 — fichajes del Getafe CF
