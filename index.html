@@ -451,15 +451,6 @@
       background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px);
     }
 
-    /* Galería de stills (proyecto Amapolas): miniaturas 16:9 uniformes con lightbox.
-       Mantiene celdas de proporción fija (el img se recorta a 16:9), a diferencia
-       del grid de foto que respeta la proporción nativa. */
-    .stills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 4rem; }
-    .stills-grid .ph-inner { position: relative; aspect-ratio: 16/9; }
-    .stills-grid .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-    /* Grid de Vídeo Optimizado para evitar bloqueos por carga de API de YT */
-    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     .vid-wrap { display: flex; flex-direction: column; }
     /* width:100% explícito: el marco es un flex item en columna cuyos hijos van en
        posición absoluta; sin width no se estira y colapsaba el vídeo destacado. */
@@ -538,6 +529,11 @@
     .photo-grid .ph { margin-bottom: 0; }   /* el hueco lo pone el gap, no el margen */
     .photo-grid .ph-inner { position: relative; aspect-ratio: 16/9; }
     .photo-grid .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    /* Carruseles de Instagram: celdas 4:5 como el post original, una fila por
+       carrusel (5 columnas; --cols las ajusta al número de fotos). */
+    .photo-grid--post { grid-template-columns: repeat(var(--cols, 5), 1fr); gap: 0.6rem; }
+    .photo-grid--post .ph-inner { aspect-ratio: 4/5; }
+    .pf-cat a { color: inherit; text-underline-offset: 3px; }
     /* Etiqueta de categoría: separa el portfolio de foto por reportaje
        (CD Leganés, Getafe CF) en lugar de mezclarlo todo. */
     .pf-cat {
@@ -585,61 +581,6 @@
       transition: opacity 0.3s, transform 0.3s;
     }
     .ph:hover .ph-caption { opacity: 1; transform: translateY(0); }
-
-    /* ─── BLOQUE PROYECTO EP: ANATOMÍA DE UNA DERROTA ────────── */
-    .ep-block { margin-top: 6rem; }
-    .proj-title {
-      font-family: var(--fd);
-      font-weight: 400;
-      font-size: clamp(2.4rem, 6vw, 5rem);
-      line-height: 0.95;
-      text-transform: uppercase;
-      color: var(--dark);
-    }
-    .proj-title span {
-      display: block;
-      font-family: var(--fm);
-      font-size: 0.62rem;
-      letter-spacing: 0.25em;
-      color: var(--red);
-      margin-top: 0.9rem;
-    }
-    .ep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 2.5rem; }
-    .ep-cover { aspect-ratio: 1/1; overflow: hidden; border-radius: 6px; background: var(--pale); }
-    .ep-cover img { width: 100%; height: 100%; object-fit: cover; }
-    .ep-sub { font-family: var(--fm); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
-    /* El bloque del EP se movió al portfolio de vídeo (fondo oscuro): sus textos
-       nacieron para fondo claro y sin esto quedarían casi ilegibles. */
-    .s--dark .proj-title { color: var(--white); }
-    .s--dark .ep-block .about-body { color: rgba(255,255,255,0.5); }
-    .s--dark .ep-block .about-body strong,
-    .s--dark .ep-block .about-body em { color: var(--white); }
-    /* Reproductores embebidos de Spotify */
-    .sp-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.6rem; }
-    .sp-iframe { display: block; width: 100%; border: 0; border-radius: 12px; }
-
-    /* Marcador previo al iframe: mismo alto que el reproductor real (152 px) para
-       que al cargarlo no se desplace el contenido de alrededor. */
-    .sp-facade {
-      display: flex; align-items: center; gap: 1.1rem;
-      width: 100%; height: 152px; padding: 0 1.4rem;
-      background: var(--dark); color: var(--white);
-      border: 1px solid rgba(245,245,242,0.14); border-radius: 12px;
-      cursor: pointer; text-align: left;
-      transition: border-color 0.25s ease, background 0.25s ease;
-    }
-    .sp-facade:hover { background: #1a1a18; border-color: var(--red); }
-    .sp-facade:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
-    .sp-play {
-      flex: none; display: grid; place-items: center;
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--red); color: var(--white); font-size: 0.9rem; padding-left: 3px;
-    }
-    .sp-txt { display: flex; flex-direction: column; gap: 0.3rem; }
-    .sp-name { font-family: var(--fh); font-size: 1rem; font-weight: 700; }
-    .sp-note { font-family: var(--fm); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,245,242,0.45); }
-    .sp-disc { font-family: var(--fm); font-size: 0.6rem; line-height: 1.7; letter-spacing: 0.04em; color: var(--mid); }
-    .sp-disc a { color: inherit; text-underline-offset: 3px; }
 
     /* ─── SECCIÓN: SOBRE MÍ (Image-led, ref. Diego Simón) ────── */
     /* Fila principal: foto grande a la izquierda + texto a la derecha */
@@ -944,20 +885,19 @@
       .hero, section.s, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
 
-      .about-grid, .about-meta, .contact-grid, .ep-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-grid, .about-meta, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
       .vfeat-stage { margin: 2rem auto 3rem; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
 
-      .video-grid { grid-template-columns: 1fr; }
-      .stills-grid { grid-template-columns: repeat(2, 1fr); }
+      .photo-grid--post { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(2.9rem, 15vw, 4.5rem); }
       .photo-grid { grid-template-columns: 1fr; }
-      .stills-grid { grid-template-columns: 1fr; }
+      .photo-grid--post { grid-template-columns: repeat(2, 1fr); }
       .loop-grid { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
       .s-rule { width: 100%; height: 1px; flex: none; }
@@ -1087,14 +1027,193 @@
 
   <p class="pf-intro">Cobertura fotográfica de fútbol profesional: partido a pie de campo, presentaciones de jugadores y sala de prensa.</p>
 
-  <!-- ── PRETEMPORADA 2026/27 ───────────────────────────────────────────────
-       Único bloque del portfolio de foto: José retiró el apartado del CD Leganés
-       y las fotos que se salvaron de la criba (partido de pretemporada) pasaron
-       aquí. Dos reportajes por club en subgrupos etiquetados con .pf-cat.
+  <!-- ── POSTS DE INSTAGRAM POR CLUB ─────────────────────────────────────────
+       Cada rejilla es un carrusel de Instagram completo, en su orden y en 4:5
+       (algunas fotos son paneles de una misma panorámica). El del Burgos reutiliza
+       las fotos del carrusel de portada. Se enlaza el post, no se incrusta.
        ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
+    <h3 class="vfeat-title">Sporting<br>de Gijón<span>César Gelabert · LaLiga Hypermotion · El Molinón</span></h3>
+  </div>
+
+  <p class="pf-cat">vs Burgos CF · 1-0 · <a href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
+  <div class="photo-grid photo-grid--post">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-01.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 1 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-02.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 2 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-03.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 3 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-04.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 4 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-05.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 5 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-06.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 6 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-07.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 7 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-08.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 8 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-09.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 9 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-10.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 10 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+    </div>
+  </div>
+
+  <p class="pf-cat">vs Girona FC · 05.09.2026 · <a href="https://www.instagram.com/p/DdCEN_mDUzf/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
+  <div class="photo-grid photo-grid--post" style="--cols: 4">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-01.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 1 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-02.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 2 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-03.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 3 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-04.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 4 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-05.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 5 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-06.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 6 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-07.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 7 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-08.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 8 de 8" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    </div>
+  </div>
+
+  <div class="vfeat" style="margin-top: 6rem;">
+    <h3 class="vfeat-title">CD<br>Leganés<span>Patrick Soko · LaLiga Hypermotion · Butarque</span></h3>
+  </div>
+
+  <p class="pf-cat">Victoria en Butarque · <a href="https://www.instagram.com/p/DcqszTFlOn7/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
+  <div class="photo-grid photo-grid--post">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-01.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 1 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-02.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 2 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-03.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 3 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-04.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 4 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-05.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 5 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-06.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 6 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-07.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 7 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-08.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 8 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-09.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 9 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-10.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 10 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+    </div>
+  </div>
+
+  <p class="pf-cat">vs Granada CF · 20.09.2026 · <a href="https://www.instagram.com/p/DdmHV5MDTu_/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
+  <div class="photo-grid photo-grid--post">
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-01.jpg" alt="CD Leganés — Granada CF, fotografía 1 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-02.jpg" alt="CD Leganés — Granada CF, fotografía 2 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-03.jpg" alt="CD Leganés — Granada CF, fotografía 3 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-04.jpg" alt="CD Leganés — Granada CF, fotografía 4 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-05.jpg" alt="CD Leganés — Granada CF, fotografía 5 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-06.jpg" alt="CD Leganés — Granada CF, fotografía 6 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-07.jpg" alt="CD Leganés — Granada CF, fotografía 7 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-08.jpg" alt="CD Leganés — Granada CF, fotografía 8 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-09.jpg" alt="CD Leganés — Granada CF, fotografía 9 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+    <div class="ph" onclick="openLb(this)">
+      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-10.jpg" alt="CD Leganés — Granada CF, fotografía 10 de 10" loading="lazy"></div>
+      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    </div>
+  </div>
+
+  <!-- ── PRETEMPORADA 2026/27 ───────────────────────────────────────────────
+       Sólo presentaciones y fichajes: José retiró las fotos del partido.
+       ─────────────────────────────────────────────────────────────────────── -->
+  <div class="vfeat" style="margin-top: 6rem;">
     <h3 class="vfeat-title">Pretemporada<br>2026/27<span>Presentaciones y fichajes · CD Leganés &amp; Getafe CF</span></h3>
-    <p class="vfeat-desc">El arranque de temporada desde dentro del club: la presentación de un fichaje ante la prensa y la afición, el partido de pretemporada a pie de campo y las firmas de contrato en las oficinas.</p>
+    <p class="vfeat-desc">El arranque de temporada desde dentro del club: la presentación de un fichaje ante la prensa y la afición y las firmas de contrato en las oficinas.</p>
   </div>
 
   <p class="pf-cat">CD Leganés</p>
@@ -1125,34 +1244,6 @@
         <img src="resources/fotografias/pret-leganes-04.jpg" alt="Soko con la afición del CD Leganés en la grada" loading="lazy">
       </div>
       <div class="ph-overlay"><span class="ph-caption">Con la afición</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-05.jpg" alt="Disputa del balón en el partido de pretemporada del CD Leganés" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Disputa del balón</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-06.jpg" alt="Jugador del CD Leganés controlando el balón durante la pretemporada" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Control de balón</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-07.jpg" alt="Jugador del CD Leganés dando indicaciones sobre el campo" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Indicaciones</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-08.jpg" alt="Salida de balón en el partido de pretemporada del CD Leganés" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Salida de balón</span></div>
     </div>
   </div>
 
@@ -1268,103 +1359,6 @@
     <video class="loop-vid" src="resources/videos/atleti-loop-04.mp4" poster="resources/fotografias/atleti-loop-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
   </div>
 
-  <!-- BLOQUE EDITORIAL DESTACADO: titular condensado + vídeo a sangre (ref. Zara) -->
-  <div class="vfeat" style="margin-top: 6rem;">
-    <h3 class="vfeat-title">Amapolas<span>Lagaiaff · Videoclip · Dirección</span></h3>
-    <p class="vfeat-desc">Videoclip dirigido bajo MonteCarloFilms. Tratamiento de color, dirección de fotografía y montaje propios.</p>
-  </div>
-  <div class="vfeat-stage">
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadVideo(this, 'YYlLeiW7WC8')">
-        <img src="resources/fotografias/amapolas-cover.jpg" alt="Amapolas - Lagaiaff" class="vid-thumb">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Reproducir en HD</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Galería de stills del proyecto "Amapolas" (clic para ampliar en lightbox) -->
-  <div class="stills-grid">
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-01.jpg" alt="Amapolas — still 01"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-02.jpg" alt="Amapolas — still 02"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-03.jpg" alt="Amapolas — still 03"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-04.jpg" alt="Amapolas — still 04"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-05.jpg" alt="Amapolas — still 05"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-06.jpg" alt="Amapolas — still 06"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-    <div class="ph" onclick="openLb(this)"><div class="ph-inner"><img src="resources/fotografias/amapolas-still-07.jpg" alt="Amapolas — still 07"></div><div class="ph-overlay"><span class="ph-caption">Amapolas</span></div></div>
-  </div>
-
-  <!-- ════════ BLOQUE PROYECTO: ANATOMÍA DE UNA DERROTA · EP (según mockup img 8) ════════
-       Dirección creativa de la EP. Portada (portada-album.jpeg) + texto + las dos
-       canciones embebidas de Spotify. Para cambiarlas, edita el id en la URL de cada
-       <iframe>: open.spotify.com/embed/track/<id>.
-       ─────────────────────────────────────────────────────────────────────────────── -->
-  <div class="ep-block">
-    <h3 class="proj-title">Anatomía de una Derrota<span>Martínez · Dirección creativa</span></h3>
-    <div class="ep-grid">
-      <div class="ep-cover">
-        <img src="resources/fotografias/portada-album.jpeg" alt="Anatomía de una Derrota — portada del EP">
-      </div>
-      <div class="ep-info">
-        <h4 class="ep-sub">Portada del EP</h4>
-        <p class="about-body">El personaje de Martínez está consumido por la monotonía, la rutina y la pérdida de propósito. Escenificado en las manos de una <em>femme fatale</em>, vemos cómo su vida, esclavizada por el trabajo y la falta de ambición, le desgarra por completo.</p>
-        <div class="sp-list">
-          <!-- Las dos canciones del EP en Spotify (Casa Morgano y Bucle).
-               No se carga el <iframe> hasta que el visitante pulsa: así Spotify no
-               instala cookies ni recibe su IP sin consentimiento (art. 22.2 LSSI).
-               Para cambiar de canción, edita data-track con el id de la pista. -->
-          <button class="sp-facade" type="button" data-track="3EoZssIkb4Ow7PUz5LwXek" data-title="Casa Morgano">
-            <span class="sp-play" aria-hidden="true">▶</span>
-            <span class="sp-txt">
-              <span class="sp-name">Casa Morgano</span>
-              <span class="sp-note">Cargar reproductor de Spotify</span>
-            </span>
-          </button>
-          <button class="sp-facade" type="button" data-track="30KvX1KSDYzBQs6rsqHqa2" data-title="Bucle">
-            <span class="sp-play" aria-hidden="true">▶</span>
-            <span class="sp-txt">
-              <span class="sp-name">Bucle</span>
-              <span class="sp-note">Cargar reproductor de Spotify</span>
-            </span>
-          </button>
-          <p class="sp-disc">Al cargar un reproductor se conecta con Spotify, que puede instalar cookies propias. <a href="legal.html#privacidad">Más información</a>.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <p class="pf-intro">Más piezas: dirección, operación de cámara y Steadicam en directo.</p>
-
-  <!-- GRID DE VÍDEOS -->
-  <div class="video-grid">
-
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadVideo(this, 'WTCrsmgKMig')">
-        <img src="resources/fotografias/cortometraje-cover.jpg" alt="Cortometraje" class="vid-thumb">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Click para reproducir en HD</span>
-        </div>
-      </div>
-      <div class="vid-title">Alabanzas justas al bienaventurado obrero</div>
-      <div class="vid-meta">Dirección</div>
-    </div>
-
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadVideo(this, 'bOQfwcSG9bk')">
-        <img src="resources/fotografias/steadicam-cover.jpg" alt="Trabajo en Steadicam" class="vid-thumb">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Click para reproducir en HD</span>
-        </div>
-      </div>
-      <div class="vid-title">Trabajo en Steadicam</div>
-      <div class="vid-meta">Steadicam</div>
-    </div>
-
-  </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -1600,16 +1594,6 @@
     arrancar();
   })();
 
-  /* ── LAZY VIDEO LOADER (YouTube) ──────────────────────────── */
-  /* Inyecta el iframe solo tras interacción activa del usuario.
-     Previene la precarga masiva de scripts pesados de la API de YouTube,
-     mejorando drásticamente las métricas de Core Web Vitals (LCP, TTI).
-     Además, al no cargarse por defecto, YouTube no instala cookies sin que el
-     visitante lo pida; se usa youtube-nocookie.com para reducirlas aún más. */
-  function loadVideo(container, videoId) {
-    container.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
-  }
-
   /* ── LAZY VIDEO LOADER (archivo local mp4 — clips del Atleti) ─ */
   function loadLocalVideo(container, src) {
     container.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
@@ -1667,24 +1651,6 @@
 
   sections.forEach(function(s) { navIo.observe(s); });
 
-  /* ── SPOTIFY BAJO DEMANDA ────────────────────────────────────────
-     El iframe sólo se inserta cuando el visitante pulsa el marcador, de modo
-     que la página no contacta con Spotify (ni permite sus cookies) por
-     defecto. autoplay=1 hace que suene al primer clic, sin pedir un segundo. */
-  document.querySelectorAll('.sp-facade').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var frame = document.createElement('iframe');
-      frame.className = 'sp-iframe';
-      frame.src = 'https://open.spotify.com/embed/track/' + btn.dataset.track + '?autoplay=1';
-      frame.width = '100%';
-      frame.height = '152';
-      frame.loading = 'lazy';
-      frame.title = 'Spotify — ' + btn.dataset.title;
-      frame.setAttribute('frameborder', '0');
-      frame.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
-      btn.replaceWith(frame);
-    });
-  });
 </script>
 
 </body>
