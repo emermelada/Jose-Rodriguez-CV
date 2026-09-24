@@ -847,6 +847,14 @@
 
     /* ─── RESPONSIVE DESIGN (Media Queries) ──────────────────── */
 
+    /* Pantallas grandes: el contenido se queda en 1440px centrados. Sin tope,
+       a 2560px las rejillas de foto y vídeo se estiraban a pantalla completa
+       mientras textos y carruseles se quedaban diminutos a un lado. */
+    nav, .hero, section.s, footer {
+      padding-left: max(4rem, calc(50% - 720px));
+      padding-right: max(4rem, calc(50% - 720px));
+    }
+
     /* Las fotos del carrusel son verticales (4:5). En una sola columna dejaban
        medio ancho de pantalla vacío en portátil y tablet, y además empujaban la
        foto por debajo del fold. A partir de 700px el nombre y el carrusel se
@@ -899,6 +907,8 @@
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(2.9rem, 15vw, 4.5rem); }
+      /* "PRETEMPORADA" no cabía a 320px con el mínimo de 3rem y se cortaba. */
+      .vfeat-title { font-size: clamp(2.4rem, 14vw, 3rem); }
       .photo-grid { grid-template-columns: 1fr; }
       .post-pair { grid-template-columns: 1fr; gap: 0; }
       .loop-grid { grid-template-columns: 1fr; }
