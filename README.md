@@ -13,10 +13,10 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
 1. **Portada** — Nombre a gran escala + **carrusel** con las diez fotografías del reportaje del Real Sporting — Burgos en El Molinón. Avanza solo cada 5 s y se navega con flechas, puntos o teclado; al pulsar una fotografía se abre la publicación original de Instagram.
-2. **Portfolio Foto** — Tres bloques, todo con *lightbox* nativo a pantalla completa:
-   * **Sporting de Gijón — César Gelabert**: dos carruseles de Instagram completos (vs Burgos, vs Girona) en rejilla 4:5 con enlace al post.
-   * **CD Leganés — Patrick Soko**: dos carruseles (victoria en Butarque, vs Granada) con el mismo formato.
-   * **Pretemporada 2026/27**: sólo presentaciones y fichajes (**CD Leganés** 4 · **Getafe CF** 4) en rejilla 16:9 de dos columnas.
+2. **Portfolio Foto** — Tres bloques:
+   * **Sporting de Gijón — César Gelabert**: dos posts de Instagram (vs Burgos, vs Girona), cada uno como carrusel igual que el de portada: flechas, puntos, pase automático cada 5 s y clic para abrir el post.
+   * **CD Leganés — Patrick Soko**: dos posts (victoria en Butarque, vs Granada) con el mismo carrusel.
+   * **Pretemporada 2026/27**: sólo presentaciones y fichajes (**CD Leganés** 4 · **Getafe CF** 4) en rejilla 16:9 de dos columnas con *lightbox*.
 3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle) → **Atlético Madrileño** (clip destacado + rejilla 2×2). Sólo fútbol: todo el vídeo es **`.mp4` local** (clips de retransmisiones y reel).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.

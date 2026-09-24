@@ -529,10 +529,10 @@
     .photo-grid .ph { margin-bottom: 0; }   /* el hueco lo pone el gap, no el margen */
     .photo-grid .ph-inner { position: relative; aspect-ratio: 16/9; }
     .photo-grid .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    /* Carruseles de Instagram: celdas 4:5 como el post original, una fila por
-       carrusel (5 columnas; --cols las ajusta al número de fotos). */
-    .photo-grid--post { grid-template-columns: repeat(var(--cols, 5), 1fr); gap: 0.6rem; }
-    .photo-grid--post .ph-inner { aspect-ratio: 4/5; }
+    /* Dos carruseles de post por club, lado a lado; ancho acotado para que el
+       4:5 no se dispare en alto. */
+    .post-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 440px)); gap: 3rem; }
+    .post-pair .pf-cat { margin-top: 2.5rem; }
     .pf-cat a { color: inherit; text-underline-offset: 3px; }
     /* Etiqueta de categoría: separa el portfolio de foto por reportaje
        (CD Leganés, Getafe CF) en lugar de mezclarlo todo. */
@@ -891,13 +891,12 @@
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
 
-      .photo-grid--post { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(2.9rem, 15vw, 4.5rem); }
       .photo-grid { grid-template-columns: 1fr; }
-      .photo-grid--post { grid-template-columns: repeat(2, 1fr); }
+      .post-pair { grid-template-columns: 1fr; gap: 0; }
       .loop-grid { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
       .s-rule { width: 100%; height: 1px; flex: none; }
@@ -1028,91 +1027,78 @@
   <p class="pf-intro">Cobertura fotográfica de fútbol profesional: partido a pie de campo, presentaciones de jugadores y sala de prensa.</p>
 
   <!-- ── POSTS DE INSTAGRAM POR CLUB ─────────────────────────────────────────
-       Cada rejilla es un carrusel de Instagram completo, en su orden y en 4:5
-       (algunas fotos son paneles de una misma panorámica). El del Burgos reutiliza
-       las fotos del carrusel de portada. Se enlaza el post, no se incrusta.
+       Cada post es un carrusel igual que el de portada (flechas, puntos, pase
+       automático), en su orden y en 4:5. El del Burgos reutiliza las fotos de la
+       portada. Pulsar la foto abre el post; no se incrusta nada de Instagram.
        ─────────────────────────────────────────────────────────────────────── -->
   <div class="vfeat">
     <h3 class="vfeat-title">Sporting<br>de Gijón<span>César Gelabert · LaLiga Hypermotion · El Molinón</span></h3>
   </div>
 
-  <p class="pf-cat">vs Burgos CF · 1-0 · <a href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
-  <div class="photo-grid photo-grid--post">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-01.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 1 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
+  <div class="post-pair">
+    <div class="hero-carousel" aria-roledescription="carrusel" aria-label="Real Sporting de Gijón — Burgos CF">
+      <p class="pf-cat">vs Burgos CF · 1-0</p>
+      <div class="hc-frame">
+        <a class="hc-link" href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener" aria-label="Ver la publicación completa en Instagram">
+          <div class="hc-stage">
+            <img class="hc-slide is-active" src="resources/fotografias/hero-carrusel-01.jpg" alt="César Gelabert sale al césped de El Molinón con el chándal del Sporting de Gijón" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-02.jpg" alt="Golpeo de balón ante la grada de El Molinón durante el Sporting — Burgos" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-03.jpg" alt="Composición de detalles del partido: el escudo, la grada y la estatua de El Molinón" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-04.jpg" alt="Fachada de El Molinón, estadio decano del fútbol español desde 1908" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-05.jpg" alt="La grada de El Molinón llena durante el Real Sporting — Burgos" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-06.jpg" alt="César Gelabert saluda al portero antes del encuentro" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-07.jpg" alt="César Gelabert junto a la valla publicitaria con la afición al fondo" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-08.jpg" alt="Composición del partido: el escudo del Sporting y Gelabert conduciendo el balón" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-09.jpg" alt="César Gelabert sobre el césped de El Molinón durante el partido" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/hero-carrusel-10.jpg" alt="La afición del Sporting con bufandas y bandera en la grada de El Molinón" loading="lazy">
+          </div>
+        </a>
+        <button class="hc-arrow hc-prev" type="button" aria-label="Fotografía anterior">‹</button>
+        <button class="hc-arrow hc-next" type="button" aria-label="Fotografía siguiente">›</button>
+      </div>
+      <a class="hc-hint" href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener">Ver en Instagram ↗</a>
+      <div class="hc-dots">
+        <button class="hc-dot is-active" type="button" aria-label="Ir a la fotografía 1 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 2 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 3 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 4 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 5 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 6 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 7 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 8 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 9 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 10 de 10"></button>
+      </div>
     </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-02.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 2 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-03.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 3 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-04.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 4 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-05.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 5 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-06.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 6 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-07.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 7 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-08.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 8 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-09.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 9 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/hero-carrusel-10.jpg" alt="Real Sporting de Gijón — Burgos CF, fotografía 10 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Burgos CF</span></div>
-    </div>
-  </div>
-
-  <p class="pf-cat">vs Girona FC · 05.09.2026 · <a href="https://www.instagram.com/p/DdCEN_mDUzf/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
-  <div class="photo-grid photo-grid--post" style="--cols: 4">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-01.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 1 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-02.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 2 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-03.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 3 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-04.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 4 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-05.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 5 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-06.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 6 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-07.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 7 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/sporting-girona-08.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 8 de 8" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Girona FC</span></div>
+    <div class="hero-carousel" aria-roledescription="carrusel" aria-label="Real Sporting de Gijón — Girona FC">
+      <p class="pf-cat">vs Girona FC · 05.09.2026</p>
+      <div class="hc-frame">
+        <a class="hc-link" href="https://www.instagram.com/p/DdCEN_mDUzf/" target="_blank" rel="noopener" aria-label="Ver la publicación completa en Instagram">
+          <div class="hc-stage">
+            <img class="hc-slide is-active" src="resources/fotografias/sporting-girona-01.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 1 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-02.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 2 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-03.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 3 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-04.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 4 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-05.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 5 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-06.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 6 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-07.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 7 de 8" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/sporting-girona-08.jpg" alt="Real Sporting de Gijón — Girona FC, fotografía 8 de 8" loading="lazy">
+          </div>
+        </a>
+        <button class="hc-arrow hc-prev" type="button" aria-label="Fotografía anterior">‹</button>
+        <button class="hc-arrow hc-next" type="button" aria-label="Fotografía siguiente">›</button>
+      </div>
+      <a class="hc-hint" href="https://www.instagram.com/p/DdCEN_mDUzf/" target="_blank" rel="noopener">Ver en Instagram ↗</a>
+      <div class="hc-dots">
+        <button class="hc-dot is-active" type="button" aria-label="Ir a la fotografía 1 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 2 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 3 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 4 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 5 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 6 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 7 de 8"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 8 de 8"></button>
+      </div>
     </div>
   </div>
 
@@ -1120,91 +1106,74 @@
     <h3 class="vfeat-title">CD<br>Leganés<span>Patrick Soko · LaLiga Hypermotion · Butarque</span></h3>
   </div>
 
-  <p class="pf-cat">Victoria en Butarque · <a href="https://www.instagram.com/p/DcqszTFlOn7/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
-  <div class="photo-grid photo-grid--post">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-01.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 1 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
+  <div class="post-pair">
+    <div class="hero-carousel" aria-roledescription="carrusel" aria-label="Victoria del CD Leganés en Butarque">
+      <p class="pf-cat">Victoria en Butarque</p>
+      <div class="hc-frame">
+        <a class="hc-link" href="https://www.instagram.com/p/DcqszTFlOn7/" target="_blank" rel="noopener" aria-label="Ver la publicación completa en Instagram">
+          <div class="hc-stage">
+            <img class="hc-slide is-active" src="resources/fotografias/leganes-butarque-01.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 1 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-02.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 2 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-03.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 3 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-04.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 4 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-05.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 5 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-06.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 6 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-07.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 7 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-08.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 8 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-09.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 9 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-butarque-10.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 10 de 10" loading="lazy">
+          </div>
+        </a>
+        <button class="hc-arrow hc-prev" type="button" aria-label="Fotografía anterior">‹</button>
+        <button class="hc-arrow hc-next" type="button" aria-label="Fotografía siguiente">›</button>
+      </div>
+      <a class="hc-hint" href="https://www.instagram.com/p/DcqszTFlOn7/" target="_blank" rel="noopener">Ver en Instagram ↗</a>
+      <div class="hc-dots">
+        <button class="hc-dot is-active" type="button" aria-label="Ir a la fotografía 1 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 2 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 3 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 4 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 5 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 6 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 7 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 8 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 9 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 10 de 10"></button>
+      </div>
     </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-02.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 2 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-03.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 3 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-04.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 4 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-05.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 5 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-06.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 6 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-07.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 7 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-08.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 8 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-09.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 9 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-butarque-10.jpg" alt="Victoria del CD Leganés en Butarque, fotografía 10 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">Victoria en Butarque</span></div>
-    </div>
-  </div>
-
-  <p class="pf-cat">vs Granada CF · 20.09.2026 · <a href="https://www.instagram.com/p/DdmHV5MDTu_/" target="_blank" rel="noopener">Ver en Instagram ↗</a></p>
-  <div class="photo-grid photo-grid--post">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-01.jpg" alt="CD Leganés — Granada CF, fotografía 1 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-02.jpg" alt="CD Leganés — Granada CF, fotografía 2 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-03.jpg" alt="CD Leganés — Granada CF, fotografía 3 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-04.jpg" alt="CD Leganés — Granada CF, fotografía 4 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-05.jpg" alt="CD Leganés — Granada CF, fotografía 5 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-06.jpg" alt="CD Leganés — Granada CF, fotografía 6 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-07.jpg" alt="CD Leganés — Granada CF, fotografía 7 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-08.jpg" alt="CD Leganés — Granada CF, fotografía 8 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-09.jpg" alt="CD Leganés — Granada CF, fotografía 9 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
-    </div>
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner"><img src="resources/fotografias/leganes-granada-10.jpg" alt="CD Leganés — Granada CF, fotografía 10 de 10" loading="lazy"></div>
-      <div class="ph-overlay"><span class="ph-caption">vs Granada CF</span></div>
+    <div class="hero-carousel" aria-roledescription="carrusel" aria-label="CD Leganés — Granada CF">
+      <p class="pf-cat">vs Granada CF · 20.09.2026</p>
+      <div class="hc-frame">
+        <a class="hc-link" href="https://www.instagram.com/p/DdmHV5MDTu_/" target="_blank" rel="noopener" aria-label="Ver la publicación completa en Instagram">
+          <div class="hc-stage">
+            <img class="hc-slide is-active" src="resources/fotografias/leganes-granada-01.jpg" alt="CD Leganés — Granada CF, fotografía 1 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-02.jpg" alt="CD Leganés — Granada CF, fotografía 2 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-03.jpg" alt="CD Leganés — Granada CF, fotografía 3 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-04.jpg" alt="CD Leganés — Granada CF, fotografía 4 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-05.jpg" alt="CD Leganés — Granada CF, fotografía 5 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-06.jpg" alt="CD Leganés — Granada CF, fotografía 6 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-07.jpg" alt="CD Leganés — Granada CF, fotografía 7 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-08.jpg" alt="CD Leganés — Granada CF, fotografía 8 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-09.jpg" alt="CD Leganés — Granada CF, fotografía 9 de 10" loading="lazy">
+            <img class="hc-slide" src="resources/fotografias/leganes-granada-10.jpg" alt="CD Leganés — Granada CF, fotografía 10 de 10" loading="lazy">
+          </div>
+        </a>
+        <button class="hc-arrow hc-prev" type="button" aria-label="Fotografía anterior">‹</button>
+        <button class="hc-arrow hc-next" type="button" aria-label="Fotografía siguiente">›</button>
+      </div>
+      <a class="hc-hint" href="https://www.instagram.com/p/DdmHV5MDTu_/" target="_blank" rel="noopener">Ver en Instagram ↗</a>
+      <div class="hc-dots">
+        <button class="hc-dot is-active" type="button" aria-label="Ir a la fotografía 1 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 2 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 3 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 4 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 5 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 6 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 7 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 8 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 9 de 10"></button>
+        <button class="hc-dot" type="button" aria-label="Ir a la fotografía 10 de 10"></button>
+      </div>
     </div>
   </div>
 
@@ -1545,15 +1514,12 @@
     });
   });
 
-  /* ── CARRUSEL DE PORTADA ──────────────────────────────────────
-     Pasa solo cada 5s y además se puede navegar con las flechas, los puntos o
+  /* ── CARRUSELES (portada y posts del portfolio) ───────────────
+     Cada uno pasa solo cada 5s y además se puede navegar con las flechas, los puntos o
      el teclado. El temporizador se reinicia tras cada gesto manual, se detiene
      con el puntero encima y mientras la pestaña está en segundo plano (así no
      avanza a ciegas), y no arranca si el sistema pide menos movimiento. */
-  (function() {
-    var root = document.getElementById('heroCarousel');
-    if (!root) return;
-
+  document.querySelectorAll('.hero-carousel').forEach(function(root) {
     var slides = Array.prototype.slice.call(root.querySelectorAll('.hc-slide'));
     var dots   = Array.prototype.slice.call(root.querySelectorAll('.hc-dot'));
     if (slides.length < 2) return;
@@ -1592,7 +1558,7 @@
     });
 
     arrancar();
-  })();
+  });
 
   /* ── LAZY VIDEO LOADER (archivo local mp4 — clips del Atleti) ─ */
   function loadLocalVideo(container, src) {
