@@ -438,6 +438,8 @@
     /* El Reel del Sporting está grabado en vertical (1080×1920), así que su
        escenario se estrecha en lugar de estirarse a los 1300px del resto. */
     .vfeat-stage--vert { width: min(100%, 420px); }
+    .reel-split { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; }
+    .reel-split .vfeat-stage { margin: 0; }
 
     /* Rejilla 2×2 de clips en bucle simultáneo (mudos). El fondo rayado marca
        el hueco mientras no haya vídeo; al cargar, el <video> lo cubre. */
@@ -887,6 +889,8 @@
 
       .about-grid, .about-meta, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
       .vfeat-stage { margin: 2rem auto 3rem; }
+      .reel-split { grid-template-columns: 1fr; gap: 0; }
+      .reel-split .vfeat-stage { margin: 2rem auto 3rem; }
       .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
       .tl-spine { display: none; }
       .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
@@ -1262,8 +1266,11 @@
   <!-- ════════ BLOQUE PROYECTO: REEL SPORTING ════════════════════════════════
        Pieza principal del portfolio de vídeo por indicación de José. Está grabada
        en vertical (formato Reel), así que usa .vfeat-stage--vert en lugar del
-       escenario ancho de 1300px que comparten el resto de bloques 16:9.
+       escenario ancho de 1300px que comparten el resto de bloques 16:9. Va en
+       dos columnas (texto a la izquierda, vídeo a la derecha) para no ocupar
+       una pantalla entera de alto.
        ─────────────────────────────────────────────────────────────────────── -->
+  <div class="reel-split">
   <div class="vfeat">
     <h3 class="vfeat-title">Reel<br>Sporting<span>Sporting de Gijón · El Molinón · Pieza vertical para redes</span></h3>
     <p class="vfeat-desc">Pieza vertical para redes: la jornada de partido en El Molinón desde el visor del fotógrafo, del túnel de vestuarios al pie de campo.</p>
@@ -1279,6 +1286,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <!-- ════════ BLOQUE PROYECTO: GETAFE — CONFERENCE ═══════════════════════════
