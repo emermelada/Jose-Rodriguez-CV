@@ -13,8 +13,11 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
 1. **Portada** — Nombre a gran escala + **carrusel** con las diez fotografías del reportaje del Real Sporting — Burgos en El Molinón. Avanza solo cada 5 s y se navega con flechas, puntos o teclado; al pulsar una fotografía se abre la publicación original de Instagram.
-2. **Portfolio Foto** — Un único reportaje: **Pretemporada 2026/27**, dividido en dos subgrupos por club (**CD Leganés**, 8 fotografías · **Getafe CF**, 4) en rejilla de dos columnas. Todo con *lightbox* nativo a pantalla completa.
-3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle) → **Atlético Madrileño** (clip destacado + rejilla 2×2) → videoclip *Amapolas* con su galería de stills → bloque del EP *Anatomía de una Derrota* → cortometraje y Steadicam. Soporta tanto vídeo de YouTube (*lazy load*) como **vídeo local `.mp4`** (clips de retransmisiones deportivas y reel).
+2. **Portfolio Foto** — Tres bloques, todo con *lightbox* nativo a pantalla completa:
+   * **Sporting de Gijón — César Gelabert**: dos carruseles de Instagram completos (vs Burgos, vs Girona) en rejilla 4:5 con enlace al post.
+   * **CD Leganés — Patrick Soko**: dos carruseles (victoria en Butarque, vs Granada) con el mismo formato.
+   * **Pretemporada 2026/27**: sólo presentaciones y fichajes (**CD Leganés** 4 · **Getafe CF** 4) en rejilla 16:9 de dos columnas.
+3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle) → **Atlético Madrileño** (clip destacado + rejilla 2×2). Sólo fútbol: todo el vídeo es **`.mp4` local** (clips de retransmisiones y reel).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
 6. **Contacto** — Enlaces directos (teléfono, email, Instagram).
@@ -27,8 +30,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 * **Portada Escaparate:** El nombre domina la portada y el mejor trabajo se muestra de inmediato, sin obligar al usuario a navegar para ver una pieza.
 * **Carrusel Autoalojado:** Las fotografías del carrusel de portada se sirven desde este mismo dominio, de modo que la página **no contacta con Instagram** hasta que el visitante pulsa para abrir la publicación. El pase automático se detiene con el puntero encima, con la pestaña en segundo plano y si el sistema pide `prefers-reduced-motion`.
 * **Film Ticker Continuo:** Marquesina infinita en CSS nativo acelerada por hardware (`will-change: transform`) para mostrar áreas de especialización sin penalizar rendimiento.
-* **Lazy Load de Vídeo Inteligente:** Los fragmentos de YouTube no cargan iframes ni dependencias externas de forma masiva en el inicio. Se renderizan dinámicamente tras la interacción del usuario, reduciendo peticiones de red y optimizando las métricas **Core Web Vitals** (LCP, TTI).
-* **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido equivalente al de YouTube.
+* **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido que sólo inserta el `<video>` al pulsar.
 * **Lightbox Nativo Integrado:** Visualización de capturas y composiciones fotográficas a pantalla completa sin librerías de terceros (Vanilla JS, cierre con `ESC`).
 * **Scroll-Spy Automático:** Sincronización en tiempo real mediante `IntersectionObserver` entre la posición del scroll y los enlaces activos de navegación.
 * **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por reportaje y cada grupo usa una rejilla de celdas 16:9 iguales (2×2 en escritorio, 1 columna por debajo de 600 px) para que los grupos de cuatro fotos queden siempre parejos; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
@@ -40,7 +42,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 
 * **HTML5:** Estructuración semántica y accesible (`aria-label`, secciones independientes).
 * **CSS3 Custom Properties:** Arquitectura basada en *design tokens* centralizados para fuentes, colores y rejillas.
-* **Vanilla JavaScript:** Control de flujos de UI, manipulación del DOM e integración diferida de vídeo (YouTube y `.mp4` local).
+* **Vanilla JavaScript:** Control de flujos de UI, manipulación del DOM e integración diferida de vídeo `.mp4` local.
 
 Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` autocontenido.
 
@@ -53,18 +55,18 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── README.md
 └── resources/
     ├── fotografias/
-    │   ├── hero-carrusel-01..10.jpg    # carrusel de portada (post de Instagram, Sporting — Burgos)
+    │   ├── hero-carrusel-01..10.jpg    # post Sporting — Burgos: carrusel de portada y bloque Sporting
     │   ├── pret-leganes-01..04.jpg     # Pretemporada 2026/27 — presentación en el CD Leganés
-    │   ├── pret-leganes-05..08.jpg     # Pretemporada 2026/27 — partido del CD Leganés
+    │   ├── sporting-girona-01..08.jpg  # post Sporting — Girona (1080×1350)
+    │   ├── leganes-butarque-01..10.jpg # post victoria del Leganés en Butarque
+    │   ├── leganes-granada-01..10.jpg  # post Leganés — Granada
     │   ├── pret-getafe-01..04.jpg      # Pretemporada 2026/27 — fichajes del Getafe CF
-    │   ├── amapolas-still-01..07.jpg   # stills del videoclip "Amapolas"
     │   ├── reel-sporting.jpg           # póster del Reel del Sporting (vertical)
     │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
     │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle del Atlético
     │   ├── getafe-conf-01..04.jpg      # pósters de la rejilla en bucle del Getafe (Conference)
     │   ├── profile-picture.jpeg        # retrato principal de José ("Sobre mí")
-    │   ├── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
-    │   └── portada-album.jpeg          # portada del EP "Anatomía de una Derrota"
+    │   └── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
     └── videos/
         ├── reel-sporting.mp4           # Reel del Sporting (720×1280 vertical, con audio)
         ├── atleti-destacado.mp4        # clip destacado del Atlético (1080p, con audio)
@@ -72,4 +74,4 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
         └── getafe-conf-01..04.mp4      # rejilla 2×2 del Getafe en Conference (720p, mudos)
 ```
 
-> **Estado de los assets:** todos los materiales están incluidos. Clips del Atlético y del Getafe optimizados (MOV→MP4 H.264 con `faststart`; los destacados conservan audio AAC y las rejillas 2×2 van sin pista de audio, con `<video autoplay muted loop>`). El Reel del Sporting se reescala a 720×1280 (CRF 26) para no disparar el peso del repositorio. Fotografías a 1920 px de ancho —el póster vertical del reel a 1080×1920—, JPEG q82 y sin metadatos EXIF. El bloque "Anatomía de una Derrota" integra reproductores de Spotify embebidos (single + EP).
+> **Estado de los assets:** todos los materiales están incluidos. Clips del Atlético y del Getafe optimizados (MOV→MP4 H.264 con `faststart`; los destacados conservan audio AAC y las rejillas 2×2 van sin pista de audio, con `<video autoplay muted loop>`). El Reel del Sporting se reescala a 720×1280 (CRF 26) para no disparar el peso del repositorio. Fotografías a 1920 px de ancho —el póster vertical del reel a 1080×1920—, JPEG q82 y sin metadatos EXIF.
