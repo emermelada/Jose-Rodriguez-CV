@@ -13,8 +13,9 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
 1. **Portada** — Nombre a gran escala + **carrusel** con las diez fotografías del reportaje del Real Sporting — Burgos en El Molinón. Avanza solo cada 5 s y se navega con flechas, puntos o teclado; al pulsar una fotografía se abre la publicación original de Instagram.
-2. **Portfolio Foto** — Cuatro bloques:
+2. **Portfolio Foto** — Cinco bloques:
    * **Atlético Madrileño** (para Atlético Stats): los tres últimos posts (vs Real Zaragoza, vs Real Madrid Castilla, vs Villarreal B), tres carruseles en fila (uno por fila por debajo de 980 px).
+   * **Movistar Estudiantes** (baloncesto, para Encestando.es): un post (vs Iberolea Palencia, 15 fotos) en un carrusel centrado.
    * **Sporting de Gijón — César Gelabert**: dos posts de Instagram (vs Burgos, vs Girona), cada uno como carrusel igual que el de portada: flechas, puntos, pase automático cada 5 s y clic para abrir el post.
    * **CD Leganés — Patrick Soko**: dos posts (victoria en Butarque, vs Granada) con el mismo carrusel.
    * **Pretemporada 2026/27**: sólo presentaciones y fichajes (**CD Leganés** 4 · **Getafe CF** 4) en rejilla 16:9 de dos columnas con *lightbox*.
@@ -61,6 +62,7 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     │   ├── atleti-zaragoza-01..10.jpg  # post Atlético Madrileño — Real Zaragoza (1080×1350)
     │   ├── atleti-castilla-01..10.jpg  # post Real Madrid Castilla — Atlético Madrileño
     │   ├── atleti-villarreal-01..10.jpg # post Atlético Madrileño — Villarreal B
+    │   ├── estudiantes-palencia-01..15.jpg # post Movistar Estudiantes — Iberolea Palencia
     │   ├── sporting-girona-01..08.jpg  # post Sporting — Girona (1080×1350)
     │   ├── leganes-butarque-01..10.jpg # post victoria del Leganés en Butarque
     │   ├── leganes-granada-01..10.jpg  # post Leganés — Granada
