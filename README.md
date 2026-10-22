@@ -13,11 +13,12 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
 1. **Portada** — Nombre a gran escala + **carrusel** con las diez fotografías del reportaje del Real Sporting — Burgos en El Molinón. Avanza solo cada 5 s y se navega con flechas, puntos o teclado; al pulsar una fotografía se abre la publicación original de Instagram.
-2. **Portfolio Foto** — Tres bloques:
+2. **Portfolio Foto** — Cuatro bloques:
+   * **Atlético Madrileño** (para Atlético Stats): los tres últimos posts (vs Real Zaragoza, vs Real Madrid Castilla, vs Villarreal B), tres carruseles en fila (uno por fila por debajo de 980 px).
    * **Sporting de Gijón — César Gelabert**: dos posts de Instagram (vs Burgos, vs Girona), cada uno como carrusel igual que el de portada: flechas, puntos, pase automático cada 5 s y clic para abrir el post.
    * **CD Leganés — Patrick Soko**: dos posts (victoria en Butarque, vs Granada) con el mismo carrusel.
    * **Pretemporada 2026/27**: sólo presentaciones y fichajes (**CD Leganés** 4 · **Getafe CF** 4) en rejilla 16:9 de dos columnas con *lightbox*.
-3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle) → **Atlético Madrileño** (clip destacado + rejilla 2×2). Sólo fútbol: todo el vídeo es **`.mp4` local** (clips de retransmisiones y reel).
+3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle) → **Vlog Atlético Stats** (vídeo de YouTube, se carga al pulsar). El resto del vídeo es **`.mp4` local** (clips de retransmisiones y reel).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
 5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
 6. **Contacto** — Enlaces directos (teléfono, email, Instagram).
@@ -57,21 +58,21 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     ├── fotografias/
     │   ├── hero-carrusel-01..10.jpg    # post Sporting — Burgos: carrusel de portada y bloque Sporting
     │   ├── pret-leganes-01..04.jpg     # Pretemporada 2026/27 — presentación en el CD Leganés
+    │   ├── atleti-zaragoza-01..10.jpg  # post Atlético Madrileño — Real Zaragoza (1080×1350)
+    │   ├── atleti-castilla-01..10.jpg  # post Real Madrid Castilla — Atlético Madrileño
+    │   ├── atleti-villarreal-01..10.jpg # post Atlético Madrileño — Villarreal B
     │   ├── sporting-girona-01..08.jpg  # post Sporting — Girona (1080×1350)
     │   ├── leganes-butarque-01..10.jpg # post victoria del Leganés en Butarque
     │   ├── leganes-granada-01..10.jpg  # post Leganés — Granada
     │   ├── pret-getafe-01..04.jpg      # Pretemporada 2026/27 — fichajes del Getafe CF
     │   ├── reel-sporting.jpg           # póster del Reel del Sporting (vertical)
-    │   ├── atleti-destacado.jpg        # póster del clip destacado del Atlético
-    │   ├── atleti-loop-01..04.jpg      # pósters de la rejilla en bucle del Atlético
+    │   ├── vlog-atletico-stats.jpg     # miniatura del vlog de Atlético Stats (YouTube)
     │   ├── getafe-conf-01..04.jpg      # pósters de la rejilla en bucle del Getafe (Conference)
     │   ├── profile-picture.jpeg        # retrato principal de José ("Sobre mí")
     │   └── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
     └── videos/
         ├── reel-sporting.mp4           # Reel del Sporting (720×1280 vertical, con audio)
-        ├── atleti-destacado.mp4        # clip destacado del Atlético (1080p, con audio)
-        ├── atleti-loop-01..04.mp4      # rejilla 2×2 del Atlético en bucle (720p, mudos)
         └── getafe-conf-01..04.mp4      # rejilla 2×2 del Getafe en Conference (720p, mudos)
 ```
 
-> **Estado de los assets:** todos los materiales están incluidos. Clips del Atlético y del Getafe optimizados (MOV→MP4 H.264 con `faststart`; los destacados conservan audio AAC y las rejillas 2×2 van sin pista de audio, con `<video autoplay muted loop>`). El Reel del Sporting se reescala a 720×1280 (CRF 26) para no disparar el peso del repositorio. Fotografías a 1920 px de ancho —el póster vertical del reel a 1080×1920—, JPEG q82 y sin metadatos EXIF.
+> **Estado de los assets:** todos los materiales están incluidos. Clips del Getafe optimizados (MOV→MP4 H.264 con `faststart`; los destacados conservan audio AAC y las rejillas 2×2 van sin pista de audio, con `<video autoplay muted loop>`). El Reel del Sporting se reescala a 720×1280 (CRF 26) para no disparar el peso del repositorio. Fotografías a 1920 px de ancho —el póster vertical del reel a 1080×1920—, JPEG q82 y sin metadatos EXIF.
