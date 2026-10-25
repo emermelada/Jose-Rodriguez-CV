@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>José Rodríguez — Opción B · Portada y carrete</title>
+<link href="../resources/fonts/fonts.css" rel="stylesheet">
+<link href="common.css" rel="stylesheet">
+<!-- OPCIÓN B. Trabajo: cada club abre con una portada de revista (foto vertical enorme +
+     nombre gigante) y debajo un carrete deslizable con todas sus fotos. Vídeo: una pared
+     de monitores como la de una unidad móvil: el reel en el centro como "programa" y los
+     cuatro planos de la retransmisión del Getafe alrededor. -->
+<style>
+  .spread { padding-top: clamp(4rem, 8vw, 7rem); }
+  .cover { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(1rem, 2.5vw, 2.5rem); align-items: end; }
+  .cover-photo { grid-column: 1 / 7; padding: 0; border: 0; background: var(--bg-2); cursor: zoom-in; overflow: hidden; width: min(100%, 70svh); aspect-ratio: 4 / 5; }
+  .spread--wide .cover-photo { aspect-ratio: 16 / 10; width: 100%; }
+  .cover-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease); }
+  .cover-photo:hover img { transform: scale(1.03); }
+  .cover-text { grid-column: 7 / -1; padding-bottom: 0.4rem; }
+  .cover-text h3 { font-family: var(--fd); font-weight: 400; text-transform: uppercase; font-size: clamp(3rem, 8.4vw, 9rem); line-height: 0.84; margin: 1rem 0 1.6rem; }
+  .cover-text .who { font-size: 1.15rem; color: var(--soft); margin-bottom: 1.4rem; }
+  .cover-text .who b { color: var(--fg); font-weight: 500; }
+  .cover-text ul { display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; }
+  .cover-text li a { text-decoration: none; }
+  .cover-text li a:hover { color: var(--red); }
+  .spread:nth-child(even) .cover-photo { grid-column: 7 / -1; grid-row: 1; justify-self: end; }
+  .spread:nth-child(even) .cover-text { grid-column: 1 / 7; grid-row: 1; }
+
+  .reel-head { display: flex; justify-content: space-between; align-items: center; margin: 2.4rem 0 0.9rem; }
+  .arrows { display: flex; gap: 0.4rem; }
+  .arrows button { width: 2.8rem; height: 2.8rem; border-radius: 50%; border: 1px solid var(--line); background: none; cursor: pointer; font-size: 1.2rem; transition: border-color 0.2s, background 0.2s; }
+  .arrows button:hover { border-color: var(--fg); background: var(--fg); color: var(--bg); }
+  .carrete { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x proximity; padding-inline: var(--m); scroll-padding-inline: var(--m); padding-bottom: 0.8rem; scrollbar-width: thin; scrollbar-color: var(--line) transparent; cursor: grab; }
+  .carrete.drag { cursor: grabbing; scroll-snap-type: none; }
+  .carrete > * { flex: none; height: clamp(220px, 40svh, 440px); scroll-snap-align: start; }
+  .carrete button { padding: 0; border: 0; background: var(--bg-2); cursor: zoom-in; }
+  .carrete img { height: 100%; width: auto; pointer-events: none; }
+  /* Cartón de cabecera de cada partido dentro del carrete, como la cola de un rollo. */
+  .leader { width: clamp(150px, 16vw, 220px); background: var(--bg-2); padding: 1.2rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .leader b { font-family: var(--fd); font-weight: 400; text-transform: uppercase; font-size: clamp(1.4rem, 2vw, 1.9rem); line-height: 0.95; }
+
+  /* VÍDEO: multipantalla */
+  .wall { display: grid; grid-template-columns: 1fr 0.633fr 1fr; gap: 6px; background: #000; padding: 6px; }
+  .mon { position: relative; background: #050505; overflow: hidden; }
+  .mon video { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; display: block; }
+  .mon--pgm { grid-column: 2; grid-row: 1 / span 2; outline: 3px solid var(--red); outline-offset: -3px; }
+  .mon--pgm video { aspect-ratio: auto; position: absolute; inset: 0; }
+  .tag { position: absolute; left: 0; top: 0; display: flex; font-family: var(--fm); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; background: rgba(0,0,0,0.75); z-index: 1; }
+  .tag span { padding: 0.45em 0.7em; }
+  .tag .on { background: var(--red); color: #fff; }
+  .mon--pgm .sound { z-index: 2; }
+  .wall-cap { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 3rem; padding-top: 1.4rem; }
+  .wall-cap h3 { font-family: var(--fd); font-weight: 400; text-transform: uppercase; font-size: clamp(1.6rem, 2.6vw, 2.4rem); line-height: 0.95; margin-bottom: 0.5rem; }
+  .wall-cap p { color: var(--soft); line-height: 1.55; max-width: 48ch; }
+
+  @media (max-width: 900px) {
+    .cover-photo, .spread:nth-child(even) .cover-photo { grid-column: 1 / -1; grid-row: 2; justify-self: start; width: 100%; }
+    .cover-text, .spread:nth-child(even) .cover-text { grid-column: 1 / -1; grid-row: 1; margin-bottom: 1.4rem; }
+    .wall { grid-template-columns: 1fr 1fr; }
+    .mon--pgm { grid-column: 1 / -1; grid-row: 1; height: min(80svh, 720px); }
+    .wall-cap { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) { .arrows { display: none; } .carrete > * { height: 46vw; } .leader { width: 40vw; padding: 0.8rem; } }
+</style>
+</head>
+<body>
+<div data-part="nav"></div>
+<div data-part="hero"></div>
+
+<main>
+<section id="trabajo">
+  <div class="sec-head wrap"><h2 class="big rv">Trabajo</h2><p class="rv" style="--d:.1s">Fútbol y baloncesto a pie de campo, temporada 2026/27. Desliza cada carrete; pulsa una foto para verla a pantalla completa.</p></div>
+  <div id="spreads"></div>
+</section>
+
+<section id="video" class="wrap">
+  <div class="sec-head"><h2 class="big rv">Vídeo</h2><p class="rv" style="--d:.1s">Como en la unidad móvil: el programa en el centro, las cámaras alrededor.</p></div>
+  <div class="wall rv">
+    <div class="mon"><div class="tag"><span>Cam 1</span><span>Previa</span></div><video src="../resources/videos/getafe-conf-01.mp4" poster="../resources/fotografias/getafe-conf-01.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+    <div class="mon mon--pgm"><div class="tag"><span class="on">PGM</span><span>Reel Sporting</span></div>
+      <video id="reel" src="../resources/videos/reel-sporting.mp4" poster="../resources/fotografias/reel-sporting.jpg" muted loop playsinline autoplay preload="metadata"></video>
+      <button class="sound" type="button" data-sound="reel" aria-pressed="false">Activar sonido</button></div>
+    <div class="mon"><div class="tag"><span>Cam 2</span><span>10' · 1–0</span></div><video src="../resources/videos/getafe-conf-02.mp4" poster="../resources/fotografias/getafe-conf-02.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+    <div class="mon"><div class="tag"><span>Cam 3</span><span>74' · 1–1</span></div><video src="../resources/videos/getafe-conf-04.mp4" poster="../resources/fotografias/getafe-conf-04.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+    <div class="mon"><div class="tag"><span>Cam 4</span><span>87' · 2–1</span></div><video src="../resources/videos/getafe-conf-03.mp4" poster="../resources/fotografias/getafe-conf-03.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+  </div>
+  <div class="wall-cap">
+    <div class="rv"><h3>Reel Sporting</h3><p>La jornada en El Molinón desde el visor del fotógrafo, del túnel de vestuarios al césped. Vertical, para redes.</p></div>
+    <div class="rv" style="--d:.1s"><h3>Getafe – Partizan</h3><p>Conference League en el Coliseum: cámara en la retransmisión en directo para PEVYPE, de la previa al 2–1 del minuto 87.</p></div>
+  </div>
+</section>
+
+<div data-part="info"></div>
+<div data-part="contact"></div>
+</main>
+<div data-part="lb"></div>
+
+<script src="common.js"></script>
+<script>
+  var host = document.getElementById('spreads');
+  JR.CHAPTERS.forEach(function(ch) {
+    var all = JR.photos(ch), lead = all[all.findIndex(function(p) { return p.name === ch.picks[0]; })], k = 0, row = '';
+    ch.matches.forEach(function(m) {
+      row += '<div class="leader"><span class="mono">' + m.d + '</span><b>' + m.s + '</b><span class="mono">' + m.files.length + ' fotos</span></div>';
+      m.files.forEach(function() { var p = all[k], d = JR.dims(p.name);
+        row += '<button type="button" data-i="' + k + '"><img src="' + p.src + '" alt="' + p.alt + '" width="' + d[0] + '" height="' + d[1] + '" loading="lazy"></button>'; k++; });
+    });
+    host.insertAdjacentHTML('beforeend',
+      '<article class="spread' + (ch.wide ? ' spread--wide' : '') + '" id="' + ch.id + '">' +
+      '<div class="cover wrap"><button class="cover-photo rv" type="button" data-i="' + all.indexOf(lead) + '"><img src="' + lead.src + '" alt="' + lead.alt + '" loading="lazy"></button>' +
+      '<div class="cover-text rv" style="--d:.12s"><p class="mono">' + ch.l + '</p><h3>' + ch.t + '</h3><p class="who">Para <b>' + ch.c + '</b> · ' + all.length + ' fotos</p>' +
+      '<ul class="mono">' + ch.matches.filter(function(m) { return m.ig; }).map(function(m) { return '<li><a href="https://www.instagram.com/p/' + m.ig + '/" target="_blank" rel="noopener">' + m.s + ' ↗</a></li>'; }).join('') + '</ul></div></div>' +
+      '<div class="reel-head wrap"><span class="mono">Carrete · desliza</span><div class="arrows"><button type="button" data-dir="-1" aria-label="Anteriores">‹</button><button type="button" data-dir="1" aria-label="Siguientes">›</button></div></div>' +
+      '<div class="carrete">' + row + '</div></article>');
+    var art = host.lastElementChild, strip = art.querySelector('.carrete');
+    art.addEventListener('click', function(e) {
+      if (strip.dataset.moved === '1') return;
+      var b = e.target.closest('[data-i]'); if (b) return JR.open(all, +b.dataset.i);
+      var a = e.target.closest('[data-dir]'); if (a) strip.scrollBy({ left: a.dataset.dir * strip.clientWidth * 0.8, behavior: 'smooth' });
+    });
+    // Arrastrar con el ratón (en el móvil ya se desliza con el dedo).
+    var x0 = null, s0 = 0;
+    strip.addEventListener('pointerdown', function(e) { if (e.pointerType !== 'mouse') return; x0 = e.clientX; s0 = strip.scrollLeft; strip.dataset.moved = '0'; });
+    window.addEventListener('pointermove', function(e) { if (x0 === null) return; var dx = e.clientX - x0; if (Math.abs(dx) > 5) { strip.dataset.moved = '1'; strip.classList.add('drag'); } strip.scrollLeft = s0 - dx; });
+    window.addEventListener('pointerup', function() { if (x0 === null) return; x0 = null; strip.classList.remove('drag'); setTimeout(function() { strip.dataset.moved = '0'; }, 0); });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* Partes comunes de las opciones del rediseño: portada (la del primer diseño), clientes,
+   info, contacto, pie, visor a pantalla completa y selector de opciones. */
+:root {
+  --bg: #0e0e0d; --bg-2: #161614; --fg: #ecebe6; --soft: #bdbcb6; --mid: #8a8984; --line: #2a2a27; --red: #d0302f;
+  --fd: 'Anton', 'Arial Narrow', sans-serif;
+  --fh: 'Geist', Arial, sans-serif;
+  --fm: 'Geist Mono', monospace;
+  --m: clamp(1rem, 4vw, 3.5rem);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--fg); font-family: var(--fh); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img, video { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+ul { list-style: none; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.mono { font-family: var(--fm); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); }
+.wrap { padding-inline: var(--m); }
+h2.big { font-family: var(--fd); font-weight: 400; text-transform: uppercase; font-size: clamp(2.6rem, 7vw, 6rem); line-height: 0.9; }
+
+/* NAV */
+nav.top { position: fixed; inset: 0 0 auto; z-index: 20; display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem var(--m); mix-blend-mode: difference; }
+nav.top .logo { font-family: var(--fm); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; }
+nav.top .logo::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--red);
+      margin-right: 0.6rem; animation: rec 1.6s steps(1) infinite; }
+@keyframes rec { 50% { opacity: 0; } }
+nav.top ul { display: flex; gap: clamp(1rem, 3vw, 2.5rem); }
+nav.top ul a { font-family: var(--fm); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; }
+
+/* PORTADA — la del primer diseño. Arreglos: hueco arriba para la barra (antes el
+   antetítulo quedaba debajo del menú) y el nombre limitado también por la ALTURA de
+   la pantalla, para que en monitores bajos todo quepa sin subir por encima. */
+.hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 100%; align-content: end;
+        padding-top: 6.5rem; padding-bottom: clamp(1.5rem, 4vw, 3rem); overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.38) saturate(0.8);
+           transform: scale(1.18); transform-origin: 0 100%; } /* recorta el logo y el "LIVE" de la esquina de la retransmisión */
+.hero > *:not(.hero-bg) { position: relative; }
+.hero > .mono { margin-bottom: calc(clamp(3.6rem, min(17vw, 25svh), 17rem) * 0.3); } /* deja sitio a la tilde de la É */
+.hero h1 { font-family: var(--fd); font-weight: 400; text-transform: uppercase; line-height: 0.82; letter-spacing: -0.01em;
+           font-size: clamp(3.6rem, min(17vw, 25svh), 17rem); }
+.hero h1 span { color: var(--red); }
+.hero-foot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 2rem; align-items: end; margin-top: 1.6rem; }
+.hero-foot p { max-width: 34ch; line-height: 1.5; color: #c9c8c2; }
+.feat { width: 100%; cursor: pointer; }
+.feat-frame { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
+.feat-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.feat:hover .feat-frame img { transform: scale(1.04); }
+.feat-frame iframe { width: 100%; height: 100%; border: 0; }
+.play { position: absolute; inset: 0; margin: auto; width: 64px; height: 64px; border-radius: 50%; background: rgba(14,14,13,0.6);
+        border: 1px solid rgba(255,255,255,0.4); display: grid; place-items: center; transition: background 0.2s; }
+.play::after { content: ''; border-left: 16px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px; }
+.feat:hover .play { background: var(--red); border-color: var(--red); }
+.feat .mono { display: flex; justify-content: space-between; margin-top: 0.6rem; }
+
+/* CLIENTES */
+.clients { border-block: 1px solid var(--line); padding-block: 1.4rem; display: flex; flex-wrap: wrap; gap: 0.8rem clamp(1.5rem, 4vw, 3.5rem); align-items: baseline; }
+.clients b { font-family: var(--fd); font-weight: 400; font-size: clamp(1.1rem, 2vw, 1.6rem); text-transform: uppercase; color: #bdbcb6; }
+
+/* Cabecera de sección */
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem 2rem; flex-wrap: wrap; padding-top: clamp(5rem, 10vw, 9rem); margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.sec-head p { max-width: 42ch; color: var(--soft); line-height: 1.55; }
+
+/* Banda del reel con fondo desenfocado (opciones A y C la usan) */
+.reel-band { position: relative; overflow: hidden; margin-top: clamp(4rem, 8vw, 7rem); padding-block: clamp(2rem, 5vw, 4rem); display: grid; place-items: center; }
+.reel-band::before { content: ''; position: absolute; inset: -40px; background: var(--poster) center / cover; filter: blur(38px) brightness(0.45) saturate(1.2); transform: scale(1.1); }
+.reel-phone { position: relative; height: min(84svh, 820px); aspect-ratio: 9 / 16; background: #000; }
+.reel-phone video { width: 100%; height: 100%; object-fit: cover; }
+.sound { position: absolute; left: 0.8rem; bottom: 0.8rem; border: 0; background: rgba(14,14,13,0.75); color: var(--fg); font-family: var(--fm);
+         font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.7em 1em; cursor: pointer; transition: background 0.2s; }
+.sound:hover, .sound[aria-pressed="true"] { background: var(--red); }
+
+/* INFO */
+.info { padding-block: clamp(5rem, 10vw, 9rem); display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 5rem); }
+.info img { width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: grayscale(1); }
+.info .lead { font-size: clamp(1.25rem, 2.2vw, 1.8rem); line-height: 1.35; margin: 1.6rem 0 1.2rem; }
+.info .lead em { font-style: normal; color: var(--red); }
+.info p { color: var(--soft); line-height: 1.6; max-width: 60ch; }
+.xp { margin-top: 2.6rem; border-top: 1px solid var(--line); }
+.xp li { display: grid; grid-template-columns: 8.5rem 1fr auto; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+
+/* CONTACTO */
+.contact { border-top: 1px solid var(--line); padding-block: clamp(4rem, 9vw, 8rem) 2rem; }
+.contact .bigmail { display: block; font-family: var(--fd); text-transform: uppercase; font-size: clamp(2rem, 8.2vw, 9rem); line-height: 0.95;
+                text-decoration: none; margin: 1.2rem 0 2.4rem; word-break: break-all; transition: color 0.2s; }
+.contact .bigmail:hover { color: var(--red); }
+.contact-row { display: flex; flex-wrap: wrap; gap: 1rem 3rem; }
+.contact-row a { text-decoration: none; }
+footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-block: 3rem 1.6rem; }
+footer a { text-decoration: none; margin-left: 1.4rem; }
+
+/* VISOR */
+.lb { border: 0; padding: 0; margin: 0; width: 100%; max-width: none; height: 100%; max-height: none; background: rgba(8,8,7,0.98); color: var(--fg); }
+.lb::backdrop { background: rgba(8,8,7,0.98); }
+.lb[open] { display: grid; grid-template-rows: 1fr auto; }
+.lb-stage { display: grid; place-items: center; min-height: 0; padding: 1rem; touch-action: pan-y; }
+.lb-stage img { max-width: 100%; max-height: calc(100svh - 7rem); object-fit: contain; }
+.lb-bar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.8rem var(--m) 1.2rem; flex-wrap: wrap; }
+.lb-bar b { font-family: var(--fd); font-weight: 400; text-transform: uppercase; font-size: 1.3rem; display: block; }
+.lb-btns { display: flex; gap: 0.4rem; }
+.lb-btns button { background: none; border: 1px solid var(--line); padding: 0.7em 1em; cursor: pointer; font-family: var(--fm); font-size: 0.68rem;
+                  letter-spacing: 0.16em; text-transform: uppercase; transition: border-color 0.2s, background 0.2s; }
+.lb-btns button:hover { border-color: var(--fg); }
+.lb-btns .lb-x { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+/* Selector de opciones (sólo maqueta) */
+.picker { position: fixed; left: 50%; top: 3.6rem; translate: -50% 0; z-index: 40; display: flex; gap: 2px; background: #000; padding: 4px; }
+.picker a { font-family: var(--fm); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; padding: 0.7em 1em; color: var(--mid); white-space: nowrap; }
+.picker a[aria-current] { background: var(--red); color: #fff; }
+
+/* Entradas al hacer scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .js .rv { opacity: 0; transform: translateY(26px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); transition-delay: var(--d, 0s); }
+  .js .rv.in { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media (max-width: 800px) {
+  .hero-foot { grid-template-columns: 1fr; }
+  .info { grid-template-columns: 1fr; }
+  .xp li { grid-template-columns: 1fr; gap: 0.2rem; }
+  nav.top ul { gap: 0.9rem; }
+  .picker a { padding: 0.7em 1.1em; }
+  .picker .pk-name { display: none; }
+}
+@media (max-width: 520px) {
+  nav.top .logo span { display: none; }
+  .hero h1 { font-size: clamp(3.4rem, 18vw, 6rem); }
+}
