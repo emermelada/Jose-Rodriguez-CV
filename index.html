@@ -536,7 +536,7 @@
     .post-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 500px)); gap: 4rem; justify-content: center; }
     .post-pair .pf-cat { margin-top: 2.5rem; }
     .post-pair--trio { grid-template-columns: repeat(3, minmax(0, 420px)); gap: 2.5rem; }
-    .post-pair--solo { grid-template-columns: minmax(0, 500px); }
+    .post-pair--solo { grid-template-columns: minmax(0, 420px); }
     .pf-cat a { color: inherit; text-underline-offset: 3px; }
     /* Etiqueta de categoría: separa el portfolio de foto por reportaje
        (CD Leganés, Getafe CF) en lugar de mezclarlo todo. */
@@ -857,20 +857,18 @@
       padding-right: max(4rem, calc(50% - 720px));
     }
 
-    /* Las fotos del carrusel son verticales (4:5). En una sola columna dejaban
-       medio ancho de pantalla vacío en portátil y tablet, y además empujaban la
-       foto por debajo del fold. A partir de 700px el nombre y el carrusel se
-       enfrentan en dos columnas y la portada vuelve a llenarse. */
+    /* En una sola columna el vlog quedaba por debajo del fold. A partir de
+       700px el nombre y el vlog se enfrentan en dos columnas. */
     @media (min-width: 700px) {
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) clamp(260px, 28vw, 400px);
+        grid-template-columns: minmax(0, 1fr) clamp(300px, 44vw, 720px);
         align-items: center;
         column-gap: clamp(2rem, 5vw, 5rem);
       }
       /* El nombre ya no dispone del ancho completo: se redimensiona contra su
          columna para no desbordarla. */
-      h1.hero-name { font-size: clamp(2.8rem, 8.4vw, 10rem); }
+      h1.hero-name { font-size: clamp(2.6rem, 7vw, 6.4rem); }
       .hero-showcase { width: 100%; margin-top: 0; }
     }
 
@@ -963,47 +961,17 @@
     <a class="hero-cta" href="#video">Ver portfolio</a>
   </div>
 
-  <!-- ESCAPARATE: carrusel con las diez fotografías del post de Instagram del
-       Sporting — Burgos. Pasa solo cada 5s, se navega con flechas y puntos, y al
-       pulsar una foto se abre la publicación original. Las imágenes están
-       autoalojadas: la portada no contacta con Instagram hasta que se hace clic.
-       La primera va sin loading="lazy" porque es la imagen LCP de la página. -->
+  <!-- ESCAPARATE: vlog de Atlético Stats en el Metropolitano. Miniatura
+       autoalojada y sin loading="lazy" (es la imagen LCP); el <iframe>
+       youtube-nocookie sólo se inserta al pulsar, así la portada no contacta
+       con YouTube hasta entonces. -->
   <div class="hero-showcase">
-    <div class="hero-showcase-label"><span>◆</span> El Molinón · Real Sporting 1 - 0 Burgos</div>
-
-    <div class="hero-carousel" id="heroCarousel" aria-roledescription="carrusel" aria-label="Fotografías del Real Sporting en El Molinón">
-      <div class="hc-frame">
-        <a class="hc-link" href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener" aria-label="Ver la publicación completa en Instagram">
-          <div class="hc-stage">
-            <img class="hc-slide is-active" src="resources/fotografias/hero-carrusel-01.jpg" alt="César Gelabert sale al césped de El Molinón con el chándal del Sporting de Gijón">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-02.jpg" alt="Golpeo de balón ante la grada de El Molinón durante el Sporting — Burgos" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-03.jpg" alt="Composición de detalles del partido: el escudo, la grada y la estatua de El Molinón" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-04.jpg" alt="Fachada de El Molinón, estadio decano del fútbol español desde 1908" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-05.jpg" alt="La grada de El Molinón llena durante el Real Sporting — Burgos" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-06.jpg" alt="César Gelabert saluda al portero antes del encuentro" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-07.jpg" alt="César Gelabert junto a la valla publicitaria con la afición al fondo" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-08.jpg" alt="Composición del partido: el escudo del Sporting y Gelabert conduciendo el balón" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-09.jpg" alt="César Gelabert sobre el césped de El Molinón durante el partido" loading="lazy">
-            <img class="hc-slide" src="resources/fotografias/hero-carrusel-10.jpg" alt="La afición del Sporting con bufandas y bandera en la grada de El Molinón" loading="lazy">
-          </div>
-        </a>
-        <button class="hc-arrow hc-prev" type="button" aria-label="Fotografía anterior">‹</button>
-        <button class="hc-arrow hc-next" type="button" aria-label="Fotografía siguiente">›</button>
-      </div>
-
-      <a class="hc-hint" href="https://www.instagram.com/p/DcZSBeODboX/" target="_blank" rel="noopener">Ver en Instagram ↗</a>
-
-      <div class="hc-dots">
-      <button class="hc-dot is-active" type="button" aria-label="Ir a la fotografía 1 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 2 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 3 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 4 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 5 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 6 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 7 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 8 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 9 de 10"></button>
-      <button class="hc-dot" type="button" aria-label="Ir a la fotografía 10 de 10"></button>
+    <div class="hero-showcase-label"><span>◆</span> Metropolitano · Vlog Atlético Stats</div>
+    <div class="vid-frame" onclick="loadYouTube(this, 'KY1CASKn1mo')">
+      <img src="resources/fotografias/vlog-atletico-stats.jpg" alt="Videoblog del evento de Atlético Stats en el Metropolitano" class="vid-thumb">
+      <div class="vid-placeholder">
+        <div class="vid-play"></div>
+        <span class="vid-hint">Reproducir vlog</span>
       </div>
     </div>
   </div>
@@ -1479,28 +1447,6 @@
     <video class="loop-vid" src="resources/videos/getafe-conf-02.mp4" poster="resources/fotografias/getafe-conf-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
     <video class="loop-vid" src="resources/videos/getafe-conf-03.mp4" poster="resources/fotografias/getafe-conf-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
     <video class="loop-vid" src="resources/videos/getafe-conf-04.mp4" poster="resources/fotografias/getafe-conf-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  </div>
-
-  <!-- ════════ BLOQUE PROYECTO: VLOG ATLÉTICO STATS ══════════════════════════
-       Sustituye al antiguo bloque Atlético Madrileño. Es un vídeo de YouTube: la
-       miniatura está autoalojada y el <iframe> (youtube-nocookie) sólo se inserta
-       al pulsar, así la página no contacta con YouTube hasta entonces.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
-    <h3 class="vfeat-title">Vlog<br>Atlético Stats<span>Metropolitano · Videoblog · YouTube</span></h3>
-    <p class="vfeat-desc">Videoblog del evento de Atlético Stats en el Metropolitano.</p>
-  </div>
-
-  <div class="vfeat-stage">
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadYouTube(this, 'KY1CASKn1mo')">
-        <img src="resources/fotografias/vlog-atletico-stats.jpg" alt="Videoblog del evento de Atlético Stats en el Metropolitano" class="vid-thumb" loading="lazy">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Reproducir vlog</span>
-        </div>
-      </div>
-    </div>
   </div>
 
 </section>
