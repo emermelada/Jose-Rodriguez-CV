@@ -401,7 +401,7 @@
     .s--red .s-title { color: var(--bg); }
     .s--red .s-rule { background: rgba(235,235,231,0.2); }
 
-    /* ─── SECCIÓN: PORTFOLIO VÍDEO (Estilo escaparate Zara) ───── */
+    /* ─── INTRO DE SECCIÓN ───────────────────────────────────── */
     .pf-intro {
       font-family: var(--fb);
       font-size: 1.05rem;
@@ -411,9 +411,8 @@
       margin-bottom: 3rem;
     }
     .s .pf-intro { color: var(--mid); }
-    .s--dark .pf-intro { color: rgba(255,255,255,0.5); }
 
-    /* ─── BLOQUE EDITORIAL DE VÍDEO (titular condensado + vídeo a sangre, ref. Zara) ─ */
+    /* ─── TITULAR EDITORIAL DE CADA CLUB (condensado, ref. Zara) ─ */
     .vfeat { max-width: 1100px; }
     .vfeat-title {
       font-family: var(--fd);
@@ -433,57 +432,15 @@
       color: var(--red);
       margin-top: 1.1rem;
     }
-    .vfeat-desc {
-      font-family: var(--fb);
-      font-size: 1.05rem;
-      letter-spacing: 0.06em;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.5);
-      max-width: 620px;
-      margin-top: 1.6rem;
-    }
-    /* Escenario del vídeo destacado: contenido y centrado (no a sangre) y con un
-       ancho máximo para no sobredimensionarlo ni perder nitidez al ampliar el póster. */
-    /* width definido (no max-width): con max-width + margin:auto el ancho del bloque es
-       "indefinido" para resolver el width:100% de la miniatura y ésta no llenaba.
-       min(100%,1300px) da un ancho definido y centrado. */
-    .vfeat-stage { margin: 3rem auto 5rem; width: min(100%, 1300px); }
-    .vfeat-stage .vid-frame { border-radius: 6px; }
-    /* El Reel del Sporting está grabado en vertical (1080×1920), así que su
-       escenario se estrecha en lugar de estirarse a los 1300px del resto. */
-    .vfeat-stage--vert { width: min(100%, 420px); }
-    .reel-split { display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center; }
-    .reel-split .vfeat-stage { margin: 0; }
-
-    /* Rejilla 2×2 de clips en bucle simultáneo (mudos). El fondo rayado marca
-       el hueco mientras no haya vídeo; al cargar, el <video> lo cubre. */
-    .loop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .loop-grid .loop-vid {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      border-radius: 4px;
-      background: repeating-linear-gradient(45deg, #1a1a18, #1a1a18 12px, #141413 12px, #141413 24px);
-    }
-
-    .vid-wrap { display: flex; flex-direction: column; }
-    /* width:100% explícito: el marco es un flex item en columna cuyos hijos van en
-       posición absoluta; sin width no se estira y colapsaba el vídeo destacado. */
     /* La miniatura (img 16:9) se muestra como bloque a ancho completo y su altura natural
        define el alto del marco: técnica simple e infalible (la misma del grid masonry),
        sin object-fit/aspect-ratio/padding que en el destacado ancho no llenaban. */
     .vid-frame { position: relative; width: 100%; background-color: var(--dark); overflow: hidden; cursor: pointer; border-radius: 4px; }
     .vid-frame img.vid-thumb { display: block; width: 100%; height: auto; transition: transform 0.3s ease; }
     .vid-frame:hover img.vid-thumb { transform: scale(1.03); }
-    /* Al reproducir, el <iframe>/<video> sustituye a la miniatura; el marco ya no
+    /* Al reproducir, el <iframe> sustituye a la miniatura; el marco ya no
        tiene contenido que le dé altura, así que la fija el aspect-ratio. */
-    .vid-frame iframe, .vid-frame video { display: block; width: 100%; aspect-ratio: 16/9; border: none; background: #000; }
-    .vid-frame video { object-fit: cover; }
-    /* El Reel es vertical: sin esto heredaba el 16:9 de arriba y al darle al play
-       se encajaba en una caja horizontal, recortado por el object-fit. */
-    .vfeat-stage--vert .vid-frame iframe,
-    .vfeat-stage--vert .vid-frame video { aspect-ratio: 9/16; object-fit: contain; }
+    .vid-frame iframe { display: block; width: 100%; aspect-ratio: 16/9; border: none; background: #000; }
 
     .vid-placeholder {
       position: absolute;
@@ -527,15 +484,7 @@
       color: rgba(255,255,255,0.9);
       text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
-    .vid-title { font-family: var(--fh); font-size: 1rem; font-weight: 700; color: var(--white); margin-top: 0.9rem; }
-    .vid-meta { font-family: var(--fb); font-size: 0.85rem; letter-spacing: 0.07em; color: rgba(255,255,255,0.45); margin-top: 0.2rem; }
-    /* En secciones claras los textos de vídeo se oscurecen */
-    .s:not(.s--dark) .vid-title { color: var(--dark); }
-    .s:not(.s--dark) .vid-meta { color: var(--mid); }
-    /* Ídem para el bloque editorial: .vfeat nació en la sección oscura de vídeo,
-       pero el portfolio de foto (fondo claro) lo reutiliza para sus titulares. */
     .s:not(.s--dark) .vfeat-title { color: var(--dark); }
-    .s:not(.s--dark) .vfeat-desc  { color: var(--mid); }
 
     /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
     /* Dos carruseles de post por club, lado a lado; ancho acotado para que el
@@ -563,14 +512,6 @@
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      margin-bottom: 4.5rem;
-    }
-    /* Fila secundaria: imagen + datos de contacto */
-    .about-meta {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
       gap: 5rem;
       align-items: center;
     }
@@ -611,34 +552,10 @@
     .about-body + .about-body { margin-top: 1.2rem; }
     .about-body strong { color: var(--dark); font-weight: 400; }
 
-    /* Tabla metadatos personales */
-    .about-info { display: flex; flex-direction: column; }
-    .info-row {
-      display: flex;
-      flex-direction: column;
-      padding: 1.1rem 0;
-      border-bottom: 1px solid var(--pale);
-    }
-    .info-row:first-child { border-top: 1px solid var(--pale); }
-    .i-label {
-      font-family: var(--fm);
-      font-size: 0.58rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 0.3rem;
-    }
-    .i-val {
-      font-family: var(--fb);
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      color: var(--dark);
-    }
-    .i-val a { color: var(--dark); text-decoration: none; transition: color 0.2s; }
-    .i-val a:hover { color: var(--red); }
-
     /* ─── SECCIÓN: CONTACTO ──────────────────────────────────── */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    /* La foto "en ruta" que antes iba en Sobre mí con una tabla de datos (repetía estos
+       mismos enlaces) acompaña ahora al contacto. */
+    .contact-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 5rem; align-items: center; }
     .contact-headline {
       font-family: var(--fh);
       font-size: clamp(2.5rem, 6vw, 5rem);
@@ -648,7 +565,7 @@
       color: var(--white);
     }
     .contact-headline em { color: var(--red); font-style: normal; }
-    .contact-links { display: flex; flex-direction: column; gap: 0; }
+    .contact-links { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
     .c-link {
       display: flex;
       flex-direction: column;
@@ -788,10 +705,8 @@
       .hero, section.s, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       section.s { padding-top: 5rem; padding-bottom: 5rem; }
 
-      .about-grid, .about-meta, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .vfeat-stage { margin: 2rem auto 3rem; }
-      .reel-split { grid-template-columns: 1fr; gap: 0; }
-      .reel-split .vfeat-stage { margin: 2rem auto 3rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-grid .about-photo { order: 1; }   /* en móvil, los enlaces antes que la foto */
     }
 
     @media (max-width: 600px) {
@@ -799,7 +714,6 @@
       /* "ESTUDIANTES" no cabía a 320px con el mínimo de 3rem y se cortaba. */
       .vfeat-title { font-size: clamp(2.4rem, 14vw, 3rem); }
       .post-pair { grid-template-columns: 1fr; gap: 0; }
-      .loop-grid { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
       .s-rule { width: 100%; height: 1px; flex: none; }
       footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
@@ -824,7 +738,6 @@
 
   <ul class="nav-links">
     <li><a href="#photo">Foto</a></li>
-    <li><a href="#video">Vídeo</a></li>
     <li><a href="#about">Sobre mí</a></li>
     <li><a href="#contact">Contacto</a></li>
   </ul>
@@ -846,7 +759,7 @@
     </div>
 
     <div class="hero-ctas">
-      <a class="hero-cta" href="#video">Ver portfolio</a>
+      <a class="hero-cta" href="#photo">Ver portfolio</a>
       <a class="hero-cta" href="#contact">Contacto</a>
     </div>
   </div>
@@ -896,8 +809,7 @@
 </div>
 
 <!-- ════════════════════════════════════════════════════════════
-     02 · PORTFOLIO FOTO — Cobertura deportiva + lightbox
-     José subió la foto por delante del vídeo (portada → foto → vídeo).
+     02 · PORTFOLIO FOTO — Cobertura deportiva por club
      ════════════════════════════════════════════════════════════ -->
 <section class="s" id="photo">
   <div class="s-head">
@@ -1226,66 +1138,11 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     03 · PORTFOLIO VÍDEO — Destacado grande + rejilla (estilo Zara)
-     ════════════════════════════════════════════════════════════ -->
-<section class="s s--dark" id="video">
-  <div class="s-head">
-    <span class="s-num">03</span>
-    <h2 class="s-title">Portfolio Vídeo</h2>
-    <div class="s-rule"></div>
-  </div>
-
-  <!-- ════════ BLOQUE PROYECTO: REEL SPORTING ════════════════════════════════
-       Pieza principal del portfolio de vídeo por indicación de José. Está grabada
-       en vertical (formato Reel), así que usa .vfeat-stage--vert en lugar del
-       escenario ancho de 1300px que comparten el resto de bloques 16:9. Va en
-       dos columnas (texto a la izquierda, vídeo a la derecha) para no ocupar
-       una pantalla entera de alto.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="reel-split">
-  <div class="vfeat">
-    <h3 class="vfeat-title">Reel<br>Sporting<span>Sporting de Gijón · El Molinón · Pieza vertical para redes</span></h3>
-    <p class="vfeat-desc">Pieza vertical para redes: la jornada de partido en El Molinón desde el visor del fotógrafo, del túnel de vestuarios al pie de campo.</p>
-  </div>
-
-  <div class="vfeat-stage vfeat-stage--vert">
-    <div class="vid-wrap">
-      <div class="vid-frame" onclick="loadLocalVideo(this, 'resources/videos/reel-sporting.mp4')">
-        <img src="resources/fotografias/reel-sporting.jpg" alt="Reel del Sporting de Gijón" class="vid-thumb" loading="lazy">
-        <div class="vid-placeholder">
-          <div class="vid-play"></div>
-          <span class="vid-hint">Reproducir reel</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-
-  <!-- ════════ BLOQUE PROYECTO: GETAFE — CONFERENCE ═══════════════════════════
-       Sustituye al antiguo bloque Getafe — Valladolid (pretemporada). Los cuatro
-       clips que envió José son equivalentes entre sí (11 s, 1080p50), así que el
-       bloque va directo a la rejilla 2×2 muda, sin clip destacado.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
-    <h3 class="vfeat-title">Getafe<br>Conference<span>vs Partizan · Conference League · Operación de cámara</span></h3>
-    <p class="vfeat-desc">Cobertura del encuentro europeo para la señal en directo: la salida al césped, el pulso del partido y el ambiente de grada desde la banda.</p>
-  </div>
-
-  <div class="loop-grid">
-    <video class="loop-vid" src="resources/videos/getafe-conf-01.mp4" poster="resources/fotografias/getafe-conf-01.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/getafe-conf-02.mp4" poster="resources/fotografias/getafe-conf-02.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/getafe-conf-03.mp4" poster="resources/fotografias/getafe-conf-03.jpg" autoplay muted loop playsinline preload="metadata"></video>
-    <video class="loop-vid" src="resources/videos/getafe-conf-04.mp4" poster="resources/fotografias/getafe-conf-04.jpg" autoplay muted loop playsinline preload="metadata"></video>
-  </div>
-
-</section>
-
-<!-- ════════════════════════════════════════════════════════════
-     04 · SOBRE MÍ — Image-led con foto de portada (estilo Diego Simón)
+     03 · SOBRE MÍ — Image-led con foto de portada (estilo Diego Simón)
      ════════════════════════════════════════════════════════════ -->
 <section class="s" id="about">
   <div class="s-head">
-    <span class="s-num">04</span>
+    <span class="s-num">03</span>
     <h2 class="s-title">Sobre mí</h2>
     <div class="s-rule"></div>
   </div>
@@ -1302,65 +1159,37 @@
       <p class="about-body">Siempre busco aprender algo nuevo, mejorar y disfrutar de formar parte de una narrativa bien estructurada y que transmite tanto al espectador.</p>
     </div>
   </div>
-
-  <!-- Fila secundaria: segunda imagen + datos de contacto. Sustituye la ruta de la foto. -->
-  <div class="about-meta">
-    <div class="about-photo about-photo--sq">
-      <!-- Imagen de carácter más personal/autoral: encuadre cinematográfico de
-           tránsito (andén con equipo), en clave con la estética del portfolio. -->
-      <img src="resources/fotografias/sobre-mi-02.jpg" alt="José Rodríguez — en ruta de rodaje">
-    </div>
-    <div class="about-info">
-        <div class="info-row">
-          <span class="i-label">Teléfono</span>
-          <span class="i-val"><a href="tel:+34685044900">+34 685 044 900</a></span>
-        </div>
-        <div class="info-row">
-          <span class="i-label">Email</span>
-          <span class="i-val"><a href="mailto:joserdez011@gmail.com">joserdez011@gmail.com</a></span>
-        </div>
-        <div class="info-row">
-          <span class="i-label">Instagram</span>
-          <span class="i-val"><a href="https://instagram.com/joserodriguez.mov" target="_blank" rel="noopener">@joserodriguez.mov</a></span>
-        </div>
-        <div class="info-row">
-          <span class="i-label">Ubicación</span>
-          <span class="i-val">Madrid, España</span>
-        </div>
-        <div class="info-row">
-          <span class="i-label">Disponibilidad</span>
-          <span class="i-val">Abierto a proyectos</span>
-        </div>
-      </div>
-  </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     05 · CONTACTO
+     04 · CONTACTO
      ════════════════════════════════════════════════════════════ -->
 <section class="s s--dark" id="contact">
   <div class="s-head">
-    <span class="s-num">05</span>
+    <span class="s-num">04</span>
     <h2 class="s-title">Contacto</h2>
     <div class="s-rule"></div>
   </div>
   <div class="contact-grid">
+    <div class="about-photo about-photo--sq">
+      <img src="resources/fotografias/sobre-mi-02.jpg" alt="José Rodríguez — en ruta de rodaje" loading="lazy">
+    </div>
     <div>
       <h3 class="contact-headline">¿Trabajamos<br><em>juntos?</em></h3>
-    </div>
-    <div class="contact-links">
-      <a class="c-link" href="tel:+34685044900">
-        <div class="c-lbl">Teléfono</div>
-        <div class="c-val">+34 685 044 900</div>
-      </a>
-      <a class="c-link" href="mailto:joserdez011@gmail.com">
-        <div class="c-lbl">Email</div>
-        <div class="c-val">joserdez011@gmail.com</div>
-      </a>
-      <a class="c-link" href="https://instagram.com/joserodriguez.mov" target="_blank" rel="noopener">
-        <div class="c-lbl">Instagram</div>
-        <div class="c-val">@joserodriguez.mov</div>
-      </a>
+      <div class="contact-links">
+        <a class="c-link" href="tel:+34685044900">
+          <div class="c-lbl">Teléfono</div>
+          <div class="c-val">+34 685 044 900</div>
+        </a>
+        <a class="c-link" href="mailto:joserdez011@gmail.com">
+          <div class="c-lbl">Email</div>
+          <div class="c-val">joserdez011@gmail.com</div>
+        </a>
+        <a class="c-link" href="https://instagram.com/joserodriguez.mov" target="_blank" rel="noopener">
+          <div class="c-lbl">Instagram</div>
+          <div class="c-val">@joserodriguez.mov</div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1442,11 +1271,6 @@
     arrancar();
   });
 
-  /* ── LAZY VIDEO LOADER (archivo local mp4) ──────────────────── */
-  function loadLocalVideo(container, src) {
-    container.innerHTML = `<video src="${src}" controls autoplay playsinline></video>`;
-  }
-
   /* ── LAZY YOUTUBE LOADER (sin cookies, sólo al pulsar) ───────── */
   function loadYouTube(container, id) {
     container.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
@@ -1465,14 +1289,14 @@
   /* Cada pieza recibe su efecto; las hermanas del mismo tipo entran escalonadas. */
   [
     ['.s-title, .vfeat-title, .contact-headline', 'reveal-mask'],
-    ['.s-num, .pf-intro, .vfeat-desc, .pf-cat, .hc-hint, .hc-dots, .about-lead, .about-body, .info-row, .c-link', 'reveal'],
-    ['.post-pair .hc-stage, .loop-vid, .vfeat-stage .vid-frame, .about-photo', 'reveal-media'],
+    ['.s-num, .pf-intro, .pf-cat, .hc-hint, .hc-dots, .about-lead, .about-body, .c-link', 'reveal'],
+    ['.post-pair .hc-stage, .about-photo', 'reveal-media'],
     ['.s-head', 'reveal-line']
   ].forEach(function(fx) {
     document.querySelectorAll(fx[0]).forEach(function(el) {
       var hermanas = Array.prototype.filter.call(el.parentElement.children, function(c) { return c.matches(fx[0]); });
-      var grupo = el.closest('.post-pair, .loop-grid');
-      var i = grupo ? Array.prototype.indexOf.call(grupo.children, el.closest('.post-pair > *, .loop-grid > *')) : hermanas.indexOf(el);
+      var grupo = el.closest('.post-pair');
+      var i = grupo ? Array.prototype.indexOf.call(grupo.children, el.closest('.post-pair > *')) : hermanas.indexOf(el);
       el.style.setProperty('--d', Math.min(i, 5) * 0.09 + 's');
       el.classList.add(fx[1]);
     });

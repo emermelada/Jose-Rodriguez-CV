@@ -2,7 +2,7 @@
 
 Sitio web personal y portfolio interactivo diseñado para destacar producciones cinematográficas, dirección de fotografía y operación de cámara/Steadicam en entornos audiovisuales de alto rendimiento y retransmisiones deportivas de élite (1ª RFEF / 1ª FEB).
 
-La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada centrada en el nombre con una pieza a modo de escaparate, el portfolio fotográfico por delante del de vídeo, piezas destacadas a gran formato y un apartado *image-led* de perfil. Estética cinematográfica y brutalista, con foco en velocidad de carga, tipografía cruda y visualización fluida de material multimedia.
+La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada centrada en el nombre con el vlog de Atlético Stats a modo de escaparate, el portfolio fotográfico por club y un apartado *image-led* de perfil. Estética cinematográfica y brutalista, con foco en velocidad de carga, tipografía cruda y visualización fluida de material multimedia.
 
  **Sitio Web Oficial:** [joserodriguez.mov](https://joserodriguez.mov)
 
@@ -18,9 +18,8 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
    * **Movistar Estudiantes** (baloncesto, para Encestando.es): un post (vs Iberolea Palencia, 15 fotos) en un carrusel centrado, al mismo tamaño que los del Atlético.
    * **Sporting de Gijón — César Gelabert**: dos posts de Instagram (vs Burgos, vs Girona), cada uno como carrusel igual que el de portada: flechas, puntos, pase automático cada 5 s y clic para abrir el post.
    * **CD Leganés — Patrick Soko**: dos posts (victoria en Butarque, vs Granada) con el mismo carrusel.
-3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle). El vlog de Atlético Stats está en la portada. El resto del vídeo es **`.mp4` local** (clips de retransmisiones y reel).
-4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
-5. **Contacto** — Enlaces directos (teléfono, email, Instagram).
+3. **Sobre mí** — Bloque *image-led* con retrato principal y texto de perfil.
+4. **Contacto** — Imagen de carácter autoral (encuadre de tránsito) junto a los enlaces directos (teléfono, email, Instagram).
 
 ---
 
@@ -29,11 +28,10 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 * **Diseño Fílmico Minimalista:** Paleta tonal cruda (`#ebebe7` y `#111110`) combinada con un acento rojo profundo (`#b6282d`) inspirado en indicadores de grabación (*Rec*).
 * **Portada Escaparate:** El nombre domina la portada y el mejor trabajo se muestra de inmediato, sin obligar al usuario a navegar para ver una pieza.
 * **Carrusel Autoalojado:** Las fotografías de los carruseles del portfolio se sirven desde este mismo dominio, de modo que la página **no contacta con Instagram** hasta que el visitante pulsa para abrir la publicación. El pase automático se detiene con el puntero encima, con la pestaña en segundo plano y si el sistema pide `prefers-reduced-motion`.
-* **Movimiento al hacer scroll:** los titulares suben desde detrás de una máscara, las fotos y vídeos se descubren como una cortina, la línea de cada sección se dibuja al aparecer y la foto activa de cada carrusel hace un zoom lento. Barra roja de progreso de lectura. Todo con `transform`, `opacity` y `clip-path`, y quieto si el sistema pide `prefers-reduced-motion`.
+* **Movimiento al hacer scroll:** los titulares suben desde detrás de una máscara, las fotos se descubren como una cortina, la línea de cada sección se dibuja al aparecer y la foto activa de cada carrusel hace un zoom lento. Barra roja de progreso de lectura. Todo con `transform`, `opacity` y `clip-path`, y quieto si el sistema pide `prefers-reduced-motion`.
 * **Film Ticker Continuo:** Marquesina infinita en CSS nativo acelerada por hardware (`will-change: transform`) con los clientes y marcas con los que ha colaborado (escudo o logo en miniatura + nombre), sin penalizar rendimiento.
-* **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido que sólo inserta el `<video>` al pulsar.
 * **Scroll-Spy Automático:** Sincronización en tiempo real mediante `IntersectionObserver` entre la posición del scroll y los enlaces activos de navegación.
-* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por club, con los carruseles en fila que pasan a una columna en pantallas estrechas; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
+* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por club, con los carruseles en fila que pasan a una columna en pantallas estrechas, y el menú colapsa en hamburguesa.
 * **Accesibilidad:** Navegación semántica (`aria-label`), respeto a `prefers-reduced-motion` y control por teclado de los carruseles.
 
 ---
@@ -42,7 +40,7 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 
 * **HTML5:** Estructuración semántica y accesible (`aria-label`, secciones independientes).
 * **CSS3 Custom Properties:** Arquitectura basada en *design tokens* centralizados para fuentes, colores y rejillas.
-* **Vanilla JavaScript:** Control de flujos de UI, manipulación del DOM e integración diferida de vídeo `.mp4` local.
+* **Vanilla JavaScript:** Control de flujos de UI, manipulación del DOM e integración diferida del vídeo de YouTube.
 
 Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` autocontenido.
 
@@ -64,12 +62,12 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     │   ├── sporting-girona-01..08.jpg  # post Sporting — Girona (1080×1350)
     │   ├── leganes-butarque-01..10.jpg # post victoria del Leganés en Butarque
     │   ├── leganes-granada-01..10.jpg  # post Leganés — Granada
-    │   ├── reel-sporting.jpg           # póster del Reel del Sporting (vertical)
+    │   ├── reel-sporting.jpg           # póster del Reel del Sporting (sin uso en la web; lo usa /rediseno)
     │   ├── vlog-atletico-stats.jpg     # miniatura del vlog de Atlético Stats (YouTube, portada)
-    │   ├── getafe-conf-01..04.jpg      # pósters de la rejilla en bucle del Getafe (Conference)
+    │   ├── getafe-conf-01..04.jpg      # pósters de los clips del Getafe (sin uso en la web; los usa /rediseno)
     │   ├── profile-picture.jpeg        # retrato principal de José ("Sobre mí")
-    │   └── sobre-mi-02.jpg             # imagen secundaria de "Sobre mí" (encuadre de tránsito)
-    └── videos/
+    │   └── sobre-mi-02.jpg             # imagen de "Contacto" (encuadre de tránsito)
+    └── videos/                         # sin uso en la web desde el 27/10; los usa /rediseno
         ├── reel-sporting.mp4           # Reel del Sporting (720×1280 vertical, con audio)
         └── getafe-conf-01..04.mp4      # rejilla 2×2 del Getafe en Conference (720p, mudos)
 ```
