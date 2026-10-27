@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>José Rodríguez — Steadicam Operator & Filmmaker</title>
-  <meta name="description" content="Steadicam Operator & Filmmaker. Fotógrafo deportivo, colaborador en Atlético Stats y Encestando.es. Madrid.">
+  <title>José Rodríguez — Sports Photographer & Filmmaker</title>
+  <meta name="description" content="Sports Photographer & Filmmaker. Fotografía y vídeo deportivo para clubes, marcas y medios. Madrid.">
 
   <!-- Tipografías: Geist para textos técnicos/números y Coolvetica para un impacto brutalista.
        Autoalojadas en resources/fonts/ para no enviar la IP del visitante a Google ni a
@@ -200,6 +200,7 @@
     }
     .hero-cta:hover { color: var(--red); border-color: var(--red); }
     .hero-cta::after { content: '↓'; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 1rem 2.4rem; }
 
     /* Escaparate: proyecto destacado directamente en portada */
     /* La columna de texto conserva el ritmo vertical que antes daba el gap del
@@ -334,7 +335,9 @@
     .film-ticker-track {
       display: flex;
       gap: 0;
-      animation: ticker-move 28s linear infinite;
+      /* Cada mitad lleva la lista dos veces (~2550px) para no dejar hueco en pantallas
+         anchas; 48s mantiene la velocidad que tenía con la lista de antes. */
+      animation: ticker-move 48s linear infinite;
       will-change: transform; /* Optimización de renderizado por GPU */
     }
     .film-ticker-track:hover { animation-play-state: paused; }
@@ -356,9 +359,11 @@
       font-size: 0.58rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.6);
     }
     .ticker-seg .red { color: var(--red); margin: 0 0.8rem; font-size: 0.5rem; }
+    /* Escudo o logo del cliente, en miniatura delante de su nombre. */
+    .ticker-seg img { height: 1.6rem; width: auto; margin-right: 0.9rem; }
 
     /* ─── MAQUETACIÓN DE SECCIONES (Shells) ──────────────────── */
     section.s { padding: 7rem 4rem; }
@@ -533,13 +538,6 @@
     .s:not(.s--dark) .vfeat-desc  { color: var(--mid); }
 
     /* ─── SECCIÓN: PORTFOLIO FOTO ────────────────────────────── */
-    /* Rejilla 2×2 de celdas iguales. Antes era un masonry de 3 columnas, pero con
-       grupos de 4 fotos dejaba una suelta en la última fila y las columnas
-       descuadradas; con celdas 16:9 uniformes los dos reportajes se leen parejos. */
-    .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    .photo-grid .ph { margin-bottom: 0; }   /* el hueco lo pone el gap, no el margen */
-    .photo-grid .ph-inner { position: relative; aspect-ratio: 16/9; }
-    .photo-grid .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     /* Dos carruseles de post por club, lado a lado; ancho acotado para que el
        4:5 no se dispare en alto. */
     .post-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 500px)); gap: 4rem; justify-content: center; }
@@ -559,43 +557,6 @@
       color: var(--red);
       margin: 3.5rem 0 1.4rem;
     }
-    .ph {
-      position: relative;
-      overflow: hidden;
-      background: var(--pale);
-      cursor: pointer;
-      border-radius: 4px;
-      break-inside: avoid;    /* no parte una foto entre dos columnas */
-      margin-bottom: 1rem;    /* separación vertical entre fotos apiladas */
-    }
-    .ph-inner { display: block; }
-    .ph img { display: block; width: 100%; height: auto; transition: transform 0.5s ease; }
-    .ph:hover img { transform: scale(1.04); }
-
-    /* Overlay cinematográfico interactivo (Caption en hover) */
-    .ph-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(17,17,16,0);
-      display: flex;
-      align-items: flex-end;
-      padding: 1.2rem;
-      transition: background 0.3s;
-      pointer-events: none;
-    }
-    .ph:hover .ph-overlay { background: rgba(17,17,16,0.55); }
-    .ph-caption {
-      font-family: var(--fh);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .ph:hover .ph-caption { opacity: 1; transform: translateY(0); }
 
     /* ─── SECCIÓN: SOBRE MÍ (Image-led, ref. Diego Simón) ────── */
     /* Fila principal: foto grande a la izquierda + texto a la derecha */
@@ -676,80 +637,6 @@
     .i-val a { color: var(--dark); text-decoration: none; transition: color 0.2s; }
     .i-val a:hover { color: var(--red); }
 
-    /* ─── SECCIÓN: EXPERIENCIA / TIMELINE ────────────────────── */
-    .timeline { display: flex; flex-direction: column; }
-    .tl-item {
-      display: grid;
-      grid-template-columns: 180px 1px 1fr;
-      gap: 0 3.5rem;
-      padding: 3.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      /* Preparación para transiciones mediante IntersectionObserver */
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-    .tl-item:last-child { border-bottom: none; }
-    .tl-item.visible { opacity: 1; transform: translateY(0); }
-
-    .tl-date {
-      font-family: var(--fm);
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: rgba(255,255,255,0.3);
-      text-align: right;
-      padding-top: 0.25rem;
-    }
-    /* Eje de la línea temporal */
-    .tl-spine { background: rgba(255,255,255,0.1); position: relative; }
-    .tl-spine::before {
-      content: '';
-      position: absolute;
-      top: 0.3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 0 3px rgba(182,40,45,0.2);
-    }
-    .tl-body { padding-top: 0; }
-    .tl-co {
-      font-family: var(--fm);
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 0.5rem;
-    }
-    .tl-role {
-      font-family: var(--fh);
-      font-size: clamp(1.2rem, 2.5vw, 1.75rem);
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    .tl-desc {
-      font-family: var(--fb);
-      font-size: 0.95rem;
-      letter-spacing: 0.06em;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.42);
-    }
-    .tl-badge {
-      display: inline-block;
-      margin-top: 1.1rem;
-      padding: 0.28rem 0.8rem;
-      border: 1px solid rgba(182,40,45,0.45);
-      font-family: var(--fm);
-      font-size: 0.58rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--red);
-    }
-
     /* ─── SECCIÓN: CONTACTO ──────────────────────────────────── */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
     .contact-headline {
@@ -761,15 +648,6 @@
       color: var(--white);
     }
     .contact-headline em { color: var(--red); font-style: normal; }
-    .contact-sub {
-      font-family: var(--fb);
-      font-size: 1rem;
-      letter-spacing: 0.07em;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.38);
-      margin-top: 1.8rem;
-      max-width: 400px;
-    }
     .contact-links { display: flex; flex-direction: column; gap: 0; }
     .c-link {
       display: flex;
@@ -827,23 +705,6 @@
     }
     .foot-legal a:hover { color: var(--red); }
 
-    /* ─── INTERFAZ LIGHTBOX (Modal nativo para fotos) ─────────── */
-    #lb { display: none; position: fixed; inset: 0; background: rgba(10,10,10,0.94); z-index: 2000; align-items: center; justify-content: center; cursor: pointer; }
-    #lb.open { display: flex; }
-    #lb img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
-    #lb-close {
-      position: absolute;
-      top: 1.5rem;
-      right: 2rem;
-      font-family: var(--fh);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      cursor: pointer;
-    }
-
     /* ─── RENDER PERFORMANCE ANIMATIONS ─────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(22px); }
@@ -877,12 +738,6 @@
 
     /* Barra de progreso de lectura, en el rojo de grabación. */
     .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; z-index: 3000; pointer-events: none; }
-
-    /* Visor: entra con fundido y la foto se asienta. */
-    @keyframes lbFade { from { opacity: 0; } }
-    @keyframes lbZoom { from { opacity: 0; transform: scale(0.96); } }
-    #lb.open { animation: lbFade 0.3s ease; }
-    #lb.open img { animation: lbZoom 0.45s var(--ease-out); }
 
     /* ─── RESPONSIVE DESIGN (Media Queries) ──────────────────── */
 
@@ -937,17 +792,12 @@
       .vfeat-stage { margin: 2rem auto 3rem; }
       .reel-split { grid-template-columns: 1fr; gap: 0; }
       .reel-split .vfeat-stage { margin: 2rem auto 3rem; }
-      .tl-item { grid-template-columns: 1fr; gap: 0.8rem; padding: 2.5rem 0; }
-      .tl-spine { display: none; }
-      .tl-date { text-align: left; padding-top: 0; margin-bottom: 0.5rem; }
-
     }
 
     @media (max-width: 600px) {
       h1.hero-name { font-size: clamp(2.9rem, 15vw, 4.5rem); }
-      /* "PRETEMPORADA" no cabía a 320px con el mínimo de 3rem y se cortaba. */
+      /* "ESTUDIANTES" no cabía a 320px con el mínimo de 3rem y se cortaba. */
       .vfeat-title { font-size: clamp(2.4rem, 14vw, 3rem); }
-      .photo-grid { grid-template-columns: 1fr; }
       .post-pair { grid-template-columns: 1fr; gap: 0; }
       .loop-grid { grid-template-columns: 1fr; }
       .s-head { flex-direction: column; align-items: flex-start; gap: 0.8rem; margin-bottom: 3rem; }
@@ -976,7 +826,6 @@
     <li><a href="#photo">Foto</a></li>
     <li><a href="#video">Vídeo</a></li>
     <li><a href="#about">Sobre mí</a></li>
-    <li><a href="#experience">Experiencia</a></li>
     <li><a href="#contact">Contacto</a></li>
   </ul>
 </nav>
@@ -986,17 +835,20 @@
      ════════════════════════════════════════════════════════════ -->
 <header class="hero" id="hero">
   <div class="hero-main">
-    <div class="hero-eyebrow">Steadicam Operator · Filmmaker · Madrid</div>
+    <div class="hero-eyebrow">Sports Photographer · Filmmaker · Madrid</div>
     <h1 class="hero-name">
       JOSÉ
       <span class="r">RODRÍGUEZ</span>
     </h1>
 
     <div class="hero-desc">
-      <p>Fotógrafo deportivo, colaborador en <strong>Atlético Stats</strong> &amp; <strong>Encestando.es</strong></p>
+      <p>Fotografía y vídeo deportivo para clubes, marcas y medios</p>
     </div>
 
-    <a class="hero-cta" href="#video">Ver portfolio</a>
+    <div class="hero-ctas">
+      <a class="hero-cta" href="#video">Ver portfolio</a>
+      <a class="hero-cta" href="#contact">Contacto</a>
+    </div>
   </div>
 
   <!-- ESCAPARATE: vlog de Atlético Stats en el Metropolitano. Miniatura
@@ -1015,22 +867,31 @@
   </div>
 </header>
 
-<!-- Marquee de tecnología/servicios oculto para lectores de pantalla por redundancia -->
+<!-- Clientes y marcas con los que ha colaborado José. Oculto para lectores de pantalla:
+     los mismos nombres ya aparecen en el portfolio. -->
 <div class="film-ticker" aria-hidden="true">
   <div class="film-ticker-track" id="ticker">
-    <div class="ticker-seg"><span>Steadicam Operator</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Camera Op — 1ª RFEF</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Eventos Deportivos</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Iluminación & Plató</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Filmmaker</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Madrid, España</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/sporting.png" alt=""><span>Sporting de Gijón</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/leganes.png" alt=""><span>CD Leganés</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/getafe.png" alt=""><span>Getafe CF</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/atletico-stats.png" alt=""><span>Atlético Stats</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/encestando.png" alt=""><span>Encestando.es</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/sporting.png" alt=""><span>Sporting de Gijón</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/leganes.png" alt=""><span>CD Leganés</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/getafe.png" alt=""><span>Getafe CF</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/atletico-stats.png" alt=""><span>Atlético Stats</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/encestando.png" alt=""><span>Encestando.es</span><span class="red">◆</span></div>
     <!-- Duplicación del track idéntica para asegurar el loop infinito sin saltos visuales -->
-    <div class="ticker-seg"><span>Steadicam Operator</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Camera Op — 1ª RFEF</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Eventos Deportivos</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Iluminación & Plató</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Filmmaker</span><span class="red">◆</span></div>
-    <div class="ticker-seg"><span>Madrid, España</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/sporting.png" alt=""><span>Sporting de Gijón</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/leganes.png" alt=""><span>CD Leganés</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/getafe.png" alt=""><span>Getafe CF</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/atletico-stats.png" alt=""><span>Atlético Stats</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/encestando.png" alt=""><span>Encestando.es</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/sporting.png" alt=""><span>Sporting de Gijón</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/leganes.png" alt=""><span>CD Leganés</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/getafe.png" alt=""><span>Getafe CF</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/atletico-stats.png" alt=""><span>Atlético Stats</span><span class="red">◆</span></div>
+    <div class="ticker-seg"><img src="resources/logos/encestando.png" alt=""><span>Encestando.es</span><span class="red">◆</span></div>
   </div>
 </div>
 
@@ -1362,76 +1223,6 @@
     </div>
   </div>
 
-  <!-- ── PRETEMPORADA 2026/27 ───────────────────────────────────────────────
-       Sólo presentaciones y fichajes: José retiró las fotos del partido.
-       ─────────────────────────────────────────────────────────────────────── -->
-  <div class="vfeat" style="margin-top: 6rem;">
-    <h3 class="vfeat-title">Pretemporada<br>2026/27<span>Presentaciones y fichajes · CD Leganés &amp; Getafe CF</span></h3>
-    <p class="vfeat-desc">El arranque de temporada desde dentro del club: la presentación de un fichaje ante la prensa y la afición y las firmas de contrato en las oficinas.</p>
-  </div>
-
-  <p class="pf-cat">CD Leganés</p>
-  <div class="photo-grid">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-01.jpg" alt="Presentación de Soko junto al director deportivo del CD Leganés" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Presentación</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-02.jpg" alt="Sala de prensa del CD Leganés durante la presentación" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Sala de prensa</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-03.jpg" alt="Soko posando con la equipación del CD Leganés sobre el césped" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Posado en Butarque</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-leganes-04.jpg" alt="Soko con la afición del CD Leganés en la grada" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Con la afición</span></div>
-    </div>
-  </div>
-
-  <p class="pf-cat">Getafe CF</p>
-  <div class="photo-grid">
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-getafe-01.jpg" alt="Firma de contrato en las oficinas del Getafe CF" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Firma de contrato</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-getafe-02.jpg" alt="Firma de contrato bajo el escudo del Getafe CF" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Firma de contrato</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-getafe-03.jpg" alt="Posado con la camiseta del Getafe CF tras la firma" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Posado con la camiseta</span></div>
-    </div>
-
-    <div class="ph" onclick="openLb(this)">
-      <div class="ph-inner">
-        <img src="resources/fotografias/pret-getafe-04.jpg" alt="Posado en el campo de la ciudad deportiva del Getafe CF" loading="lazy">
-      </div>
-      <div class="ph-overlay"><span class="ph-caption">Ciudad deportiva</span></div>
-    </div>
-  </div>
-
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
@@ -1545,75 +1336,17 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
-     05 · EXPERIENCIA — Timeline
-     ════════════════════════════════════════════════════════════ -->
-<section class="s s--dark" id="experience">
-  <div class="s-head">
-    <span class="s-num">05</span>
-    <h2 class="s-title">Experiencia</h2>
-    <div class="s-rule"></div>
-  </div>
-  <div class="timeline">
-
-    <div class="tl-item">
-      <div class="tl-date">2026 — Presente</div>
-      <div class="tl-spine"></div>
-      <div class="tl-body">
-        <div class="tl-co">Freelance</div>
-        <div class="tl-role">Fotógrafo en 2ª División</div>
-        <div class="tl-desc">Fotógrafo deportivo en 2ª División española para César Gelabert (Sporting de Gijón) y para Patrick Soko (CD Leganés).</div>
-        <span class="tl-badge">Actualidad</span>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-date">2025 — Presente</div>
-      <div class="tl-spine"></div>
-      <div class="tl-body">
-        <div class="tl-co">PEVYPE</div>
-        <div class="tl-role">Operador de Cámara en Deportes</div>
-        <div class="tl-desc">Operador de cámara en eventos deportivos de alto nivel. Retransmisión de partidos de baloncesto (LEB Oro) y fútbol (1ª RFEF), cubriendo competiciones de máxima exigencia técnica y narrativa visual en directo.</div>
-        <span class="tl-badge">Actualidad</span>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-date">2024 — 2025</div>
-      <div class="tl-spine"></div>
-      <div class="tl-body">
-        <div class="tl-co">Escuela CEV</div>
-        <div class="tl-role">Técnico Departamento de Logística</div>
-        <div class="tl-desc">Gestión y administración del material audiovisual del departamento. Control de inventario, mantenimiento de equipos y coordinación en la preparación de rodajes y proyectos de producción internos.</div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-date">2024</div>
-      <div class="tl-spine"></div>
-      <div class="tl-body">
-        <div class="tl-co">7yACCIÓN</div>
-        <div class="tl-role">Técnico de Iluminación & Cámara</div>
-        <div class="tl-desc">Prácticas profesionales en entorno de producción real. Montaje de sets de rodaje y operación de cámara en plató. Trabajo en iluminación para producciones audiovisuales con equipo técnico especializado.</div>
-        <span class="tl-badge">Prácticas</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════
-     06 · CONTACTO
+     05 · CONTACTO
      ════════════════════════════════════════════════════════════ -->
 <section class="s s--dark" id="contact">
   <div class="s-head">
-    <span class="s-num">06</span>
+    <span class="s-num">05</span>
     <h2 class="s-title">Contacto</h2>
     <div class="s-rule"></div>
   </div>
   <div class="contact-grid">
     <div>
       <h3 class="contact-headline">¿Trabajamos<br><em>juntos?</em></h3>
-      <p class="contact-sub">Disponible para proyectos de cine, publicidad, eventos deportivos y cualquier producción que necesite un ojo preciso detrás de la cámara.</p>
     </div>
     <div class="contact-links">
       <a class="c-link" href="tel:+34685044900">
@@ -1634,19 +1367,13 @@
 
 <footer>
   <div class="foot-name">José Rodríguez © 2026</div>
-  <div class="foot-copy">Steadicam Operator · Filmmaker · Madrid</div>
+  <div class="foot-copy">Sports Photographer · Filmmaker · Madrid</div>
   <div class="foot-legal">
     <a href="legal.html">Aviso legal</a>
     <a href="legal.html#privacidad">Privacidad</a>
     <a href="legal.html#imagenes">Uso de imágenes</a>
   </div>
 </footer>
-
-<!-- Elemento accesible por teclado para cerrar modales -->
-<div id="lb" role="dialog" aria-modal="true" aria-label="Imagen ampliada" onclick="closeLb(event)">
-  <div id="lb-close" onclick="closeLb(null)" aria-label="Cerrar">✕ Cerrar</div>
-  <img id="lb-img" src="" alt="">
-</div>
 
 <script>
   /* ── INTERRUPTOR DE MENÚ MOBILE ───────────────────────────── */
@@ -1725,28 +1452,6 @@
     container.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   }
 
-  /* ── LIGHTBOX INTERACTIVO (Gestión de estados) ─────────────── */
-  function openLb(el) {
-    var img = el.querySelector('img');
-    if (!img) return;
-    document.getElementById('lb-img').src = img.src;
-    document.getElementById('lb-img').alt = img.alt;
-    document.getElementById('lb').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLb(e) {
-    // Evita cierres accidentales al pinchar fuera de la zona de control
-    if (e && e.target !== document.getElementById('lb') && e.target !== document.getElementById('lb-close')) return;
-    document.getElementById('lb').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Accesibilidad por teclado (Cierre nativo con tecla ESC)
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLb(null);
-  });
-
   /* ── SCROLL REVEAL (IntersectionObserver API) ──────────────── */
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -1760,20 +1465,20 @@
   /* Cada pieza recibe su efecto; las hermanas del mismo tipo entran escalonadas. */
   [
     ['.s-title, .vfeat-title, .contact-headline', 'reveal-mask'],
-    ['.s-num, .pf-intro, .vfeat-desc, .pf-cat, .hc-hint, .hc-dots, .about-lead, .about-body, .info-row, .contact-sub, .c-link', 'reveal'],
-    ['.post-pair .hc-stage, .photo-grid .ph-inner, .loop-vid, .vfeat-stage .vid-frame, .about-photo', 'reveal-media'],
+    ['.s-num, .pf-intro, .vfeat-desc, .pf-cat, .hc-hint, .hc-dots, .about-lead, .about-body, .info-row, .c-link', 'reveal'],
+    ['.post-pair .hc-stage, .loop-vid, .vfeat-stage .vid-frame, .about-photo', 'reveal-media'],
     ['.s-head', 'reveal-line']
   ].forEach(function(fx) {
     document.querySelectorAll(fx[0]).forEach(function(el) {
       var hermanas = Array.prototype.filter.call(el.parentElement.children, function(c) { return c.matches(fx[0]); });
-      var grupo = el.closest('.post-pair, .photo-grid, .loop-grid');
-      var i = grupo ? Array.prototype.indexOf.call(grupo.children, el.closest('.post-pair > *, .photo-grid > *, .loop-grid > *')) : hermanas.indexOf(el);
+      var grupo = el.closest('.post-pair, .loop-grid');
+      var i = grupo ? Array.prototype.indexOf.call(grupo.children, el.closest('.post-pair > *, .loop-grid > *')) : hermanas.indexOf(el);
       el.style.setProperty('--d', Math.min(i, 5) * 0.09 + 's');
       el.classList.add(fx[1]);
     });
   });
 
-  document.querySelectorAll('.tl-item, .reveal, .reveal-mask, .reveal-media, .reveal-line').forEach(function(el) {
+  document.querySelectorAll('.reveal, .reveal-mask, .reveal-media, .reveal-line').forEach(function(el) {
     io.observe(el);
   });
 

@@ -12,17 +12,15 @@ La interfaz prioriza el **trabajo audiovisual como protagonista**: una portada c
 
 El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de secciones:
 
-1. **Portada** — Nombre a gran escala + **vlog de Atlético Stats** en el Metropolitano (vídeo de YouTube 16:9; miniatura autoalojada y el reproductor sólo se carga al pulsar).
-2. **Portfolio Foto** — Cinco bloques:
+1. **Portada** — Nombre a gran escala, botones *Ver portfolio* y *Contacto* + **vlog de Atlético Stats** en el Metropolitano (vídeo de YouTube 16:9; miniatura autoalojada y el reproductor sólo se carga al pulsar).
+2. **Portfolio Foto** — Cuatro bloques:
    * **Atlético Madrileño** (para Atlético Stats): los tres últimos posts (vs Real Zaragoza, vs Real Madrid Castilla, vs Villarreal B), tres carruseles en fila (uno por fila por debajo de 980 px).
    * **Movistar Estudiantes** (baloncesto, para Encestando.es): un post (vs Iberolea Palencia, 15 fotos) en un carrusel centrado, al mismo tamaño que los del Atlético.
    * **Sporting de Gijón — César Gelabert**: dos posts de Instagram (vs Burgos, vs Girona), cada uno como carrusel igual que el de portada: flechas, puntos, pase automático cada 5 s y clic para abrir el post.
    * **CD Leganés — Patrick Soko**: dos posts (victoria en Butarque, vs Granada) con el mismo carrusel.
-   * **Pretemporada 2026/27**: sólo presentaciones y fichajes (**CD Leganés** 4 · **Getafe CF** 4) en rejilla 16:9 de dos columnas con *lightbox*.
 3. **Portfolio Vídeo** — Orden: **Reel Sporting** (pieza principal, vertical 9:16) → **Getafe – Conference** (rejilla 2×2 de clips en bucle). El vlog de Atlético Stats está en la portada. El resto del vídeo es **`.mp4` local** (clips de retransmisiones y reel).
 4. **Sobre mí** — Bloque *image-led* con retrato principal, texto de perfil e imagen secundaria de carácter autoral (encuadre cinematográfico de tránsito), más tabla de datos de contacto.
-5. **Experiencia** — Línea temporal con animación de entrada por *scroll*.
-6. **Contacto** — Enlaces directos (teléfono, email, Instagram).
+5. **Contacto** — Enlaces directos (teléfono, email, Instagram).
 
 ---
 
@@ -32,12 +30,11 @@ El sitio es una *single-page* con navegación ancla y *scroll-spy*. Orden de sec
 * **Portada Escaparate:** El nombre domina la portada y el mejor trabajo se muestra de inmediato, sin obligar al usuario a navegar para ver una pieza.
 * **Carrusel Autoalojado:** Las fotografías de los carruseles del portfolio se sirven desde este mismo dominio, de modo que la página **no contacta con Instagram** hasta que el visitante pulsa para abrir la publicación. El pase automático se detiene con el puntero encima, con la pestaña en segundo plano y si el sistema pide `prefers-reduced-motion`.
 * **Movimiento al hacer scroll:** los titulares suben desde detrás de una máscara, las fotos y vídeos se descubren como una cortina, la línea de cada sección se dibuja al aparecer y la foto activa de cada carrusel hace un zoom lento. Barra roja de progreso de lectura. Todo con `transform`, `opacity` y `clip-path`, y quieto si el sistema pide `prefers-reduced-motion`.
-* **Film Ticker Continuo:** Marquesina infinita en CSS nativo acelerada por hardware (`will-change: transform`) para mostrar áreas de especialización sin penalizar rendimiento.
+* **Film Ticker Continuo:** Marquesina infinita en CSS nativo acelerada por hardware (`will-change: transform`) con los clientes y marcas con los que ha colaborado (escudo o logo en miniatura + nombre), sin penalizar rendimiento.
 * **Reproducción de Vídeo Local:** Soporte para clips `.mp4` propios (p. ej. retransmisiones deportivas) mediante un *loader* diferido que sólo inserta el `<video>` al pulsar.
-* **Lightbox Nativo Integrado:** Visualización de capturas y composiciones fotográficas a pantalla completa sin librerías de terceros (Vanilla JS, cierre con `ESC`).
 * **Scroll-Spy Automático:** Sincronización en tiempo real mediante `IntersectionObserver` entre la posición del scroll y los enlaces activos de navegación.
-* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por reportaje y cada grupo usa una rejilla de celdas 16:9 iguales (2×2 en escritorio, 1 columna por debajo de 600 px) para que los grupos de cuatro fotos queden siempre parejos; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
-* **Accesibilidad:** Navegación semántica (`aria-label`, `aria-modal`), respeto a `prefers-reduced-motion` y control por teclado del lightbox.
+* **Layout Adaptativo (responsive):** Diseño fluido para escritorio, tablet y móvil mediante *breakpoints* (980 px / 600 px) y tipografía con `clamp()`. El portfolio de foto se agrupa por club, con los carruseles en fila que pasan a una columna en pantallas estrechas; el vídeo destacado va contenido y centrado, y el menú colapsa en hamburguesa.
+* **Accesibilidad:** Navegación semántica (`aria-label`), respeto a `prefers-reduced-motion` y control por teclado de los carruseles.
 
 ---
 
@@ -57,9 +54,10 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
 ├── index.html                      # Documento principal (HTML + CSS + JS embebidos)
 ├── README.md
 └── resources/
+    ├── logos/                          # escudos y logos de clientes para la cinta de portada (96 px de alto)
     ├── fotografias/
     │   ├── hero-carrusel-01..10.jpg    # post Sporting — Burgos: bloque Sporting
-    │   ├── pret-leganes-01..04.jpg     # Pretemporada 2026/27 — presentación en el CD Leganés
+    │   ├── pret-leganes-01..04.jpg     # Pretemporada (retirada de la web; la usa /rediseno)
     │   ├── atleti-zaragoza-01..10.jpg  # post Atlético Madrileño — Real Zaragoza (1080×1350)
     │   ├── atleti-castilla-01..10.jpg  # post Real Madrid Castilla — Atlético Madrileño
     │   ├── atleti-villarreal-01..10.jpg # post Atlético Madrileño — Villarreal B
@@ -67,7 +65,7 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     │   ├── sporting-girona-01..08.jpg  # post Sporting — Girona (1080×1350)
     │   ├── leganes-butarque-01..10.jpg # post victoria del Leganés en Butarque
     │   ├── leganes-granada-01..10.jpg  # post Leganés — Granada
-    │   ├── pret-getafe-01..04.jpg      # Pretemporada 2026/27 — fichajes del Getafe CF
+    │   ├── pret-getafe-01..04.jpg      # Pretemporada (retirada de la web; la usa /rediseno)
     │   ├── reel-sporting.jpg           # póster del Reel del Sporting (vertical)
     │   ├── vlog-atletico-stats.jpg     # miniatura del vlog de Atlético Stats (YouTube, portada)
     │   ├── getafe-conf-01..04.jpg      # pósters de la rejilla en bucle del Getafe (Conference)
