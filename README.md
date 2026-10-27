@@ -57,7 +57,6 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     ├── logos/                          # escudos y logos de clientes para la cinta de portada (96 px de alto)
     ├── fotografias/
     │   ├── hero-carrusel-01..10.jpg    # post Sporting — Burgos: bloque Sporting
-    │   ├── pret-leganes-01..04.jpg     # Pretemporada (retirada de la web; la usa /rediseno)
     │   ├── atleti-zaragoza-01..10.jpg  # post Atlético Madrileño — Real Zaragoza (1080×1350)
     │   ├── atleti-castilla-01..10.jpg  # post Real Madrid Castilla — Atlético Madrileño
     │   ├── atleti-villarreal-01..10.jpg # post Atlético Madrileño — Villarreal B
@@ -65,7 +64,6 @@ Sin frameworks ni dependencias de *build*: el sitio es un único `index.html` au
     │   ├── sporting-girona-01..08.jpg  # post Sporting — Girona (1080×1350)
     │   ├── leganes-butarque-01..10.jpg # post victoria del Leganés en Butarque
     │   ├── leganes-granada-01..10.jpg  # post Leganés — Granada
-    │   ├── pret-getafe-01..04.jpg      # Pretemporada (retirada de la web; la usa /rediseno)
     │   ├── reel-sporting.jpg           # póster del Reel del Sporting (vertical)
     │   ├── vlog-atletico-stats.jpg     # miniatura del vlog de Atlético Stats (YouTube, portada)
     │   ├── getafe-conf-01..04.jpg      # pósters de la rejilla en bucle del Getafe (Conference)
